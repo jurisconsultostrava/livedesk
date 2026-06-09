@@ -62,3 +62,15 @@ Před ostrým spuštěním doplňte:
 7. databázi pokynů,
 8. jasné VOP a rizikové upozornění,
 9. backend matching nebo interní dealing režim.
+
+
+## Oprava formátování cen
+
+Byla opravena funkce `formatMoney()`.
+Původní problém: při hodnotách nad 1000 bylo `maximumFractionDigits` nastaveno na 0, ale `minimumFractionDigits` zůstalo 2. To v prohlížeči vyvolalo chybu:
+
+```text
+RangeError: maximumFractionDigits value is out of range
+```
+
+Oprava: `minimumFractionDigits` a `maximumFractionDigits` jsou vždy stejné.
