@@ -1,16 +1,4 @@
 // Netlify Function: metals-prices
-// Production path: /.netlify/functions/metals-prices
-//
-// ENV:
-// GOLDAPI_KEY=your_goldapi_key
-//
-// Output contract:
-// {
-//   mode: "live" | "demo",
-//   timestamp: "...",
-//   prices: { AU: { USD, EUR, CHF, CZK }, AG: {...}, PT: {...}, PD: {...} }
-// }
-
 const DEMO_PRICES = {
   AU: { USD: 4325.10, EUR: 4018.80, CHF: 3775.40, CZK: 98120.00 },
   AG: { USD: 58.20, EUR: 54.15, CHF: 50.82, CZK: 1320.00 },
@@ -24,58 +12,29 @@ const CURRENCIES = ["USD", "EUR", "CHF", "CZK"];
 
 exports.handler = async function handler() {
   const apiKey = process.env.GOLDAPI_KEY;
-
   if (!apiKey) {
-    return json(200, {
-      mode: "demo",
-      timestamp: new Date().toISOString(),
-      warning: "Missing GOLDAPI_KEY. Demo prices returned.",
-      prices: DEMO_PRICES
-    });
+    return json(200, { mode: "demo", timestamp: new Date().toISOString(), prices: DEMO_PRICES, warning: "Missing GOLDAPI_KEY" });
   }
 
   try {
     const prices = {};
-
     for (const symbol of SYMBOLS) {
       const metal = METAL_MAP[symbol];
       prices[metal] = {};
-
       for (const currency of CURRENCIES) {
-        const response = await fetch(`https://www.goldapi.io/api/${symbol}/${currency}`, {
-          headers: {
-            "x-access-token": apiKey,
-            "Content-Type": "application/json"
-          }
+        const res = await fetch(`https://www.goldapi.io/api/${symbol}/${currency}`, {
+          headers: { "x-access-token": apiKey, "Content-Type": "application/json" }
         });
-
-        if (!response.ok) {
-          throw new Error(`${symbol}/${currency}: HTTP ${response.status}`);
-        }
-
-        const data = await response.json();
+        if (!res.ok) throw new Error(`${symbol}/${currency}: HTTP ${res.status}`);
+        const data = await res.json();
         const value = Number(data.price);
-
-        if (!Number.isFinite(value) || value <= 0) {
-          throw new Error(`${symbol}/${currency}: invalid price`);
-        }
-
+        if (!Number.isFinite(value) || value <= 0) throw new Error(`${symbol}/${currency}: invalid price`);
         prices[metal][currency] = value;
       }
     }
-
-    return json(200, {
-      mode: "live",
-      timestamp: new Date().toISOString(),
-      prices
-    });
+    return json(200, { mode: "live", timestamp: new Date().toISOString(), prices });
   } catch (error) {
-    return json(200, {
-      mode: "demo",
-      timestamp: new Date().toISOString(),
-      warning: error.message,
-      prices: DEMO_PRICES
-    });
+    return json(200, { mode: "demo", timestamp: new Date().toISOString(), prices: DEMO_PRICES, warning: error.message });
   }
 };
 

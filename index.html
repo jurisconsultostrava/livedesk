@@ -3,975 +3,346 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Swiss Gold Market Board — CZ / EN</title>
+  <title>Swiss Gold Market Board — Meister Table Style</title>
   <style>
-    :root {
-      --bg: #050506;
-      --bg2: #0c0c0e;
-      --panel: rgba(18, 18, 20, 0.94);
-      --panel2: rgba(24, 24, 27, 0.96);
-      --line: rgba(255,255,255,.10);
-      --line2: rgba(201,169,106,.34);
-      --text: #f5f1e9;
-      --muted: #aaa39a;
-      --muted2: #77716a;
-      --gold: #c9a96a;
-      --gold2: #8d7540;
-      --gold3: #f0d892;
-      --red: #e06161;
-      --green: #72d394;
-      --blue: #77aaff;
-      --orange: #e7a84b;
-      --shadow: 0 28px 90px rgba(0,0,0,.45);
-      --radius: 0;
-      --font-head: "Manrope", "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      --font: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      --mono: "JetBrains Mono", Consolas, monospace;
+    :root{
+      --bg:#050607;
+      --bg-soft:#0b0d10;
+      --panel:rgba(9,11,14,.92);
+      --panel-2:rgba(14,16,20,.94);
+      --line:rgba(255,255,255,.10);
+      --line-strong:rgba(201,169,106,.35);
+      --gold:#c9a96a;
+      --gold-2:#e2c585;
+      --text:#f3efe8;
+      --muted:#bbb2a6;
+      --muted-2:#8f877e;
+      --green:#7fd7a4;
+      --red:#ffb0b0;
+      --orange:#f2ba5a;
+      --shadow:0 18px 48px rgba(0,0,0,.42);
+      --radius:0px;
+      --font-head:"Manrope","Inter",system-ui,sans-serif;
+      --font:"Inter",system-ui,sans-serif;
+      --mono:"JetBrains Mono",Consolas,monospace;
     }
 
-    * { box-sizing: border-box; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      margin: 0;
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--text);
       background:
-        linear-gradient(180deg, rgba(0,0,0,.20), rgba(0,0,0,.90) 460px, #050506 780px),
-        radial-gradient(circle at 30% 8%, rgba(201,169,106,.25), transparent 25%),
-        linear-gradient(135deg, #2b261e 0%, #11151c 28%, #060606 78%);
-      color: var(--text);
-      font-family: var(--font);
-      min-height: 100vh;
+        linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.86) 460px, #050607 860px),
+        #050607;
+      font-family:var(--font);
+      min-height:100vh;
     }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 72px 0 auto 0;
-      height: 430px;
-      z-index: -2;
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0 0 auto 0;
+      height:520px;
+      z-index:-1;
       background:
-        linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.78)),
-        url("data:image/svg+xml,%3Csvg width='1900' height='650' viewBox='0 0 1900 650' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='sky' x1='0' x2='1' y1='0' y2='1'%3E%3Cstop stop-color='%23d6b07b' offset='0'/%3E%3Cstop stop-color='%23212f42' offset='.52'/%3E%3Cstop stop-color='%2306080c' offset='1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1900' height='650' fill='url(%23sky)'/%3E%3Cpath d='M0 570 L210 260 L320 390 L520 120 L720 450 L890 220 L1040 460 L1260 170 L1430 440 L1600 210 L1900 560 L1900 650 L0 650 Z' fill='%23091117' opacity='.94'/%3E%3Cpath d='M210 260 L255 335 L318 388 L520 120 L590 250 L672 410 L890 220 L936 320 L1040 460 L1260 170 L1318 272 L1430 440 L1600 210 L1662 335 L1900 560 L1900 650 L0 650 L0 570 Z' fill='%23131a25' opacity='.72'/%3E%3Cpath d='M520 120 L480 200 L546 174 L590 250 L1260 170 L1226 250 L1296 226 L1320 275 L1600 210 L1568 285 L1640 260 L1662 335 L1900 560 L1900 650 L0 650 L210 260 L182 332 L262 312 L320 390 Z' fill='%23f7e8ca' opacity='.26'/%3E%3C/svg%3E") center top / cover no-repeat;
-      filter: saturate(.88) contrast(1.05);
+        linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.78)),
+        url("https://goldspot.cz/grok-image-ce63fd30-3610-421c-8904-48aef0333fa6.png") center top / cover no-repeat;
+      filter:saturate(.88) contrast(1.02);
     }
 
-    a { color: inherit; text-decoration: none; }
+    a{color:inherit;text-decoration:none}
+    button,input,select{font:inherit}
 
-    button, input, select, textarea { font: inherit; }
-
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 30;
-      height: 72px;
-      background: rgba(15,15,17,.96);
-      border-bottom: 1px solid rgba(255,255,255,.08);
-      backdrop-filter: blur(12px);
-    }
-
-    .topbar__inner {
-      max-width: 1360px;
-      margin: 0 auto;
-      height: 72px;
-      padding: 0 22px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 22px;
-    }
-
-    .logo {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-family: var(--font-head);
-      font-size: 22px;
-      letter-spacing: -.03em;
-      font-weight: 700;
-      min-width: 190px;
-    }
-
-    .logo span:first-child {
-      color: #e8e0d0;
-    }
-
-    .logo span:last-child {
-      color: var(--gold);
-      text-shadow: 0 0 22px rgba(201,169,106,.35);
-    }
-
-    .logo-mark {
-      width: 31px;
-      height: 31px;
-      border-radius: 3px;
-      background: linear-gradient(135deg, #f7e4ae, #9a762f 52%, #2a1c0b);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.5), 0 0 22px rgba(201,169,106,.22);
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 26px;
-      font-size: 13px;
-      color: #cbc5bb;
-      font-weight: 650;
-    }
-
-    .nav a {
-      position: relative;
-      cursor: pointer;
-    }
-
-    .nav a.active,
-    .nav a:hover {
-      color: var(--gold);
-    }
-
-    .nav a.active::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: -12px;
-      height: 2px;
-      background: var(--gold);
-    }
-
-    .top-actions {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 10px;
-      min-width: 260px;
-    }
-
-
-    .language-toggle {
-      display: inline-flex;
-      gap: 6px;
-      align-items: center;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.035);
-      padding: 3px;
-      margin-right: 8px;
-    }
-
-    .language-toggle button {
-      border: 0;
-      background: transparent;
-      color: var(--muted2);
-      font-weight: 900;
-      cursor: pointer;
-      padding: 6px 8px;
-      font-size: 11px;
-      letter-spacing: .10em;
-    }
-
-    .language-toggle button.active {
-      background: var(--gold);
-      color: #120f08;
-    }
-
-    .currency-toggle {
-      display: inline-flex;
-      gap: 8px;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: .12em;
-      color: var(--muted2);
-      margin-right: 10px;
-    }
-
-    .currency-toggle button {
-      border: 0;
-      background: transparent;
-      color: var(--muted2);
-      font-weight: 900;
-      cursor: pointer;
-      padding: 2px;
-    }
-
-    .currency-toggle button.active {
-      color: var(--gold);
-    }
-
-    .btn {
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.04);
-      color: var(--text);
-      min-height: 38px;
-      padding: 10px 14px;
-      cursor: pointer;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: .02em;
-      transition: .18s ease;
-    }
-
-    .btn:hover {
-      border-color: var(--line2);
-      background: rgba(201,169,106,.08);
-      transform: translateY(-1px);
-    }
-
-    .btn--gold {
-      background: linear-gradient(135deg, #d8bb77, #98783e);
-      color: #17110a;
-      border-color: transparent;
-    }
-
-    .btn--dark {
-      background: #0d0d0f;
-      border-color: rgba(255,255,255,.14);
-    }
-
-    .btn--red {
-      background: rgba(224,97,97,.14);
-      border-color: rgba(224,97,97,.42);
-      color: #ffdada;
-    }
-
-    .btn--green {
-      background: rgba(114,211,148,.14);
-      border-color: rgba(114,211,148,.42);
-      color: #d9ffe4;
-    }
-
-    .page {
-      max-width: 1360px;
-      margin: 0 auto;
-      padding: 44px 22px 70px;
-    }
-
-    .hero {
-      text-align: center;
-      min-height: 225px;
-      display: grid;
-      place-items: center;
-      padding-top: 10px;
-    }
-
-    .hero h1 {
-      margin: 0;
-      font-family: var(--font-head);
-      font-size: clamp(30px, 5vw, 55px);
-      font-weight: 300;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      color: #fff;
-      text-shadow: 0 2px 12px rgba(0,0,0,.85), 0 0 24px rgba(0,0,0,.55);
-    }
-
-    .hero p {
-      max-width: 850px;
-      margin: 18px auto 0;
-      color: #f0e6d2;
-      line-height: 1.7;
-      font-size: 15px;
-      text-shadow: 0 1px 8px rgba(0,0,0,.9), 0 0 16px rgba(0,0,0,.6);
-    }
-
-    .market-status-row {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0,1fr));
-      gap: 14px;
-      margin: 0 0 22px;
-    }
-
-    .status-card {
-      background: rgba(13,13,15,.85);
-      border: 1px solid var(--line);
-      padding: 16px;
-      min-height: 88px;
-      box-shadow: 0 20px 60px rgba(0,0,0,.25);
-    }
-
-    .status-label {
-      color: var(--muted2);
-      font-size: 10px;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      font-weight: 900;
-      margin-bottom: 9px;
-    }
-
-    .status-value {
-      font-family: var(--font-head);
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .status-note {
-      margin-top: 6px;
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .catalog-layout {
-      display: grid;
-      grid-template-columns: 265px minmax(0,1fr);
-      gap: 26px;
-      align-items: start;
-    }
-
-    .filters {
-      background: rgba(16,16,18,.94);
-      border: 1px solid var(--line);
-      padding: 24px;
-      position: sticky;
-      top: 94px;
-      box-shadow: var(--shadow);
-    }
-
-    .filter-group {
-      padding-bottom: 22px;
-      margin-bottom: 22px;
-      border-bottom: 1px solid rgba(255,255,255,.07);
-    }
-
-    .filter-group:last-child {
-      border-bottom: 0;
-      margin-bottom: 0;
-      padding-bottom: 0;
-    }
-
-    .filter-group h4 {
-      margin: 0 0 13px;
-      font-size: 10px;
-      letter-spacing: .25em;
-      text-transform: uppercase;
-      color: var(--gold);
-      font-weight: 900;
-    }
-
-    .filter-list {
-      display: grid;
-      gap: 12px;
-      color: #d8d1c5;
-      font-size: 13px;
-    }
-
-    .filter-list label {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      cursor: pointer;
-    }
-
-    .filter-list input {
-      width: auto;
-      accent-color: var(--gold);
-    }
-
-    select, input, textarea {
-      width: 100%;
-      border: 1px solid rgba(255,255,255,.10);
-      background: #0c0c0e;
-      color: var(--text);
-      min-height: 40px;
-      padding: 10px 12px;
-      outline: none;
-    }
-
-    select:focus, input:focus, textarea:focus {
-      border-color: rgba(201,169,106,.62);
-      box-shadow: 0 0 0 4px rgba(201,169,106,.08);
-    }
-
-    .toolbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      margin-bottom: 18px;
-    }
-
-    .toolbar-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .results-count {
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .view-tabs {
-      display: inline-flex;
-      background: rgba(16,16,18,.9);
-      border: 1px solid var(--line);
-    }
-
-    .view-tabs button {
-      border: 0;
-      border-right: 1px solid var(--line);
-      background: transparent;
-      color: var(--muted);
-      padding: 11px 14px;
-      cursor: pointer;
-      font-size: 12px;
-      font-weight: 900;
-    }
-
-    .view-tabs button:last-child {
-      border-right: 0;
-    }
-
-    .view-tabs button.active {
-      background: var(--gold);
-      color: #120f08;
-    }
-
-    .products {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 22px;
-    }
-
-    .product-card {
-      background: rgba(14,14,16,.96);
-      border: 1px solid rgba(255,255,255,.11);
-      min-height: 360px;
-      display: grid;
-      grid-template-rows: 170px auto;
-      transition: .22s ease;
-      box-shadow: 0 22px 50px rgba(0,0,0,.30);
-    }
-
-    .product-card:hover {
-      transform: translateY(-3px);
-      border-color: rgba(201,169,106,.45);
-      box-shadow: 0 28px 70px rgba(0,0,0,.45);
-    }
-
-    .product-image {
-      background:
-        radial-gradient(circle at 50% 35%, rgba(201,169,106,.25), transparent 30%),
-        #080809;
-      display: grid;
-      place-items: center;
-      border-bottom: 1px solid rgba(255,255,255,.06);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .product-image::after {
-      content: "";
-      position: absolute;
-      inset: auto -20px -50px -20px;
-      height: 90px;
-      background: linear-gradient(180deg, transparent, rgba(201,169,106,.06));
-      transform: rotate(-5deg);
-    }
-
-    .bar-visual {
-      width: 74px;
-      height: 110px;
-      border-radius: 9px;
-      background: linear-gradient(135deg, #ffe9a8, #ba8c31 55%, #6d4b15);
-      box-shadow: inset 5px 5px 12px rgba(255,255,255,.33), inset -8px -12px 18px rgba(0,0,0,.24), 0 10px 30px rgba(201,169,106,.22);
-      transform: perspective(500px) rotateX(7deg) rotateZ(1deg);
-      display: grid;
-      place-items: center;
-      color: rgba(40,28,8,.74);
-      font-family: var(--font-head);
-      font-size: 17px;
-      font-weight: 900;
-      text-align: center;
-      line-height: 1.1;
-    }
-
-    .bar-visual.silver {
-      background: linear-gradient(135deg, #f5f7fa, #9ba5af 55%, #555e66);
-      color: rgba(15,24,32,.68);
-    }
-
-    .bar-visual.platinum {
-      background: linear-gradient(135deg, #edf6ff, #849cc2 55%, #45546f);
-      color: rgba(15,24,32,.72);
-    }
-
-    .bar-visual.palladium {
-      background: linear-gradient(135deg, #f3f0ec, #918b84 55%, #4b4846);
-      color: rgba(15,15,15,.72);
-    }
-
-    .product-body {
-      padding: 20px;
-    }
-
-    .product-type {
-      color: var(--gold);
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: .25em;
-      font-weight: 900;
-      margin-bottom: 8px;
-    }
-
-    .product-title {
-      font-family: var(--font-head);
-      font-size: 22px;
-      line-height: 1.08;
-      font-weight: 450;
-      letter-spacing: -.05em;
-      color: #fff;
-      min-height: 48px;
-    }
-
-    .product-meta {
-      margin-top: 12px;
-      color: var(--muted2);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-family: var(--mono);
-      font-size: 11px;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      padding: 5px 8px;
-      background: rgba(201,169,106,.23);
-      color: #fff5d9;
-      border-radius: 999px;
-      font-size: 10px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: .06em;
-    }
-
-    .quote-grid {
-      margin-top: 18px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .quote-box {
-      border: 1px solid rgba(255,255,255,.09);
-      background: rgba(255,255,255,.03);
-      padding: 10px;
-      cursor: pointer;
-    }
-
-    .quote-box:hover {
-      border-color: rgba(201,169,106,.45);
-      background: rgba(201,169,106,.08);
-    }
-
-    .quote-label {
-      color: var(--muted2);
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: .13em;
-      font-weight: 900;
-    }
-
-    .quote-price {
-      margin-top: 5px;
-      font-family: var(--font-head);
-      font-size: 19px;
-      letter-spacing: -.04em;
-      white-space: nowrap;
-    }
-
-    .quote-price.bid { color: var(--green); }
-    .quote-price.offer { color: #ffd6d6; }
-
-    .quote-qty {
-      margin-top: 3px;
-      color: var(--muted);
-      font-size: 11px;
-      font-family: var(--mono);
-    }
-
-    .card-actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 9px;
-      margin-top: 14px;
-    }
-
-    .table-shell {
-      background: rgba(14,14,16,.96);
-      border: 1px solid var(--line);
-      overflow-x: auto;
-      box-shadow: var(--shadow);
-    }
-
-    .market-table {
-      width: 100%;
-      border-collapse: collapse;
-      min-width: 950px;
-    }
-
-    .market-table th {
-      text-align: left;
-      color: var(--gold);
-      font-size: 10px;
-      letter-spacing: .17em;
-      text-transform: uppercase;
-      padding: 15px 14px;
-      border-bottom: 1px solid var(--line);
-      background: rgba(255,255,255,.03);
-    }
-
-    .market-table td {
-      padding: 15px 14px;
-      border-bottom: 1px solid rgba(255,255,255,.07);
-      color: #e4ded2;
-      font-size: 13px;
-      white-space: nowrap;
-    }
-
-    .market-table tr:hover td {
-      background: rgba(201,169,106,.06);
-    }
-
-    .hidden { display: none !important; }
-
-    .admin-shell {
-      display: none;
-      margin-top: 18px;
-    }
-
-    .admin-shell.active {
-      display: block;
-    }
-
-    .admin-grid {
-      display: grid;
-      grid-template-columns: 260px minmax(0,1fr);
-      gap: 22px;
-    }
-
-    .admin-sidebar {
-      background: rgba(14,14,16,.96);
-      border: 1px solid var(--line);
-      padding: 18px;
-      box-shadow: var(--shadow);
+    .topbar{
+      position:sticky;top:0;z-index:50;
+      height:72px;
+      backdrop-filter:blur(10px);
+      background:rgba(8,10,12,.96);
+      border-bottom:1px solid rgba(255,255,255,.08);
     }
-
-    .admin-sidebar h3 {
-      margin: 0 0 18px;
-      font-family: var(--font-head);
-      font-weight: 450;
-      font-size: 22px;
-    }
-
-    .admin-menu {
-      display: grid;
-      gap: 8px;
-    }
-
-    .admin-menu button {
-      width: 100%;
-      text-align: left;
-      border: 1px solid transparent;
-      background: transparent;
-      color: var(--muted);
-      padding: 12px;
-      cursor: pointer;
-      font-weight: 800;
-    }
-
-    .admin-menu button.active,
-    .admin-menu button:hover {
-      color: var(--gold);
-      border-color: var(--line2);
-      background: rgba(201,169,106,.07);
-    }
-
-    .admin-main {
-      min-width: 0;
-    }
-
-    .admin-stats {
-      display: grid;
-      grid-template-columns: repeat(4,minmax(0,1fr));
-      gap: 14px;
-      margin-bottom: 18px;
-    }
-
-    .admin-panel {
-      background: rgba(14,14,16,.96);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-    }
-
-    .admin-panel-head {
-      padding: 16px 18px;
-      border-bottom: 1px solid var(--line);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .admin-panel-head h2 {
-      margin: 0;
-      font-family: var(--font-head);
-      font-weight: 450;
-      letter-spacing: -.03em;
-    }
-
-    .admin-panel-body {
-      padding: 18px;
-    }
-
-    .admin-toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-
-    .admin-toolbar input,
-    .admin-toolbar select {
-      max-width: 240px;
-    }
-
-    .table-actions {
-      display: inline-flex;
-      gap: 6px;
-    }
-
-    .small-btn {
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.04);
-      color: var(--text);
-      padding: 7px 9px;
-      cursor: pointer;
-      font-size: 11px;
-      font-weight: 900;
+    .topbar-inner{
+      max-width:1420px;margin:0 auto;height:72px;padding:0 24px;
+      display:flex;align-items:center;justify-content:space-between;gap:18px;
     }
-
-    .small-btn:hover { border-color: var(--line2); }
-    .small-btn.green { color: #d7ffe4; border-color: rgba(114,211,148,.38); }
-    .small-btn.red { color: #ffdada; border-color: rgba(224,97,97,.38); }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(3,minmax(0,1fr));
-      gap: 14px;
-    }
-
-    .form-group label {
-      display: block;
-      color: var(--gold);
-      font-size: 10px;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-      font-weight: 900;
-      margin-bottom: 7px;
-    }
-
-    .drawer {
-      position: fixed;
-      inset: 0;
-      z-index: 70;
-      display: none;
-      background: rgba(0,0,0,.66);
-      backdrop-filter: blur(5px);
-    }
-
-    .drawer.open { display: block; }
-
-    .drawer-panel {
-      position: absolute;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      width: min(475px, 100%);
-      background: #0e0e10;
-      border-left: 1px solid var(--line2);
-      box-shadow: -22px 0 70px rgba(0,0,0,.55);
-      padding: 22px;
-      overflow-y: auto;
-    }
-
-    .drawer-head {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 16px;
-      padding-bottom: 18px;
-      border-bottom: 1px solid var(--line);
-      margin-bottom: 18px;
-    }
-
-    .drawer-head h2 {
-      margin: 0;
-      font-family: var(--font-head);
-      font-weight: 400;
-      letter-spacing: -.05em;
+    .logo{
+      display:flex;align-items:center;gap:10px;min-width:200px;
+      font-family:var(--font-head);font-size:24px;font-weight:800;letter-spacing:-.04em;
     }
-
-    .order-summary {
-      margin-top: 18px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.03);
+    .logo-mark{
+      width:30px;height:30px;border-radius:3px;
+      background:linear-gradient(135deg,#f8e4aa,#b88d3a 60%,#36230a);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 0 18px rgba(201,169,106,.18);
     }
+    .logo .s1{color:#fff7ea}
+    .logo .s2{color:var(--gold)}
 
-    .summary-line {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 11px 13px;
-      border-bottom: 1px solid var(--line);
-      color: var(--muted);
-      font-size: 13px;
+    .nav{
+      display:flex;gap:22px;align-items:center;justify-content:center;flex-wrap:wrap;
+      color:#d8d0c4;font-size:13px;font-weight:700;
     }
-
-    .summary-line:last-child {
-      border-bottom: 0;
-      color: var(--text);
-      font-weight: 900;
-      background: rgba(201,169,106,.08);
+    .nav a{position:relative;cursor:pointer}
+    .nav a.active,.nav a:hover{color:var(--gold)}
+    .nav a.active::after{
+      content:"";position:absolute;left:0;right:0;bottom:-14px;height:2px;background:var(--gold);
     }
 
-    .summary-line strong {
-      color: var(--text);
-      text-align: right;
+    .top-actions{
+      display:flex;align-items:center;justify-content:flex-end;gap:8px;min-width:340px;
     }
-
-    .modal {
-      position: fixed;
-      inset: 0;
-      z-index: 75;
-      background: rgba(0,0,0,.68);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 22px;
-      backdrop-filter: blur(5px);
+    .toggle-box{
+      display:inline-flex;gap:4px;align-items:center;
+      padding:3px;border:1px solid var(--line);background:rgba(255,255,255,.03);
     }
-
-    .modal.open { display: flex; }
-
-    .modal-box {
-      width: min(720px, 100%);
-      max-height: calc(100vh - 44px);
-      overflow-y: auto;
-      background: #0e0e10;
-      border: 1px solid var(--line2);
-      box-shadow: var(--shadow);
+    .toggle-box button{
+      border:0;background:transparent;color:var(--muted-2);
+      font-size:11px;font-weight:900;letter-spacing:.08em;cursor:pointer;padding:6px 8px;
     }
+    .toggle-box button.active{background:var(--gold);color:#120f08}
+    .slash{color:var(--muted-2);font-size:11px;font-weight:900;padding:0 2px}
 
-    .modal-head {
-      padding: 18px;
-      border-bottom: 1px solid var(--line);
-      display: flex;
-      justify-content: space-between;
-      gap: 14px;
+    .btn{
+      border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--text);
+      min-height:38px;padding:9px 13px;cursor:pointer;font-size:12px;font-weight:800;
+      transition:.18s ease;
     }
+    .btn:hover{border-color:var(--line-strong);background:rgba(201,169,106,.08)}
+    .btn-gold{background:linear-gradient(135deg,#d9bd7c,#9f7c3d);color:#161008;border-color:transparent}
+    .btn-dark{background:#0c0d10}
+    .btn-green{border-color:rgba(127,215,164,.35);background:rgba(127,215,164,.08);color:#dfffea}
+    .btn-red{border-color:rgba(255,140,140,.35);background:rgba(255,140,140,.08);color:#ffe4e4}
 
-    .modal-head h2 {
-      margin: 0;
-      font-family: var(--font-head);
-      font-weight: 420;
+    .page{max-width:1420px;margin:0 auto;padding:42px 24px 64px}
+    .hero{text-align:center;min-height:220px;display:grid;place-items:center;margin-bottom:18px}
+    .hero h1{
+      margin:0;font-family:var(--font-head);font-size:clamp(30px,4.8vw,58px);font-weight:300;
+      letter-spacing:.20em;text-transform:uppercase;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.72);
     }
-
-    .modal-body { padding: 18px; }
-
-    .modal-foot {
-      padding: 16px 18px;
-      border-top: 1px solid var(--line);
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-      background: rgba(255,255,255,.03);
+    .hero p{
+      max-width:900px;margin:16px auto 0;line-height:1.7;font-size:15px;color:#f0e3cf;
+      text-shadow:0 1px 8px rgba(0,0,0,.9);
     }
 
-    .toast {
-      position: fixed;
-      right: 18px;
-      bottom: 18px;
-      z-index: 100;
-      background: #0e0e10;
-      border: 1px solid var(--line2);
-      color: var(--text);
-      padding: 14px 16px;
-      box-shadow: var(--shadow);
-      display: none;
-      min-width: 260px;
-      max-width: 420px;
+    .stats{
+      display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:0 0 16px;
     }
-
-    .toast.show { display: block; }
-
-    .risk-note {
-      margin-top: 24px;
-      padding: 16px 18px;
-      border: 1px solid rgba(201,169,106,.24);
-      background: rgba(201,169,106,.06);
-      color: #d5c9b4;
-      line-height: 1.6;
-      font-size: 12px;
+    .stat{
+      background:rgba(10,12,15,.88);border:1px solid var(--line);box-shadow:var(--shadow);padding:16px;
     }
-
-    .login-box {
-      max-width: 520px;
-      margin: 0 auto 20px;
-      background: rgba(14,14,16,.96);
-      border: 1px solid var(--line2);
-      padding: 18px;
-      display: none;
+    .label{
+      color:var(--muted-2);font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:900;margin-bottom:10px;
     }
-
-    .login-box.active { display: block; }
-
-    @media (max-width: 1180px) {
-      .products { grid-template-columns: repeat(3,minmax(0,1fr)); }
-      .market-status-row, .admin-stats { grid-template-columns: repeat(2,minmax(0,1fr)); }
-      .admin-grid { grid-template-columns: 1fr; }
-      .admin-sidebar { position: static; }
+    .value{
+      font-family:var(--font-head);font-size:28px;font-weight:800;letter-spacing:-.03em;
     }
+    .note{
+      color:var(--muted);font-size:12px;margin-top:7px;line-height:1.4;
+    }
 
-    @media (max-width: 920px) {
-      .topbar { height: auto; position: static; }
-      .topbar__inner {
-        height: auto;
-        min-height: 72px;
-        flex-wrap: wrap;
-        justify-content: center;
-        padding: 15px;
-      }
-
-      .nav { order: 3; width: 100%; flex-wrap: wrap; gap: 14px; }
-      .top-actions { min-width: 0; }
-      .catalog-layout { grid-template-columns: 1fr; }
-      .filters { position: static; }
-      .products { grid-template-columns: repeat(2,minmax(0,1fr)); }
-      .form-grid { grid-template-columns: 1fr; }
+    .layout{
+      display:grid;grid-template-columns:270px minmax(0,1fr);gap:20px;align-items:start;
     }
-
-    @media (max-width: 620px) {
-      .page { padding-left: 12px; padding-right: 12px; }
-      .hero { min-height: 190px; }
-      .hero h1 { letter-spacing: .12em; font-size: 29px; }
-      .products { grid-template-columns: 1fr; }
-      .toolbar { align-items: stretch; flex-direction: column; }
-      .view-tabs { width: 100%; overflow-x: auto; }
-      .market-status-row, .admin-stats { grid-template-columns: 1fr; }
-      .card-actions { grid-template-columns: 1fr; }
+    .sidebar{
+      position:sticky;top:92px;background:var(--panel);border:1px solid var(--line);padding:22px;box-shadow:var(--shadow);
+    }
+    .filter-group{padding-bottom:20px;margin-bottom:20px;border-bottom:1px solid rgba(255,255,255,.07)}
+    .filter-group:last-child{padding-bottom:0;margin-bottom:0;border-bottom:0}
+    .filter-group h4{
+      margin:0 0 14px;font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:900;color:var(--gold);
+    }
+    .filter-list{display:grid;gap:12px;font-size:13px;color:#ddd5c9}
+    .filter-list label{display:flex;align-items:center;gap:9px;cursor:pointer}
+    .filter-list input{width:auto;accent-color:var(--gold)}
+    input,select{
+      width:100%;min-height:40px;padding:10px 12px;border:1px solid rgba(255,255,255,.10);
+      background:#0c0d10;color:var(--text);outline:none;
+    }
+    input:focus,select:focus{border-color:rgba(201,169,106,.50);box-shadow:0 0 0 4px rgba(201,169,106,.06)}
+
+    .main-card{
+      background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow);
+    }
+    .main-top{
+      padding:16px 18px;border-bottom:1px solid rgba(255,255,255,.08);
+      display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
+    }
+    .main-left{
+      display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+    }
+    .results-count{color:var(--muted);font-size:13px;font-weight:800}
+    .tabs{
+      display:inline-flex;border:1px solid var(--line);background:rgba(255,255,255,.02);
+    }
+    .tabs button{
+      border:0;border-right:1px solid var(--line);background:transparent;color:var(--muted);
+      padding:11px 14px;cursor:pointer;font-size:12px;font-weight:900;
+    }
+    .tabs button:last-child{border-right:0}
+    .tabs button.active{background:var(--gold);color:#120f08}
+    .sort-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .sort-row select{max-width:220px}
+
+    .board-wrap{overflow-x:auto}
+    table{width:100%;border-collapse:collapse}
+    .order-board{min-width:1180px}
+    .order-board th{
+      background:rgba(255,255,255,.03);border-bottom:1px solid var(--line);
+      color:var(--gold);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+      text-align:left;padding:15px 12px;white-space:nowrap;
+    }
+    .order-board td{
+      border-bottom:1px solid rgba(255,255,255,.07);padding:14px 12px;font-size:13px;white-space:nowrap;vertical-align:middle;
+    }
+    .order-board tr:hover td{background:rgba(201,169,106,.05)}
+
+    .market-name{font-weight:700;color:#fff}
+    .market-sub{display:block;color:var(--muted-2);font-size:11px;margin-top:4px}
+    .price{
+      font-family:var(--font-head);font-size:19px;font-weight:800;letter-spacing:-.03em;
+    }
+    .price.bid{color:var(--green)}
+    .price.offer{color:#ffe4cf}
+    .qty{display:block;color:var(--muted);font-size:11px;margin-top:4px;font-family:var(--mono)}
+    .metal-pill{
+      display:inline-flex;align-items:center;gap:6px;padding:5px 8px;
+      border:1px solid rgba(201,169,106,.22);background:rgba(201,169,106,.08);color:#f8ead1;
+      font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;
+    }
+    .m-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);display:inline-block}
+    .m-ag{background:#cfd6e0}.m-pt{background:#93b3e4}.m-pd{background:#a9a39b}
+
+    .levels{display:grid;grid-template-columns:repeat(3,minmax(112px,1fr));gap:6px}
+    .level{
+      border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);
+      padding:8px 8px;cursor:pointer;transition:.16s ease;
+    }
+    .level:hover{border-color:rgba(201,169,106,.42);background:rgba(201,169,106,.07)}
+    .level.best{background:rgba(201,169,106,.10);border-color:rgba(201,169,106,.36)}
+    .level .l-price{display:block;font-size:13px;font-weight:900}
+    .level .l-price.bid{color:var(--green)}
+    .level .l-price.offer{color:#ffe5cf}
+    .level .l-qty{display:block;color:var(--muted);font-size:10px;margin-top:4px}
+
+    .risk-note{
+      margin:16px 18px 18px;padding:15px 16px;border:1px solid rgba(201,169,106,.22);
+      background:rgba(201,169,106,.06);color:#dbcbb4;line-height:1.6;font-size:12px;
+    }
+
+    .admin-shell{display:none;margin-top:18px}
+    .admin-shell.active{display:block}
+    .admin-grid{display:grid;grid-template-columns:250px minmax(0,1fr);gap:20px}
+    .admin-sidebar{background:var(--panel);border:1px solid var(--line);padding:18px;box-shadow:var(--shadow)}
+    .admin-sidebar h3{margin:0 0 16px;font-family:var(--font-head);font-weight:500;font-size:22px}
+    .admin-menu{display:grid;gap:8px}
+    .admin-menu button{
+      width:100%;text-align:left;border:1px solid transparent;background:transparent;color:var(--muted);
+      padding:12px;cursor:pointer;font-weight:800;
+    }
+    .admin-menu button.active,.admin-menu button:hover{
+      color:var(--gold);border-color:var(--line-strong);background:rgba(201,169,106,.06);
+    }
+    .admin-panel{background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow)}
+    .admin-head{
+      padding:16px 18px;border-bottom:1px solid rgba(255,255,255,.08);
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+    }
+    .admin-head h2{margin:0;font-family:var(--font-head);font-weight:500}
+    .admin-body{padding:18px}
+    .admin-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:18px}
+    .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+    .toolbar input,.toolbar select{max-width:240px}
+    .small-btn{
+      border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--text);
+      padding:7px 9px;font-size:11px;font-weight:900;cursor:pointer;
+    }
+    .small-btn:hover{border-color:var(--line-strong)}
+    .small-btn.green{color:#dfffea;border-color:rgba(127,215,164,.35)}
+    .small-btn.red{color:#ffe1e1;border-color:rgba(255,140,140,.35)}
+    .table-actions{display:inline-flex;gap:6px}
+    .hidden{display:none !important}
+
+    .drawer{
+      position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.66);backdrop-filter:blur(4px);
+      display:none;
+    }
+    .drawer.open{display:block}
+    .drawer-panel{
+      position:absolute;right:0;top:0;bottom:0;width:min(480px,100%);
+      background:#0c0e11;border-left:1px solid var(--line-strong);box-shadow:-20px 0 60px rgba(0,0,0,.4);
+      padding:22px;overflow:auto;
+    }
+    .drawer-head{
+      display:flex;justify-content:space-between;gap:12px;align-items:flex-start;
+      padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:18px;
+    }
+    .drawer-head h2{margin:0;font-family:var(--font-head);font-weight:500}
+    .drawer-sub{color:var(--muted);font-size:13px;margin-top:6px}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .form-group label{
+      display:block;color:var(--gold);font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:900;margin-bottom:7px;
+    }
+    .summary{
+      margin-top:18px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);
+    }
+    .summary-line{
+      display:flex;justify-content:space-between;gap:16px;padding:11px 13px;border-bottom:1px solid rgba(255,255,255,.08);
+      color:var(--muted);font-size:13px;
+    }
+    .summary-line:last-child{background:rgba(201,169,106,.07);border-bottom:0;color:var(--text);font-weight:900}
+    .summary-line strong{color:var(--text);text-align:right}
+    .drawer-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+
+    .modal{
+      position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.68);display:none;
+      align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px);
+    }
+    .modal.open{display:flex}
+    .modal-box{
+      width:min(720px,100%);max-height:calc(100vh - 40px);overflow:auto;
+      background:#0d0f12;border:1px solid var(--line-strong);box-shadow:var(--shadow);
+    }
+    .modal-head{
+      padding:18px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;gap:12px;
+    }
+    .modal-body{padding:18px}
+    .modal-foot{
+      padding:16px 18px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:flex-end;gap:10px;
+      background:rgba(255,255,255,.03);
+    }
+
+    .toast{
+      position:fixed;right:18px;bottom:18px;z-index:100;background:#0d0f12;border:1px solid var(--line-strong);
+      color:var(--text);padding:14px 16px;box-shadow:var(--shadow);display:none;min-width:260px;max-width:420px;
+    }
+    .toast.show{display:block}
+
+    @media (max-width:1180px){
+      .stats,.admin-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .layout,.admin-grid{grid-template-columns:1fr}
+      .sidebar{position:static}
+    }
+    @media (max-width:920px){
+      .topbar{position:static;height:auto}
+      .topbar-inner{height:auto;min-height:72px;flex-wrap:wrap;padding:16px 14px;justify-content:center}
+      .nav{order:3;width:100%;justify-content:center}
+      .top-actions{min-width:0;flex-wrap:wrap;justify-content:center}
+      .hero{min-height:180px}
+      .hero h1{letter-spacing:.12em}
+      .form-grid{grid-template-columns:1fr}
+    }
+    @media (max-width:620px){
+      .page{padding:26px 12px 44px}
+      .stats,.admin-stats{grid-template-columns:1fr}
+      .tabs{width:100%;overflow:auto}
+      .main-top,.sort-row{flex-direction:column;align-items:stretch}
     }
   </style>
 </head>
 <body>
   <header class="topbar">
-    <div class="topbar__inner">
+    <div class="topbar-inner">
       <a href="#" class="logo" data-nav="market">
         <span class="logo-mark"></span>
-        <span>swiss</span><span>gold</span>
+        <span class="s1">swiss</span><span class="s2">gold</span>
       </a>
 
       <nav class="nav">
@@ -983,17 +354,17 @@
       </nav>
 
       <div class="top-actions">
-        <div class="language-toggle" aria-label="Language">
+        <div class="toggle-box" aria-label="Language">
           <button class="active" data-lang="cs" type="button">CZ</button>
           <button data-lang="en" type="button">EN</button>
         </div>
-        <div class="currency-toggle">
-          <button class="active" data-currency="CZK">CZK</button><span>/</span>
-          <button data-currency="EUR">EUR</button><span>/</span>
-          <button data-currency="CHF">CHF</button>
+        <div class="toggle-box" aria-label="Currency">
+          <button class="active" data-currency="CZK" type="button">CZK</button><span class="slash">/</span>
+          <button data-currency="EUR" type="button">EUR</button><span class="slash">/</span>
+          <button data-currency="CHF" type="button">CHF</button>
         </div>
-        <button class="btn btn--dark" id="loginBtn" data-i18n="button.login">Přihlásit</button>
-        <button class="btn btn--gold" data-nav="ticket">Order Ticket</button>
+        <button class="btn btn-dark" id="loginBtn" data-i18n="button.login">Přihlásit</button>
+        <button class="btn btn-gold" data-nav="ticket" data-i18n="button.orderTicket">Order Ticket</button>
       </div>
     </div>
   </header>
@@ -1002,61 +373,36 @@
     <section class="hero" id="homeSection">
       <div>
         <h1 data-i18n="hero.title">ZLATO, KTERÉMU SVĚT VĚŘÍ</h1>
-        <p data-i18n="hero.subtitle">
-          Live tržní tabule pro nákup a prodej drahých kovů podle lokace, měny, dostupnosti a spreadu.
-          Ceny se načítají z live feedu přes backend proxy a objednávky lze spravovat v Admin Console.
-        </p>
+        <p data-i18n="hero.subtitle">Live tržní tabule pro nákup a prodej drahých kovů podle lokace, měny, dostupnosti a spreadu. Ceny se načítají z live feedu přes backend proxy a objednávky lze spravovat v Admin Console.</p>
       </div>
     </section>
 
-    <section class="login-box" id="loginBox">
-      <div class="form-grid" style="grid-template-columns: 1fr 1fr auto;">
-        <div class="form-group">
-          <label>E-mail</label>
-          <input id="loginEmail" value="admin@swissgold.local">
-        </div>
-        <div class="form-group">
-          <label>Role</label>
-          <select id="loginRole">
-            <option value="admin">Admin</option>
-            <option value="dealer">Dealer</option>
-            <option value="client">Client</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>&nbsp;</label>
-          <button class="btn btn--gold" id="loginSubmit">Přihlásit demo</button>
-        </div>
+    <section class="stats" id="marketStats">
+      <div class="stat">
+        <div class="label" data-i18n="stats.feedStatus">Stav feedu</div>
+        <div class="value" id="feedMode">Demo</div>
+        <div class="note"><span data-i18n="stats.lastUpdate">Poslední update</span>: <span id="lastUpdate">—</span></div>
       </div>
-      <div style="margin-top:10px;color:var(--muted);font-size:12px;">Demo přihlášení pouze pro prototyp. Produkčně musí být nahrazeno serverovou autentizací a RBAC.</div>
-    </section>
-
-    <section class="market-status-row" id="marketStats">
-      <div class="status-card">
-        <div class="status-label" data-i18n="stats.feedStatus">Stav feedu</div>
-        <div class="status-value" id="feedMode">Demo</div>
-        <div class="status-note"><span data-i18n="stats.lastUpdate">Poslední update</span>: <span id="lastUpdate">—</span></div>
+      <div class="stat">
+        <div class="label" data-i18n="stats.markets">Trhy</div>
+        <div class="value"><span id="visibleCount">0</span> / <span id="totalCount">0</span></div>
+        <div class="note" data-i18n="stats.filteredMarkets">Filtrované trhy podle kovu a lokace</div>
       </div>
-      <div class="status-card">
-        <div class="status-label" data-i18n="stats.markets">Trhy</div>
-        <div class="status-value"><span id="visibleCount">0</span> / <span id="totalCount">0</span></div>
-        <div class="status-note" data-i18n="stats.filteredMarkets">Filtrované trhy podle kovu a lokace</div>
+      <div class="stat">
+        <div class="label" data-i18n="stats.todayOrders">Dnešní objednávky</div>
+        <div class="value" id="ordersToday">0</div>
+        <div class="note" data-i18n="stats.ordersNote">Včetně draftů a pokynů ke schválení</div>
       </div>
-      <div class="status-card">
-        <div class="status-label" data-i18n="stats.todayOrders">Dnešní objednávky</div>
-        <div class="status-value" id="ordersToday">0</div>
-        <div class="status-note" data-i18n="stats.ordersNote">Včetně draftů a pokynů ke schválení</div>
-      </div>
-      <div class="status-card">
-        <div class="status-label" data-i18n="stats.orderVolume">Objem objednávek</div>
-        <div class="status-value" id="ordersVolume">0 Kč</div>
-        <div class="status-note" data-i18n="stats.volumeNote">Hrubá hodnota v základní měně</div>
+      <div class="stat">
+        <div class="label" data-i18n="stats.orderVolume">Objem objednávek</div>
+        <div class="value" id="ordersVolume">0 Kč</div>
+        <div class="note" data-i18n="stats.volumeNote">Hrubá hodnota v základní měně</div>
       </div>
     </section>
 
-    <section id="marketSection" class="market-shell">
-      <div class="catalog-layout">
-        <aside class="filters">
+    <section id="marketSection">
+      <div class="layout">
+        <aside class="sidebar">
           <div class="filter-group">
             <h4 data-i18n="filter.group">Skupina</h4>
             <div class="filter-list">
@@ -1112,66 +458,89 @@
 
           <div class="filter-group">
             <h4 data-i18n="filter.liveData">Live data</h4>
-            <button class="btn btn--gold" id="refreshPrices" style="width:100%;" data-i18n="filter.refresh">Obnovit ceny</button>
-            <button class="btn btn--dark" id="resetFilters" style="width:100%;margin-top:10px;" data-i18n="filter.reset">Reset filtrů</button>
+            <button class="btn btn-gold" id="refreshPrices" style="width:100%;" data-i18n="filter.refresh">Obnovit ceny</button>
+            <button class="btn btn-dark" id="resetFilters" style="width:100%;margin-top:10px;" data-i18n="filter.reset">Reset filtrů</button>
           </div>
         </aside>
 
-        <section>
-          <div class="toolbar">
-            <div class="toolbar-left">
-              <span class="results-count"><span id="resultCount">0</span> trhů</span>
-              <div class="view-tabs">
-                <button class="active" data-view="cards" data-i18n="view.cards">Karty</button>
-                <button data-view="board" data-i18n="view.board">Order board</button>
-                <button data-view="depth" data-i18n="view.depth">Market depth</button>
-                <button data-view="spreads" data-i18n="view.spreads">Spreads</button>
+        <section class="main-card">
+          <div class="main-top">
+            <div class="main-left">
+              <span class="results-count"><span id="resultCount">0</span> <span data-i18n="text.marketsCount">trhů</span></span>
+              <div class="tabs">
+                <button class="active" data-view="board" data-i18n="view.board">Order board</button>
+                <button data-view="depth" data-i18n="view.depth">Hloubka trhu</button>
+                <button data-view="spreads" data-i18n="view.spreads">Spready</button>
               </div>
             </div>
-            <select id="sortSelect" style="max-width:190px;">
-              <option value="featured" data-i18n="sort.featured">Doporučené</option>
-              <option value="spread-asc" data-i18n="sort.spreadAsc">Nejnižší spread</option>
-              <option value="offer-asc" data-i18n="sort.offerAsc">Nejnižší prodejní cena</option>
-              <option value="liquidity-desc" data-i18n="sort.liquidityDesc">Nejvyšší likvidita</option>
-            </select>
+            <div class="sort-row">
+              <select id="sortSelect">
+                <option value="featured" data-i18n="sort.featured">Doporučené</option>
+                <option value="spread-asc" data-i18n="sort.spreadAsc">Nejnižší spread</option>
+                <option value="offer-asc" data-i18n="sort.offerAsc">Nejnižší prodejní cena</option>
+                <option value="liquidity-desc" data-i18n="sort.liquidityDesc">Nejvyšší likvidita</option>
+              </select>
+            </div>
           </div>
 
-          <div class="products" id="productGrid"></div>
-
-          <div class="table-shell hidden" id="boardTableShell">
-            <table class="market-table">
+          <div class="board-wrap" id="boardShell">
+            <table class="order-board">
               <thead>
                 <tr>
-                  <th data-i18n="table.currency">Měna</th><th data-i18n="table.metalLocation">Kov / lokace</th><th data-i18n="table.bestBidSell">Nejlepší poptávka: prodej</th><th data-i18n="table.bidQuantity">Množství v poptávce</th><th data-i18n="table.buyBestOffer">Nákup: nejlepší nabídka</th><th data-i18n="table.offerQuantity">Množství v nabídce</th><th data-i18n="table.spread">Spread</th><th data-i18n="table.action">Akce</th>
+                  <th data-i18n="table.currency">Měna</th>
+                  <th data-i18n="table.market">Trh</th>
+                  <th data-i18n="table.bestBidSell">Nejlepší poptávka : PRODEJ</th>
+                  <th data-i18n="table.bidQuantity">Množství v poptávce</th>
+                  <th data-i18n="table.buyBestOffer">NÁKUP : Nejlepší nabídka</th>
+                  <th data-i18n="table.offerQuantity">Množství v nabídce</th>
+                  <th data-i18n="table.spread">Spread</th>
+                  <th data-i18n="table.action">Akce</th>
                 </tr>
               </thead>
               <tbody id="boardRows"></tbody>
             </table>
           </div>
 
-          <div class="table-shell hidden" id="depthTableShell">
-            <table class="market-table">
+          <div class="board-wrap hidden" id="depthShell">
+            <table class="order-board">
               <thead>
                 <tr>
-                  <th data-i18n="table.market">Trh</th><th data-i18n="table.currency">Měna</th><th>Bid 1</th><th>Bid 2</th><th>Bid 3</th><th>Offer 1</th><th>Offer 2</th><th>Offer 3</th><th data-i18n="table.indicativeLiquidity">Orientační likvidita</th>
+                  <th data-i18n="table.market">Trh</th>
+                  <th data-i18n="table.currency">Měna</th>
+                  <th>Bid 1</th>
+                  <th>Bid 2</th>
+                  <th>Bid 3</th>
+                  <th>Offer 1</th>
+                  <th>Offer 2</th>
+                  <th>Offer 3</th>
+                  <th data-i18n="table.indicativeLiquidity">Orientační likvidita</th>
                 </tr>
               </thead>
               <tbody id="depthRows"></tbody>
             </table>
           </div>
 
-          <div class="table-shell hidden" id="spreadTableShell">
-            <table class="market-table">
+          <div class="board-wrap hidden" id="spreadsShell">
+            <table class="order-board">
               <thead>
                 <tr>
-                  <th data-i18n="table.market">Trh</th><th data-i18n="table.currency">Měna</th><th data-i18n="table.spot">Spot</th><th data-i18n="table.bestBid">Nejlepší poptávka</th><th data-i18n="table.bestOffer">Nejlepší nabídka</th><th data-i18n="table.spread">Spread</th><th>Spread %</th><th data-i18n="table.fee">Poplatek</th>
+                  <th data-i18n="table.market">Trh</th>
+                  <th data-i18n="table.currency">Měna</th>
+                  <th data-i18n="table.spot">Spot</th>
+                  <th data-i18n="table.bestBid">Nejlepší poptávka</th>
+                  <th data-i18n="table.bestOffer">Nejlepší nabídka</th>
+                  <th data-i18n="table.spread">Spread</th>
+                  <th>Spread %</th>
+                  <th data-i18n="table.fee">Poplatek</th>
                 </tr>
               </thead>
               <tbody id="spreadRows"></tbody>
             </table>
           </div>
 
-          <div class="risk-note" data-i18n="risk.footer">Uvedené ceny jsou indikativní do okamžiku potvrzení pokynu. Ostrý obchod musí projít kontrolou zůstatku, AML/KYC limitem, auditním záznamem a druhým potvrzením klienta. Tento prototyp používá lokální úložiště, produkčně je nutný server, databáze a role-based access control.</div>
+          <div class="risk-note" data-i18n="risk.footer">
+            Uvedené ceny jsou indikativní do okamžiku potvrzení pokynu. Ostrý obchod musí projít kontrolou zůstatku, AML/KYC limitem, auditním záznamem a druhým potvrzením klienta. Tento prototyp používá lokální úložiště, produkčně je nutný server, databáze a role-based access control.
+          </div>
         </section>
       </div>
     </section>
@@ -1190,39 +559,46 @@
           </div>
         </aside>
 
-        <section class="admin-main">
+        <section>
           <div class="admin-stats">
-            <div class="status-card">
-              <div class="status-label" data-i18n="admin.users">Uživatelé</div>
-              <div class="status-value" id="adminUsersCount">0</div>
-              <div class="status-note" data-i18n="admin.registeredAccounts">Registrované účty</div>
+            <div class="stat">
+              <div class="label" data-i18n="admin.users">Uživatelé</div>
+              <div class="value" id="adminUsersCount">0</div>
+              <div class="note" data-i18n="admin.registeredAccounts">Registrované účty</div>
             </div>
-            <div class="status-card">
-              <div class="status-label" data-i18n="admin.pendingKyc">Pending KYC</div>
-              <div class="status-value" id="adminKycCount">0</div>
-              <div class="status-note" data-i18n="admin.requiresReview">Vyžaduje kontrolu</div>
+            <div class="stat">
+              <div class="label" data-i18n="admin.pendingKyc">Pending KYC</div>
+              <div class="value" id="adminKycCount">0</div>
+              <div class="note" data-i18n="admin.requiresReview">Vyžaduje kontrolu</div>
             </div>
-            <div class="status-card">
-              <div class="status-label" data-i18n="admin.openOrders">Open orders</div>
-              <div class="status-value" id="adminOpenOrders">0</div>
-              <div class="status-note" data-i18n="admin.openOrdersNote">Draft / pending / approved</div>
+            <div class="stat">
+              <div class="label" data-i18n="admin.openOrders">Open orders</div>
+              <div class="value" id="adminOpenOrders">0</div>
+              <div class="note" data-i18n="admin.openOrdersNote">Draft / pending / approved</div>
             </div>
-            <div class="status-card">
-              <div class="status-label" data-i18n="admin.auditEvents">Audit events</div>
-              <div class="status-value" id="adminAuditCount">0</div>
-              <div class="status-note" data-i18n="admin.localAudit">Lokální audit prototypu</div>
+            <div class="stat">
+              <div class="label" data-i18n="admin.auditEvents">Audit events</div>
+              <div class="value" id="adminAuditCount">0</div>
+              <div class="note" data-i18n="admin.localAudit">Lokální audit prototypu</div>
             </div>
           </div>
 
           <div class="admin-panel" data-admin-panel="dashboard">
-            <div class="admin-panel-head">
+            <div class="admin-head">
               <h2 data-i18n="admin.overview">Strategický přehled</h2>
-              <button class="btn btn--gold" id="adminRefresh">Refresh</button>
+              <button class="btn btn-gold" id="adminRefresh">Refresh</button>
             </div>
-            <div class="admin-panel-body">
-              <div class="table-shell">
-                <table class="market-table">
-                  <thead><tr><th data-i18n="table.area">Oblast</th><th data-i18n="table.status">Status</th><th data-i18n="table.risk">Riziko</th><th data-i18n="table.action">Akce</th></tr></thead>
+            <div class="admin-body">
+              <div class="board-wrap">
+                <table class="order-board">
+                  <thead>
+                    <tr>
+                      <th data-i18n="table.area">Oblast</th>
+                      <th data-i18n="table.status">Status</th>
+                      <th data-i18n="table.risk">Riziko</th>
+                      <th data-i18n="table.action">Akce</th>
+                    </tr>
+                  </thead>
                   <tbody id="dashboardRows"></tbody>
                 </table>
               </div>
@@ -1230,12 +606,12 @@
           </div>
 
           <div class="admin-panel hidden" data-admin-panel="users">
-            <div class="admin-panel-head">
+            <div class="admin-head">
               <h2 data-i18n="admin.userManagement">Správa uživatelů</h2>
-              <button class="btn btn--gold" id="addUserBtn" data-i18n="admin.addUser">Přidat uživatele</button>
+              <button class="btn btn-gold" id="addUserBtn" data-i18n="admin.addUser">Přidat uživatele</button>
             </div>
-            <div class="admin-panel-body">
-              <div class="admin-toolbar">
+            <div class="admin-body">
+              <div class="toolbar">
                 <input id="userSearch" placeholder="Hledat uživatele">
                 <select id="kycFilter">
                   <option value="ALL">Všechny KYC stavy</option>
@@ -1244,10 +620,20 @@
                   <option value="blocked">Blocked</option>
                 </select>
               </div>
-              <div class="table-shell">
-                <table class="market-table">
+              <div class="board-wrap">
+                <table class="order-board">
                   <thead>
-                    <tr><th data-i18n="table.orderId">ID</th><th data-i18n="table.user">Uživatel</th><th data-i18n="table.email">E-mail</th><th data-i18n="table.role">Role</th><th>KYC</th><th data-i18n="table.cash">Hotovost</th><th>Au</th><th data-i18n="table.status">Status</th><th data-i18n="table.action">Akce</th></tr>
+                    <tr>
+                      <th data-i18n="table.orderId">ID</th>
+                      <th data-i18n="table.user">Uživatel</th>
+                      <th data-i18n="table.email">E-mail</th>
+                      <th data-i18n="table.role">Role</th>
+                      <th>KYC</th>
+                      <th data-i18n="table.cash">Hotovost</th>
+                      <th>Au</th>
+                      <th data-i18n="table.status">Status</th>
+                      <th data-i18n="table.action">Akce</th>
+                    </tr>
                   </thead>
                   <tbody id="usersRows"></tbody>
                 </table>
@@ -1256,12 +642,12 @@
           </div>
 
           <div class="admin-panel hidden" data-admin-panel="orders">
-            <div class="admin-panel-head">
+            <div class="admin-head">
               <h2 data-i18n="admin.orderManagement">Správa objednávek</h2>
-              <button class="btn btn--dark" id="exportOrdersBtn" data-i18n="button.exportCsv">Export CSV</button>
+              <button class="btn btn-dark" id="exportOrdersBtn" data-i18n="button.exportCsv">Export CSV</button>
             </div>
-            <div class="admin-panel-body">
-              <div class="admin-toolbar">
+            <div class="admin-body">
+              <div class="toolbar">
                 <input id="orderSearch" placeholder="Hledat objednávku">
                 <select id="orderStatusFilter">
                   <option value="ALL">Všechny stavy</option>
@@ -1273,10 +659,20 @@
                   <option value="cancelled">Cancelled</option>
                 </select>
               </div>
-              <div class="table-shell">
-                <table class="market-table">
+              <div class="board-wrap">
+                <table class="order-board">
                   <thead>
-                    <tr><th data-i18n="table.orderId">ID</th><th data-i18n="table.client">Klient</th><th data-i18n="table.side">Strana</th><th data-i18n="table.market">Trh</th><th data-i18n="table.quantity">Množství</th><th data-i18n="table.price">Cena</th><th data-i18n="table.value">Hodnota</th><th data-i18n="table.status">Status</th><th data-i18n="table.action">Akce</th></tr>
+                    <tr>
+                      <th data-i18n="table.orderId">ID</th>
+                      <th data-i18n="table.client">Klient</th>
+                      <th data-i18n="table.side">Strana</th>
+                      <th data-i18n="table.market">Trh</th>
+                      <th data-i18n="table.quantity">Množství</th>
+                      <th data-i18n="table.price">Cena</th>
+                      <th data-i18n="table.value">Hodnota</th>
+                      <th data-i18n="table.status">Status</th>
+                      <th data-i18n="table.action">Akce</th>
+                    </tr>
                   </thead>
                   <tbody id="ordersRows"></tbody>
                 </table>
@@ -1285,11 +681,11 @@
           </div>
 
           <div class="admin-panel hidden" data-admin-panel="pricing">
-            <div class="admin-panel-head">
+            <div class="admin-head">
               <h2 data-i18n="admin.marginPricing">Marže, poplatky a spread</h2>
-              <button class="btn btn--gold" id="savePricingBtn" data-i18n="admin.savePricing">Uložit nastavení</button>
+              <button class="btn btn-gold" id="savePricingBtn" data-i18n="admin.savePricing">Uložit nastavení</button>
             </div>
-            <div class="admin-panel-body">
+            <div class="admin-body">
               <div class="form-grid">
                 <div class="form-group"><label>Gold spread bps</label><input id="spreadAU" type="number"></div>
                 <div class="form-group"><label>Silver spread bps</label><input id="spreadAG" type="number"></div>
@@ -1298,21 +694,25 @@
                 <div class="form-group"><label>Commission bps</label><input id="commissionBps" type="number"></div>
                 <div class="form-group"><label>Refresh interval ms</label><input id="refreshMs" type="number"></div>
               </div>
-              <div class="risk-note">
-                Pricing je v prototypu lokální. Produkčně musí být změny marží auditované, schvalované a ukládané na serveru.
-              </div>
             </div>
           </div>
 
           <div class="admin-panel hidden" data-admin-panel="audit">
-            <div class="admin-panel-head">
-              <h2>Audit log</h2>
-              <button class="btn btn--red" id="clearAuditBtn" data-i18n="admin.clearAudit">Vymazat audit demo</button>
+            <div class="admin-head">
+              <h2 data-i18n="admin.audit">Audit log</h2>
+              <button class="btn btn-red" id="clearAuditBtn" data-i18n="admin.clearAudit">Vymazat audit demo</button>
             </div>
-            <div class="admin-panel-body">
-              <div class="table-shell">
-                <table class="market-table">
-                  <thead><tr><th data-i18n="table.time">Čas</th><th data-i18n="table.user">Uživatel</th><th data-i18n="table.event">Událost</th><th data-i18n="table.detail">Detail</th></tr></thead>
+            <div class="admin-body">
+              <div class="board-wrap">
+                <table class="order-board">
+                  <thead>
+                    <tr>
+                      <th data-i18n="table.time">Čas</th>
+                      <th data-i18n="table.user">Uživatel</th>
+                      <th data-i18n="table.event">Událost</th>
+                      <th data-i18n="table.detail">Detail</th>
+                    </tr>
+                  </thead>
                   <tbody id="auditRows"></tbody>
                 </table>
               </div>
@@ -1320,14 +720,20 @@
           </div>
 
           <div class="admin-panel hidden" data-admin-panel="system">
-            <div class="admin-panel-head">
-              <h2 data-i18n="admin.systemCheck">Systém</h2>
-              <button class="btn btn--gold" id="systemCheckBtn" data-i18n="admin.runCheck">Spustit kontrolu</button>
+            <div class="admin-head">
+              <h2 data-i18n="admin.system">Systém</h2>
+              <button class="btn btn-gold" id="systemCheckBtn" data-i18n="admin.runCheck">Spustit kontrolu</button>
             </div>
-            <div class="admin-panel-body">
-              <div class="table-shell">
-                <table class="market-table">
-                  <thead><tr><th>Kontrola</th><th data-i18n="table.result">Výsledek</th><th data-i18n="table.note">Poznámka</th></tr></thead>
+            <div class="admin-body">
+              <div class="board-wrap">
+                <table class="order-board">
+                  <thead>
+                    <tr>
+                      <th>Kontrola</th>
+                      <th data-i18n="table.result">Výsledek</th>
+                      <th data-i18n="table.note">Poznámka</th>
+                    </tr>
+                  </thead>
                   <tbody id="systemRows"></tbody>
                 </table>
               </div>
@@ -1342,13 +748,13 @@
     <div class="drawer-panel">
       <div class="drawer-head">
         <div>
-          <h2>Order Ticket</h2>
-          <div style="color:var(--muted);font-size:13px;margin-top:6px;" data-i18n="ticket.subtitle">Zadání pokynu k nákupu/prodeji kovu</div>
+          <h2 data-i18n="ticket.title">Order Ticket</h2>
+          <div class="drawer-sub" data-i18n="ticket.subtitle">Zadání pokynu k nákupu/prodeji kovu</div>
         </div>
-        <button class="btn btn--dark" id="closeDrawer" data-i18n="button.close">Zavřít</button>
+        <button class="btn btn-dark" id="closeDrawer" data-i18n="button.close">Zavřít</button>
       </div>
 
-      <div class="form-grid" style="grid-template-columns:1fr 1fr;">
+      <div class="form-grid">
         <div class="form-group">
           <label data-i18n="ticket.side">Strana</label>
           <select id="ticketSide">
@@ -1397,7 +803,7 @@
         </div>
       </div>
 
-      <div class="order-summary">
+      <div class="summary">
         <div class="summary-line"><span data-i18n="ticket.marketSummary">Trh</span><strong id="sumMarket">—</strong></div>
         <div class="summary-line"><span data-i18n="ticket.volume">Objem</span><strong id="sumQty">—</strong></div>
         <div class="summary-line"><span data-i18n="ticket.gross">Hrubá hodnota</span><strong id="sumGross">—</strong></div>
@@ -1405,9 +811,9 @@
         <div class="summary-line"><span data-i18n="ticket.total">Celkem</span><strong id="sumTotal">—</strong></div>
       </div>
 
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;">
-        <button class="btn btn--dark" id="saveDraftBtn" data-i18n="ticket.saveDraft">Uložit draft</button>
-        <button class="btn btn--gold" id="submitOrderBtn" data-i18n="ticket.submitApproval">Odeslat ke schválení</button>
+      <div class="drawer-actions">
+        <button class="btn btn-dark" id="saveDraftBtn" data-i18n="ticket.saveDraft">Uložit draft</button>
+        <button class="btn btn-gold" id="submitOrderBtn" data-i18n="ticket.submitApproval">Odeslat ke schválení</button>
       </div>
 
       <div class="risk-note" data-i18n="ticket.risk">Produkčně musí následovat kontrola zůstatku, AML/KYC limit, potvrzení klienta a auditní stopa.</div>
@@ -1418,7 +824,7 @@
     <div class="modal-box">
       <div class="modal-head">
         <h2 id="userModalTitle">Uživatel</h2>
-        <button class="btn btn--dark" data-close-modal="userModal">Zavřít</button>
+        <button class="btn btn-dark" data-close-modal="userModal" data-i18n="button.close">Zavřít</button>
       </div>
       <div class="modal-body">
         <input type="hidden" id="editUserId">
@@ -1433,8 +839,8 @@
         </div>
       </div>
       <div class="modal-foot">
-        <button class="btn btn--dark" data-close-modal="userModal">Zrušit</button>
-        <button class="btn btn--gold" id="saveUserBtn">Uložit</button>
+        <button class="btn btn-dark" data-close-modal="userModal" data-i18n="button.cancel">Zrušit</button>
+        <button class="btn btn-gold" id="saveUserBtn" data-i18n="button.save">Uložit</button>
       </div>
     </div>
   </div>
@@ -1442,16 +848,16 @@
   <div class="modal" id="helpModal">
     <div class="modal-box">
       <div class="modal-head">
-        <h2>Nápověda / logika systému</h2>
-        <button class="btn btn--dark" data-close-modal="helpModal">Zavřít</button>
+        <h2 data-i18n="help.title">Nápověda / logika systému</h2>
+        <button class="btn btn-dark" data-close-modal="helpModal" data-i18n="button.close">Zavřít</button>
       </div>
       <div class="modal-body">
-        <p><strong>Best bid</strong> je cena, za kterou může klient prodávat. <strong>Best offer</strong> je cena, za kterou může klient nakupovat.</p>
-        <p>Live ceny se načítají přes backend endpoint <code>/.netlify/functions/metals-prices</code>. Pokud chybí API klíč, systém spadne do demo režimu.</p>
-        <p>Admin Console umožňuje správu uživatelů, objednávek, marží, audit logu a systémových kontrol. V této verzi jde o frontendový prototyp s localStorage.</p>
+        <p data-i18n="help.p1">Best bid je cena, za kterou může klient prodávat. Best offer je cena, za kterou může klient nakupovat.</p>
+        <p data-i18n="help.p2">Live ceny se načítají přes backend endpoint /.netlify/functions/metals-prices. Pokud chybí API klíč, systém spadne do demo režimu.</p>
+        <p data-i18n="help.p3">Admin Console umožňuje správu uživatelů, objednávek, marží, audit logu a systémových kontrol. V této verzi jde o frontendový prototyp s localStorage.</p>
       </div>
       <div class="modal-foot">
-        <button class="btn btn--gold" data-close-modal="helpModal">Rozumím</button>
+        <button class="btn btn-gold" data-close-modal="helpModal" data-i18n="button.close">Rozumím</button>
       </div>
     </div>
   </div>
@@ -1466,317 +872,72 @@
       refreshMs: 30000
     };
 
-
     const I18N = {
       cs: {
-        "nav.home": "Domů",
-        "nav.liveBoard": "Live Board",
-        "nav.orders": "Objednávky",
-        "nav.admin": "Admin Console",
-        "nav.help": "Nápověda",
-        "button.login": "Přihlásit",
-        "button.logout": "Odhlásit",
-        "hero.title": "ZLATO, KTERÉMU SVĚT VĚŘÍ",
-        "hero.subtitle": "Live tržní tabule pro nákup a prodej drahých kovů podle lokace, měny, dostupnosti a spreadu. Ceny se načítají z live feedu přes backend proxy a objednávky lze spravovat v Admin Console.",
-        "stats.feedStatus": "Stav feedu",
-        "stats.markets": "Trhy",
-        "stats.todayOrders": "Dnešní objednávky",
-        "stats.orderVolume": "Objem objednávek",
-        "stats.lastUpdate": "Poslední update",
-        "stats.filteredMarkets": "Filtrované trhy podle kovu a lokace",
-        "stats.ordersNote": "Včetně draftů a pokynů ke schválení",
-        "stats.volumeNote": "Hrubá hodnota v základní měně",
-
-        "filter.group": "Skupina",
-        "filter.all": "Vše",
-        "filter.investmentGold": "Investiční zlato",
-        "filter.investmentSilver": "Investiční stříbro",
-        "filter.platinum": "Platina",
-        "filter.palladium": "Palladium",
-        "filter.location": "Lokace",
-        "filter.currency": "Měna",
-        "filter.size": "Hmotnost / velikost",
-        "filter.availability": "Dostupnost",
-        "filter.liveData": "Live data",
-        "filter.refresh": "Obnovit ceny",
-        "filter.reset": "Reset filtrů",
-
-        "view.cards": "Karty",
-        "view.board": "Order board",
-        "view.depth": "Hloubka trhu",
-        "view.spreads": "Spready",
-        "sort.featured": "Doporučené",
-        "sort.spreadAsc": "Nejnižší spread",
-        "sort.offerAsc": "Nejnižší prodejní cena",
-        "sort.liquidityDesc": "Nejvyšší likvidita",
-
-        "table.market": "Trh",
-        "table.currency": "Měna",
-        "table.bestBid": "Nejlepší poptávka",
-        "table.bestOffer": "Nejlepší nabídka",
-        "table.bidQuantity": "Množství v poptávce",
-        "table.offerQuantity": "Množství v nabídce",
-        "table.indicativeLiquidity": "Orientační likvidita",
-        "table.metalLocation": "Kov / lokace",
-        "table.bestBidSell": "Nejlepší poptávka: prodej",
-        "table.buyBestOffer": "Nákup: nejlepší nabídka",
-        "table.spread": "Spread",
-        "table.action": "Akce",
-        "table.spot": "Spot",
-        "table.fee": "Poplatek",
-        "table.liquidity": "Likvidita",
-        "table.status": "Status",
-        "table.user": "Uživatel",
-        "table.email": "E-mail",
-        "table.role": "Role",
-        "table.cash": "Hotovost",
-        "table.orderId": "ID",
-        "table.client": "Klient",
-        "table.side": "Strana",
-        "table.quantity": "Množství",
-        "table.price": "Cena",
-        "table.value": "Hodnota",
-        "table.time": "Čas",
-        "table.event": "Událost",
-        "table.detail": "Detail",
-        "table.result": "Výsledek",
-        "table.note": "Poznámka",
-        "table.area": "Oblast",
-        "table.risk": "Riziko",
-
-        "quote.bestBidSell": "Nejlepší poptávka / PRODEJ",
-        "quote.bestOfferBuy": "Nejlepší nabídka / NÁKUP",
-        "button.buy": "Koupit",
-        "button.sell": "Prodat",
-        "button.approve": "Schválit",
-        "button.match": "Spárovat",
-        "button.reject": "Odmítnout",
-        "button.cancel": "Zrušit",
-        "button.edit": "Upravit",
-        "button.verify": "Ověřit",
-        "button.block": "Blokovat",
-        "button.exportCsv": "Export CSV",
-        "button.save": "Uložit",
-        "button.close": "Zavřít",
-
-        "ticket.title": "Order Ticket",
-        "ticket.subtitle": "Zadání pokynu k nákupu/prodeji kovu",
-        "ticket.side": "Strana",
-        "ticket.type": "Typ pokynu",
-        "ticket.market": "Trh",
-        "ticket.currency": "Měna",
-        "ticket.quantityG": "Množství v g",
-        "ticket.limitPriceG": "Limitní cena / g",
-        "ticket.client": "Klient",
-        "ticket.settlement": "Vypořádání",
-        "ticket.marketSummary": "Trh",
-        "ticket.volume": "Objem",
-        "ticket.gross": "Hrubá hodnota",
-        "ticket.fee": "Poplatek",
-        "ticket.total": "Celkem",
-        "ticket.saveDraft": "Uložit draft",
-        "ticket.submitApproval": "Odeslat ke schválení",
-        "ticket.risk": "Produkčně musí následovat kontrola zůstatku, AML/KYC limit, potvrzení klienta a auditní stopa.",
-
-        "admin.dashboard": "Dashboard",
-        "admin.users": "Uživatelé",
-        "admin.orders": "Objednávky",
-        "admin.pricing": "Marže & pricing",
-        "admin.audit": "Audit log",
-        "admin.system": "Systém",
-        "admin.overview": "Strategický přehled",
-        "admin.userManagement": "Správa uživatelů",
-        "admin.orderManagement": "Správa objednávek",
-        "admin.marginPricing": "Marže, poplatky a spread",
-        "admin.systemCheck": "Systém",
-        "admin.addUser": "Přidat uživatele",
-        "admin.savePricing": "Uložit nastavení",
-        "admin.clearAudit": "Vymazat audit demo",
-        "admin.runCheck": "Spustit kontrolu",
-        "admin.pendingKyc": "Pending KYC",
-        "admin.openOrders": "Open orders",
-        "admin.auditEvents": "Audit events",
-        "admin.registeredAccounts": "Registrované účty",
-        "admin.requiresReview": "Vyžaduje kontrolu",
-        "admin.openOrdersNote": "Draft / pending / approved",
-        "admin.localAudit": "Lokální audit prototypu",
-
-        "risk.footer": "Uvedené ceny jsou indikativní do okamžiku potvrzení pokynu. Ostrý obchod musí projít kontrolou zůstatku, AML/KYC limitem, auditním záznamem a druhým potvrzením klienta. Tento prototyp používá lokální úložiště, produkčně je nutný server, databáze a role-based access control.",
-
-        "metal.AU": "Zlato",
-        "metal.AG": "Stříbro",
-        "metal.PT": "Platina",
-        "metal.PD": "Palladium",
-        "availability.skladem-cz": "Skladem CZ",
-        "availability.skladem-de-ch": "Skladem DE/CH",
-        "availability.na-ceste": "Na cestě",
-        "availability.predobjednavka": "Předobjednávka"
+        "nav.home":"Domů","nav.liveBoard":"Live Board","nav.orders":"Objednávky","nav.admin":"Admin Console","nav.help":"Nápověda",
+        "button.login":"Přihlásit","button.close":"Zavřít","button.save":"Uložit","button.cancel":"Zrušit",
+        "button.buy":"Koupit","button.sell":"Prodat","button.exportCsv":"Export CSV","button.orderTicket":"Order Ticket",
+        "button.approve":"Schválit","button.match":"Spárovat","button.reject":"Odmítnout","button.block":"Blokovat","button.verify":"Ověřit","button.edit":"Upravit",
+        "hero.title":"ZLATO, KTERÉMU SVĚT VĚŘÍ",
+        "hero.subtitle":"Live tržní tabule pro nákup a prodej drahých kovů podle lokace, měny, dostupnosti a spreadu. Ceny se načítají z live feedu přes backend proxy a objednávky lze spravovat v Admin Console.",
+        "stats.feedStatus":"Stav feedu","stats.lastUpdate":"Poslední update","stats.markets":"Trhy","stats.filteredMarkets":"Filtrované trhy podle kovu a lokace",
+        "stats.todayOrders":"Dnešní objednávky","stats.ordersNote":"Včetně draftů a pokynů ke schválení","stats.orderVolume":"Objem objednávek","stats.volumeNote":"Hrubá hodnota v základní měně",
+        "filter.group":"Skupina","filter.all":"Vše","filter.investmentGold":"Investiční zlato","filter.investmentSilver":"Investiční stříbro","filter.platinum":"Platina","filter.palladium":"Palladium",
+        "filter.location":"Lokace","filter.currency":"Měna","filter.size":"Hmotnost / velikost","filter.availability":"Dostupnost","filter.liveData":"Live data","filter.refresh":"Obnovit ceny","filter.reset":"Reset filtrů",
+        "availability.skladem-cz":"Skladem CZ","availability.skladem-de-ch":"Skladem DE/CH","availability.na-ceste":"Na cestě","availability.predobjednavka":"Předobjednávka",
+        "view.board":"Order board","view.depth":"Hloubka trhu","view.spreads":"Spready",
+        "sort.featured":"Doporučené","sort.spreadAsc":"Nejnižší spread","sort.offerAsc":"Nejnižší prodejní cena","sort.liquidityDesc":"Nejvyšší likvidita",
+        "table.market":"Trh","table.currency":"Měna","table.bestBid":"Nejlepší poptávka","table.bestOffer":"Nejlepší nabídka","table.bestBidSell":"Nejlepší poptávka : PRODEJ","table.buyBestOffer":"NÁKUP : Nejlepší nabídka",
+        "table.bidQuantity":"Množství v poptávce","table.offerQuantity":"Množství v nabídce","table.indicativeLiquidity":"Orientační likvidita","table.spread":"Spread","table.action":"Akce","table.spot":"Spot","table.fee":"Poplatek",
+        "table.value":"Hodnota","table.status":"Status","table.user":"Uživatel","table.email":"E-mail","table.role":"Role","table.cash":"Hotovost","table.orderId":"ID","table.client":"Klient","table.side":"Strana","table.quantity":"Množství",
+        "table.time":"Čas","table.event":"Událost","table.detail":"Detail","table.result":"Výsledek","table.note":"Poznámka","table.area":"Oblast","table.risk":"Riziko",
+        "text.marketsCount":"trhů",
+        "ticket.title":"Order Ticket","ticket.subtitle":"Zadání pokynu k nákupu/prodeji kovu","ticket.side":"Strana","ticket.type":"Typ pokynu","ticket.market":"Trh","ticket.currency":"Měna","ticket.quantityG":"Množství v g",
+        "ticket.limitPriceG":"Limitní cena / g","ticket.client":"Klient","ticket.settlement":"Vypořádání","ticket.marketSummary":"Trh","ticket.volume":"Objem","ticket.gross":"Hrubá hodnota","ticket.fee":"Poplatek","ticket.total":"Celkem",
+        "ticket.saveDraft":"Uložit draft","ticket.submitApproval":"Odeslat ke schválení","ticket.risk":"Produkčně musí následovat kontrola zůstatku, AML/KYC limit, potvrzení klienta a auditní stopa.",
+        "risk.footer":"Uvedené ceny jsou indikativní do okamžiku potvrzení pokynu. Ostrý obchod musí projít kontrolou zůstatku, AML/KYC limitem, auditním záznamem a druhým potvrzením klienta. Tento prototyp používá lokální úložiště, produkčně je nutný server, databáze a role-based access control.",
+        "admin.dashboard":"Dashboard","admin.users":"Uživatelé","admin.orders":"Objednávky","admin.pricing":"Marže & pricing","admin.audit":"Audit log","admin.system":"Systém","admin.overview":"Strategický přehled",
+        "admin.userManagement":"Správa uživatelů","admin.orderManagement":"Správa objednávek","admin.marginPricing":"Marže, poplatky a spread","admin.addUser":"Přidat uživatele","admin.savePricing":"Uložit nastavení","admin.clearAudit":"Vymazat audit demo","admin.runCheck":"Spustit kontrolu",
+        "admin.pendingKyc":"Pending KYC","admin.openOrders":"Open orders","admin.auditEvents":"Audit events","admin.registeredAccounts":"Registrované účty","admin.requiresReview":"Vyžaduje kontrolu","admin.openOrdersNote":"Draft / pending / approved","admin.localAudit":"Lokální audit prototypu",
+        "help.title":"Nápověda / logika systému",
+        "help.p1":"Best bid je cena, za kterou může klient prodávat. Best offer je cena, za kterou může klient nakupovat.",
+        "help.p2":"Live ceny se načítají přes backend endpoint /.netlify/functions/metals-prices. Pokud chybí API klíč, systém spadne do demo režimu.",
+        "help.p3":"Admin Console umožňuje správu uživatelů, objednávek, marží, audit logu a systémových kontrol. V této verzi jde o frontendový prototyp s localStorage.",
+        "metal.AU":"Zlato","metal.AG":"Stříbro","metal.PT":"Platina","metal.PD":"Palladium"
       },
       en: {
-        "nav.home": "Home",
-        "nav.liveBoard": "Live Board",
-        "nav.orders": "Orders",
-        "nav.admin": "Admin Console",
-        "nav.help": "Help",
-        "button.login": "Log in",
-        "button.logout": "Log out",
-        "hero.title": "GOLD THE WORLD TRUSTS",
-        "hero.subtitle": "A live order board for buying and selling precious metals by location, currency, availability and spread. Prices are loaded from a live feed through a backend proxy and orders can be managed in the Admin Console.",
-        "stats.feedStatus": "Feed status",
-        "stats.markets": "Markets",
-        "stats.todayOrders": "Today’s orders",
-        "stats.orderVolume": "Order volume",
-        "stats.lastUpdate": "Last update",
-        "stats.filteredMarkets": "Filtered markets by metal and location",
-        "stats.ordersNote": "Including drafts and orders awaiting approval",
-        "stats.volumeNote": "Gross value in base currency",
-
-        "filter.group": "Group",
-        "filter.all": "All",
-        "filter.investmentGold": "Investment gold",
-        "filter.investmentSilver": "Investment silver",
-        "filter.platinum": "Platinum",
-        "filter.palladium": "Palladium",
-        "filter.location": "Location",
-        "filter.currency": "Currency",
-        "filter.size": "Weight / size",
-        "filter.availability": "Availability",
-        "filter.liveData": "Live data",
-        "filter.refresh": "Refresh prices",
-        "filter.reset": "Reset filters",
-
-        "view.cards": "Cards",
-        "view.board": "Order board",
-        "view.depth": "Market depth",
-        "view.spreads": "Spreads",
-        "sort.featured": "Featured",
-        "sort.spreadAsc": "Lowest spread",
-        "sort.offerAsc": "Lowest offer price",
-        "sort.liquidityDesc": "Highest liquidity",
-
-        "table.market": "Market",
-        "table.currency": "Currency",
-        "table.bestBid": "Best bid",
-        "table.bestOffer": "Best offer",
-        "table.bidQuantity": "Bid quantity",
-        "table.offerQuantity": "Offer quantity",
-        "table.indicativeLiquidity": "Indicative liquidity",
-        "table.metalLocation": "Bullion / location",
-        "table.bestBidSell": "Best bid : SELL",
-        "table.buyBestOffer": "BUY : Best offer",
-        "table.spread": "Spread",
-        "table.action": "Action",
-        "table.spot": "Spot",
-        "table.fee": "Fee",
-        "table.liquidity": "Liquidity",
-        "table.status": "Status",
-        "table.user": "User",
-        "table.email": "E-mail",
-        "table.role": "Role",
-        "table.cash": "Cash",
-        "table.orderId": "ID",
-        "table.client": "Client",
-        "table.side": "Side",
-        "table.quantity": "Quantity",
-        "table.price": "Price",
-        "table.value": "Value",
-        "table.time": "Time",
-        "table.event": "Event",
-        "table.detail": "Detail",
-        "table.result": "Result",
-        "table.note": "Note",
-        "table.area": "Area",
-        "table.risk": "Risk",
-
-        "quote.bestBidSell": "Best bid / SELL",
-        "quote.bestOfferBuy": "Best offer / BUY",
-        "button.buy": "Buy",
-        "button.sell": "Sell",
-        "button.approve": "Approve",
-        "button.match": "Match",
-        "button.reject": "Reject",
-        "button.cancel": "Cancel",
-        "button.edit": "Edit",
-        "button.verify": "Verify",
-        "button.block": "Block",
-        "button.exportCsv": "Export CSV",
-        "button.save": "Save",
-        "button.close": "Close",
-
-        "ticket.title": "Order Ticket",
-        "ticket.subtitle": "Place a buy/sell order for metal",
-        "ticket.side": "Side",
-        "ticket.type": "Order type",
-        "ticket.market": "Market",
-        "ticket.currency": "Currency",
-        "ticket.quantityG": "Quantity in g",
-        "ticket.limitPriceG": "Limit price / g",
-        "ticket.client": "Client",
-        "ticket.settlement": "Settlement",
-        "ticket.marketSummary": "Market",
-        "ticket.volume": "Volume",
-        "ticket.gross": "Gross value",
-        "ticket.fee": "Fee",
-        "ticket.total": "Total",
-        "ticket.saveDraft": "Save draft",
-        "ticket.submitApproval": "Submit for approval",
-        "ticket.risk": "Production mode must include balance checks, AML/KYC limits, client confirmation and an audit trail.",
-
-        "admin.dashboard": "Dashboard",
-        "admin.users": "Users",
-        "admin.orders": "Orders",
-        "admin.pricing": "Margins & pricing",
-        "admin.audit": "Audit log",
-        "admin.system": "System",
-        "admin.overview": "Strategic overview",
-        "admin.userManagement": "User management",
-        "admin.orderManagement": "Order management",
-        "admin.marginPricing": "Margins, fees and spread",
-        "admin.systemCheck": "System",
-        "admin.addUser": "Add user",
-        "admin.savePricing": "Save settings",
-        "admin.clearAudit": "Clear demo audit",
-        "admin.runCheck": "Run check",
-        "admin.pendingKyc": "Pending KYC",
-        "admin.openOrders": "Open orders",
-        "admin.auditEvents": "Audit events",
-        "admin.registeredAccounts": "Registered accounts",
-        "admin.requiresReview": "Requires review",
-        "admin.openOrdersNote": "Draft / pending / approved",
-        "admin.localAudit": "Local prototype audit",
-
-        "risk.footer": "Prices shown are indicative until the order is confirmed. A live order must pass balance checks, AML/KYC limits, audit logging and a second client confirmation. This prototype uses local storage; production requires a server, database and role-based access control.",
-
-        "metal.AU": "Gold",
-        "metal.AG": "Silver",
-        "metal.PT": "Platinum",
-        "metal.PD": "Palladium",
-        "availability.skladem-cz": "In stock CZ",
-        "availability.skladem-de-ch": "In stock DE/CH",
-        "availability.na-ceste": "In transit",
-        "availability.predobjednavka": "Pre-order"
+        "nav.home":"Home","nav.liveBoard":"Live Board","nav.orders":"Orders","nav.admin":"Admin Console","nav.help":"Help",
+        "button.login":"Log in","button.close":"Close","button.save":"Save","button.cancel":"Cancel",
+        "button.buy":"Buy","button.sell":"Sell","button.exportCsv":"Export CSV","button.orderTicket":"Order Ticket",
+        "button.approve":"Approve","button.match":"Match","button.reject":"Reject","button.block":"Block","button.verify":"Verify","button.edit":"Edit",
+        "hero.title":"GOLD THE WORLD TRUSTS",
+        "hero.subtitle":"A live order board for buying and selling precious metals by location, currency, availability and spread. Prices are loaded from a live feed through a backend proxy and orders can be managed in the Admin Console.",
+        "stats.feedStatus":"Feed status","stats.lastUpdate":"Last update","stats.markets":"Markets","stats.filteredMarkets":"Filtered markets by metal and location",
+        "stats.todayOrders":"Today’s orders","stats.ordersNote":"Including drafts and orders awaiting approval","stats.orderVolume":"Order volume","stats.volumeNote":"Gross value in base currency",
+        "filter.group":"Group","filter.all":"All","filter.investmentGold":"Investment gold","filter.investmentSilver":"Investment silver","filter.platinum":"Platinum","filter.palladium":"Palladium",
+        "filter.location":"Location","filter.currency":"Currency","filter.size":"Weight / size","filter.availability":"Availability","filter.liveData":"Live data","filter.refresh":"Refresh prices","filter.reset":"Reset filters",
+        "availability.skladem-cz":"In stock CZ","availability.skladem-de-ch":"In stock DE/CH","availability.na-ceste":"In transit","availability.predobjednavka":"Pre-order",
+        "view.board":"Order board","view.depth":"Market depth","view.spreads":"Spreads",
+        "sort.featured":"Featured","sort.spreadAsc":"Lowest spread","sort.offerAsc":"Lowest offer price","sort.liquidityDesc":"Highest liquidity",
+        "table.market":"Market","table.currency":"Currency","table.bestBid":"Best bid","table.bestOffer":"Best offer","table.bestBidSell":"Best bid : SELL","table.buyBestOffer":"BUY : Best offer",
+        "table.bidQuantity":"Bid quantity","table.offerQuantity":"Offer quantity","table.indicativeLiquidity":"Indicative liquidity","table.spread":"Spread","table.action":"Action","table.spot":"Spot","table.fee":"Fee",
+        "table.value":"Value","table.status":"Status","table.user":"User","table.email":"E-mail","table.role":"Role","table.cash":"Cash","table.orderId":"ID","table.client":"Client","table.side":"Side","table.quantity":"Quantity",
+        "table.time":"Time","table.event":"Event","table.detail":"Detail","table.result":"Result","table.note":"Note","table.area":"Area","table.risk":"Risk",
+        "text.marketsCount":"markets",
+        "ticket.title":"Order Ticket","ticket.subtitle":"Place a buy/sell order for metal","ticket.side":"Side","ticket.type":"Order type","ticket.market":"Market","ticket.currency":"Currency","ticket.quantityG":"Quantity in g",
+        "ticket.limitPriceG":"Limit price / g","ticket.client":"Client","ticket.settlement":"Settlement","ticket.marketSummary":"Market","ticket.volume":"Volume","ticket.gross":"Gross value","ticket.fee":"Fee","ticket.total":"Total",
+        "ticket.saveDraft":"Save draft","ticket.submitApproval":"Submit for approval","ticket.risk":"Production mode must include balance checks, AML/KYC limits, client confirmation and an audit trail.",
+        "risk.footer":"Prices shown are indicative until the order is confirmed. A live order must pass balance checks, AML/KYC limits, audit logging and a second client confirmation. This prototype uses local storage; production requires a server, database and role-based access control.",
+        "admin.dashboard":"Dashboard","admin.users":"Users","admin.orders":"Orders","admin.pricing":"Margins & pricing","admin.audit":"Audit log","admin.system":"System","admin.overview":"Strategic overview",
+        "admin.userManagement":"User management","admin.orderManagement":"Order management","admin.marginPricing":"Margins, fees and spread","admin.addUser":"Add user","admin.savePricing":"Save settings","admin.clearAudit":"Clear demo audit","admin.runCheck":"Run check",
+        "admin.pendingKyc":"Pending KYC","admin.openOrders":"Open orders","admin.auditEvents":"Audit events","admin.registeredAccounts":"Registered accounts","admin.requiresReview":"Requires review","admin.openOrdersNote":"Draft / pending / approved","admin.localAudit":"Local prototype audit",
+        "help.title":"Help / system logic",
+        "help.p1":"Best bid is the price at which a client may sell. Best offer is the price at which a client may buy.",
+        "help.p2":"Live prices are loaded through the backend endpoint /.netlify/functions/metals-prices. If the API key is missing, the system falls back to demo mode.",
+        "help.p3":"The Admin Console manages users, orders, margins, the audit log and system checks. This version is a frontend prototype using localStorage.",
+        "metal.AU":"Gold","metal.AG":"Silver","metal.PT":"Platinum","metal.PD":"Palladium"
       }
     };
-
-    let currentLang = localStorage.getItem("sgmb_lang_v1") || "cs";
-
-    function t(key) {
-      return I18N[currentLang]?.[key] || I18N.cs[key] || key;
-    }
-
-    function applyI18n() {
-      document.documentElement.lang = currentLang;
-      document.querySelectorAll("[data-i18n]").forEach(node => {
-        const key = node.dataset.i18n;
-        if (key) node.textContent = t(key);
-      });
-      document.querySelectorAll("[data-lang]").forEach(btn => {
-        btn.classList.toggle("active", btn.dataset.lang === currentLang);
-      });
-      renderMarket();
-      renderAdmin();
-      updateSummary();
-    }
 
     const DEMO_SPOT_TOZ = {
       AU: { USD: 4325.10, EUR: 4018.80, CHF: 3775.40, CZK: 98120.00 },
@@ -1786,126 +947,148 @@
     };
 
     const MARKETS = [
-      { id: "AUXZU", metal: "AU", name: "Zlato", display: "Gold Zurich", location: "Curych", currencies: ["CZK","EUR","CHF","USD"], availability: "skladem-de-ch", unitGrams: 31.1035, purity: "999,9" },
-      { id: "AUXPRG", metal: "AU", name: "Zlato", display: "Gold Prague", location: "Praha", currencies: ["CZK","EUR"], availability: "skladem-cz", unitGrams: 31.1035, purity: "999,9" },
-      { id: "AUXLN", metal: "AU", name: "Zlato", display: "Gold London", location: "Londýn", currencies: ["EUR","CHF","USD"], availability: "na-ceste", unitGrams: 31.1035, purity: "999,9" },
-      { id: "AUXDE", metal: "AU", name: "Zlato", display: "Gold Frankfurt", location: "Frankfurt", currencies: ["EUR","CHF"], availability: "skladem-de-ch", unitGrams: 31.1035, purity: "999,9" },
-      { id: "AGXZU", metal: "AG", name: "Stříbro", display: "Silver Zurich", location: "Curych", currencies: ["CZK","EUR","CHF","USD"], availability: "skladem-de-ch", unitGrams: 1000, purity: "999" },
-      { id: "AGXPRG", metal: "AG", name: "Stříbro", display: "Silver Prague", location: "Praha", currencies: ["CZK","EUR"], availability: "skladem-cz", unitGrams: 1000, purity: "999" },
-      { id: "PTXLN", metal: "PT", name: "Platina", display: "Platinum London", location: "Londýn", currencies: ["EUR","USD"], availability: "predobjednavka", unitGrams: 31.1035, purity: "999,5" },
-      { id: "PDXLN", metal: "PD", name: "Palladium", display: "Palladium London", location: "Londýn", currencies: ["EUR","USD"], availability: "predobjednavka", unitGrams: 31.1035, purity: "999,5" }
+      { id:"AUXZU", metal:"AU", location:"Curych", currencies:["CZK","EUR","CHF","USD"], availability:"skladem-de-ch", unitGrams:31.1035, purity:"999,9" },
+      { id:"AUXPRG", metal:"AU", location:"Praha", currencies:["CZK","EUR"], availability:"skladem-cz", unitGrams:31.1035, purity:"999,9" },
+      { id:"AUXLN", metal:"AU", location:"Londýn", currencies:["EUR","CHF","USD"], availability:"na-ceste", unitGrams:31.1035, purity:"999,9" },
+      { id:"AUXDE", metal:"AU", location:"Frankfurt", currencies:["EUR","CHF"], availability:"skladem-de-ch", unitGrams:31.1035, purity:"999,9" },
+      { id:"AGXZU", metal:"AG", location:"Curych", currencies:["CZK","EUR","CHF","USD"], availability:"skladem-de-ch", unitGrams:1000, purity:"999" },
+      { id:"AGXPRG", metal:"AG", location:"Praha", currencies:["CZK","EUR"], availability:"skladem-cz", unitGrams:1000, purity:"999" },
+      { id:"PTXLN", metal:"PT", location:"Londýn", currencies:["EUR","USD"], availability:"predobjednavka", unitGrams:31.1035, purity:"999,5" },
+      { id:"PDXLN", metal:"PD", location:"Londýn", currencies:["EUR","USD"], availability:"predobjednavka", unitGrams:31.1035, purity:"999,5" }
     ];
 
     const DEFAULT_USERS = [
-      { id: "U1001", name: "Demo klient", email: "client@demo.local", role: "client", kyc: "verified", cashCZK: 750000, auG: 120.5, status: "active" },
-      { id: "U1002", name: "KYC čeká", email: "kyc@demo.local", role: "client", kyc: "pending", cashCZK: 150000, auG: 0, status: "watch" },
-      { id: "U1003", name: "Dealer", email: "dealer@demo.local", role: "dealer", kyc: "verified", cashCZK: 0, auG: 0, status: "active" }
+      { id:"U1001", name:"Demo klient", email:"client@demo.local", role:"client", kyc:"verified", cashCZK:750000, auG:120.5, status:"active" },
+      { id:"U1002", name:"KYC čeká", email:"kyc@demo.local", role:"client", kyc:"pending", cashCZK:150000, auG:0, status:"watch" },
+      { id:"U1003", name:"Dealer", email:"dealer@demo.local", role:"dealer", kyc:"verified", cashCZK:0, auG:0, status:"active" }
     ];
 
     const LS = {
-      users: "sgmb_users_v2",
-      orders: "sgmb_orders_v2",
-      pricing: "sgmb_pricing_v2",
-      audit: "sgmb_audit_v2",
-      session: "sgmb_session_v2"
+      users:"sgmb2_users",
+      orders:"sgmb2_orders",
+      pricing:"sgmb2_pricing",
+      audit:"sgmb2_audit",
+      session:"sgmb2_session",
+      lang:"sgmb2_lang"
     };
 
-    let spot = structuredClone(DEMO_SPOT_TOZ);
+    let currentLang = localStorage.getItem(LS.lang) || "cs";
+    let currentCurrency = "CZK";
+    let activeView = "board";
+    let session = loadJson(LS.session, { email:"guest", role:"guest" });
     let pricing = loadJson(LS.pricing, DEFAULT_PRICING);
     let users = loadJson(LS.users, DEFAULT_USERS);
     let orders = loadJson(LS.orders, []);
     let audit = loadJson(LS.audit, []);
-    let session = loadJson(LS.session, { email: "guest", role: "guest" });
-    let activeView = "cards";
-    let activeSection = "market";
-    let activeAdminTab = "dashboard";
-    let activeCurrency = "CZK";
+    let spot = structuredClone(DEMO_SPOT_TOZ);
     let refreshTimer = null;
 
-    const $ = (id) => document.getElementById(id);
-    const qsa = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+    const $ = id => document.getElementById(id);
+    const qsa = (sel, root=document) => Array.from(root.querySelectorAll(sel));
 
-    function loadJson(key, fallback) {
-      try {
+    function loadJson(key, fallback){
+      try{
         const raw = localStorage.getItem(key);
         return raw ? JSON.parse(raw) : structuredClone(fallback);
-      } catch {
+      }catch{
         return structuredClone(fallback);
       }
     }
+    function saveJson(key, value){ localStorage.setItem(key, JSON.stringify(value)); }
+    function t(key){ return I18N[currentLang]?.[key] || I18N.cs[key] || key; }
 
-    function saveJson(key, value) {
-      localStorage.setItem(key, JSON.stringify(value));
+    function applyI18n(){
+      document.documentElement.lang = currentLang;
+      qsa("[data-i18n]").forEach(node => {
+        const key = node.dataset.i18n;
+        if(key) node.textContent = t(key);
+      });
+      qsa("[data-lang]").forEach(btn => btn.classList.toggle("active", btn.dataset.lang === currentLang));
+      qsa("[data-currency]").forEach(btn => btn.classList.toggle("active", btn.dataset.currency === currentCurrency));
+      $("loginBtn").textContent = session.role && session.role !== "guest" ? `${session.role} · ${(session.email || "").split("@")[0]}` : t("button.login");
+      renderAll();
     }
 
-    function logEvent(event, detail) {
-      audit.unshift({
-        time: new Date().toISOString(),
-        user: session.email || "guest",
-        event,
-        detail
-      });
+    function toast(message){
+      const el = $("toast");
+      el.textContent = message;
+      el.classList.add("show");
+      setTimeout(() => el.classList.remove("show"), 2600);
+    }
+
+    function logEvent(event, detail){
+      audit.unshift({ time:new Date().toISOString(), user:session.email || "guest", event, detail });
       audit = audit.slice(0, 300);
       saveJson(LS.audit, audit);
-      renderAdmin();
     }
 
-    function toast(message) {
-      const t = $("toast");
-      t.textContent = message;
-      t.classList.add("show");
-      setTimeout(() => t.classList.remove("show"), 2800);
-    }
-
-    function fmtMoney(value, currency = activeCurrency) {
+    function fmtMoney(value, currency=currentCurrency){
       const n = Number(value || 0);
       const fraction = Math.abs(n) >= 1000 ? 0 : 2;
       const locale = currency === "CZK" ? "cs-CZ" : currency === "CHF" ? "de-CH" : currency === "EUR" ? "de-DE" : "en-US";
-      const formatted = new Intl.NumberFormat(locale, { minimumFractionDigits: fraction, maximumFractionDigits: fraction }).format(n);
-      if (currency === "CZK") return formatted + " Kč";
-      if (currency === "EUR") return "€" + formatted;
-      if (currency === "CHF") return "CHF " + formatted;
-      if (currency === "USD") return "$" + formatted;
-      return formatted + " " + currency;
+      const f = new Intl.NumberFormat(locale, { minimumFractionDigits:fraction, maximumFractionDigits:fraction }).format(n);
+      if(currency === "CZK") return f + " Kč";
+      if(currency === "EUR") return "€" + f;
+      if(currency === "CHF") return "CHF " + f;
+      if(currency === "USD") return "$" + f;
+      return f + " " + currency;
     }
-
-    function fmtQty(g) {
+    function fmtQty(g){
       const n = Number(g || 0);
-      if (n >= 1000) return (n / 1000).toLocaleString("cs-CZ", { maximumFractionDigits: 3 }) + " kg";
-      return n.toLocaleString("cs-CZ", { maximumFractionDigits: 3 }) + " g";
+      if(n >= 1000) return (n/1000).toLocaleString("cs-CZ",{maximumFractionDigits:3}) + " kg";
+      return n.toLocaleString("cs-CZ",{maximumFractionDigits:3}) + " g";
     }
-
-    function spotPerGram(metal, currency) {
+    function spotPerGram(metal, currency){
       const perToz = spot?.[metal]?.[currency] || DEMO_SPOT_TOZ?.[metal]?.[currency] || 0;
       return perToz / 31.1034768;
     }
+    function metalDot(metal){
+      if(metal === "AG") return "m-ag";
+      if(metal === "PT") return "m-pt";
+      if(metal === "PD") return "m-pd";
+      return "";
+    }
+    function availabilityLabel(v){ return t("availability." + v); }
+    function marketDisplay(row){ return `${t("metal." + row.metal)} ${row.location}`; }
 
-    function marketRows() {
+    function deterministicFactor(str){
+      let h=0;
+      for(let i=0;i<str.length;i++) h = (h*31 + str.charCodeAt(i)) % 997;
+      return (h % 50) / 100;
+    }
+
+    function allRows(){
       const rows = [];
-      for (const m of MARKETS) {
-        for (const currency of m.currencies) {
+      for(const m of MARKETS){
+        for(const currency of m.currencies){
           const base = spotPerGram(m.metal, currency);
           const spreadBps = Number(pricing.spreads[m.metal] || 100);
           const locBps = Number(pricing.locationPremiums[m.location] || 0);
           const adjusted = base * (1 + locBps / 10000);
-          const bestBid = adjusted * (1 - spreadBps / 20000);
-          const bestOffer = adjusted * (1 + spreadBps / 20000);
-          const qtyBase = m.metal === "AU" ? 1200 : m.metal === "AG" ? 420000 : 9000;
-          const bidQty = qtyBase * (0.55 + deterministicFactor(m.id + currency));
-          const offerQty = qtyBase * (0.48 + deterministicFactor(currency + m.id));
-          rows.push({ ...m, currency, base, bestBid, bestOffer, bidQty, offerQty, spreadPct: ((bestOffer-bestBid)/bestBid)*100, key: m.id + "_" + currency });
+          const bid1 = adjusted * (1 - spreadBps/20000);
+          const offer1 = adjusted * (1 + spreadBps/20000);
+          const liquidityBase = m.metal === "AU" ? 1400 : m.metal === "AG" ? 480000 : 14000;
+          const bidQty = liquidityBase * (0.50 + deterministicFactor(m.id + currency));
+          const offerQty = liquidityBase * (0.44 + deterministicFactor(currency + m.id));
+          rows.push({
+            ...m,
+            currency,
+            base,
+            bestBid: bid1,
+            bestOffer: offer1,
+            bidLevels: [bid1, bid1*.9993, bid1*.9986],
+            offerLevels:[offer1, offer1*1.0007, offer1*1.0014],
+            bidQty,
+            offerQty,
+            spreadPct: ((offer1-bid1)/bid1)*100,
+            key: `${m.id}_${currency}`
+          });
         }
       }
       return rows;
     }
 
-    function deterministicFactor(str) {
-      let h = 0;
-      for (let i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) % 997;
-      return (h % 50) / 100;
-    }
-
-    function selectedFilters() {
+    function selectedFilters(){
       const metal = document.querySelector('input[name="metalFilter"]:checked')?.value || "ALL";
       const currency = document.querySelector('input[name="currencyFilter"]:checked')?.value || "ALL";
       const locs = new Set(qsa('input[name="locationFilter"]:checked').map(x => x.value));
@@ -1914,138 +1097,98 @@
       return { metal, currency, locs, av, sizes };
     }
 
-    function filteredRows() {
+    function filteredRows(){
       const f = selectedFilters();
-      let rows = marketRows().filter(r => {
-        const metalOk = f.metal === "ALL" || r.metal === f.metal;
-        const currencyOk = f.currency === "ALL" || r.currency === f.currency;
-        const locOk = f.locs.size === 0 || f.locs.has(r.location);
-        const avOk = f.av.size === 0 || f.av.has(r.availability);
-        const sizeOk = f.sizes.length === 0 || f.sizes.some(s => Math.abs(r.unitGrams - s) < 0.2 || r.offerQty >= s);
-        return metalOk && currencyOk && locOk && avOk && sizeOk;
+      let rows = allRows().filter(r => {
+        const okMetal = f.metal === "ALL" || r.metal === f.metal;
+        const okCurrency = f.currency === "ALL" || r.currency === f.currency;
+        const okLoc = f.locs.size === 0 || f.locs.has(r.location);
+        const okAv = f.av.size === 0 || f.av.has(r.availability);
+        const okSize = f.sizes.length === 0 || f.sizes.some(s => Math.abs(r.unitGrams - s) < 0.3 || r.offerQty >= s);
+        return okMetal && okCurrency && okLoc && okAv && okSize;
       });
-
       const sort = $("sortSelect").value;
-      if (sort === "spread-asc") rows.sort((a,b) => a.spreadPct - b.spreadPct);
-      if (sort === "offer-asc") rows.sort((a,b) => a.bestOffer - b.bestOffer);
-      if (sort === "liquidity-desc") rows.sort((a,b) => (b.bidQty + b.offerQty) - (a.bidQty + a.offerQty));
+      if(sort === "spread-asc") rows.sort((a,b)=>a.spreadPct - b.spreadPct);
+      if(sort === "offer-asc") rows.sort((a,b)=>a.bestOffer - b.bestOffer);
+      if(sort === "liquidity-desc") rows.sort((a,b)=>(b.bidQty+b.offerQty)-(a.bidQty+a.offerQty));
       return rows;
     }
 
-
-    function marketDisplayName(r) {
-      if (currentLang === "cs") {
-        return `${t("metal." + r.metal)} ${r.location}`;
-      }
-      return `${t("metal." + r.metal)} ${r.location}`;
+    function levelHtml(price, qty, currency, side, best=false){
+      return `<div class="level ${best ? 'best' : ''}" data-side="${side}" data-price="${price}">
+        <span class="l-price ${side === 'BUY' ? 'offer' : 'bid'}">${fmtMoney(price, currency)}</span>
+        <span class="l-qty">${fmtQty(qty)}</span>
+      </div>`;
     }
 
-    function metalVisualClass(metal) {
-      return metal === "AG" ? "silver" : metal === "PT" ? "platinum" : metal === "PD" ? "palladium" : "";
-    }
-
-    function metalSymbol(metal) {
-      return { AU: "Au", AG: "Ag", PT: "Pt", PD: "Pd" }[metal] || metal;
-    }
-
-    function renderMarket() {
-      const rows = filteredRows();
-      $("resultCount").textContent = rows.length;
-      $("visibleCount").textContent = rows.length;
-      $("totalCount").textContent = marketRows().length;
-
-      renderTicketMarketOptions(rows);
-
-      $("productGrid").classList.toggle("hidden", activeView !== "cards");
-      $("boardTableShell").classList.toggle("hidden", activeView !== "board");
-      $("depthTableShell").classList.toggle("hidden", activeView !== "depth");
-      $("spreadTableShell").classList.toggle("hidden", activeView !== "spreads");
-
-      renderCards(rows);
-      renderBoardTable(rows);
-      renderDepthTable(rows);
-      renderSpreadTable(rows);
-      updateStats();
-      updateSummary();
-    }
-
-    function renderCards(rows) {
-      $("productGrid").innerHTML = rows.map(r => `
-        <article class="product-card">
-          <div class="product-image">
-            <div class="bar-visual ${metalVisualClass(r.metal)}">${metalSymbol(r.metal)}<br>${r.purity}</div>
-          </div>
-          <div class="product-body">
-            <div class="product-type">${t("metal." + r.metal)} · ${r.location}</div>
-            <div class="product-title">${marketDisplayName(r)}<br>${r.currency}</div>
-            <div class="product-meta">
-              <span>${fmtQty(r.unitGrams)}</span>
-              <span>·</span>
-              <span>${r.purity}</span>
-              <span class="badge">${availabilityLabel(r.availability)}</span>
-            </div>
-            <div class="quote-grid">
-              <div class="quote-box" data-ticket="${r.key}" data-side="SELL" data-price="${r.bestBid}">
-                <div class="quote-label">${t("quote.bestBidSell")}</div>
-                <div class="quote-price bid">${fmtMoney(r.bestBid, r.currency)}</div>
-                <div class="quote-qty">${fmtQty(r.bidQty)}</div>
-              </div>
-              <div class="quote-box" data-ticket="${r.key}" data-side="BUY" data-price="${r.bestOffer}">
-                <div class="quote-label">${t("quote.bestOfferBuy")}</div>
-                <div class="quote-price offer">${fmtMoney(r.bestOffer, r.currency)}</div>
-                <div class="quote-qty">${fmtQty(r.offerQty)}</div>
-              </div>
-            </div>
-            <div class="card-actions">
-              <button class="btn btn--green" data-ticket="${r.key}" data-side="SELL" data-price="${r.bestBid}">${t("button.sell")}</button>
-              <button class="btn btn--gold" data-ticket="${r.key}" data-side="BUY" data-price="${r.bestOffer}">${t("button.buy")}</button>
-            </div>
-          </div>
-        </article>
-      `).join("");
-
-      qsa("[data-ticket]").forEach(el => {
-        el.addEventListener("click", () => openTicket(el.dataset.ticket, el.dataset.side, Number(el.dataset.price)));
-      });
-    }
-
-    function renderBoardTable(rows) {
+    function renderBoard(rows){
       $("boardRows").innerHTML = rows.map(r => `
-        <tr>
+        <tr data-row="${r.key}">
           <td>${r.currency}</td>
-          <td>${t("metal." + r.metal)}: ${r.location}</td>
-          <td style="color:var(--green);font-weight:900;">${fmtMoney(r.bestBid, r.currency)}</td>
-          <td>${fmtQty(r.bidQty)}</td>
-          <td style="color:#ffd6d6;font-weight:900;">${fmtMoney(r.bestOffer, r.currency)}</td>
-          <td>${fmtQty(r.offerQty)}</td>
+          <td>
+            <span class="metal-pill"><span class="m-dot ${metalDot(r.metal)}"></span>${t("metal." + r.metal)}</span>
+            <span class="market-sub">${r.location} · ${availabilityLabel(r.availability)}</span>
+          </td>
+          <td>
+            <div class="price bid">${fmtMoney(r.bestBid, r.currency)}</div>
+            <span class="qty">${fmtQty(r.bidQty)}</span>
+          </td>
+          <td>
+            <div class="levels">
+              ${r.bidLevels.map((p,i)=>levelHtml(p, r.bidQty*(i===0?.36:i===1?.33:.31), r.currency, 'SELL', i===0)).join("")}
+            </div>
+          </td>
+          <td>
+            <div class="price offer">${fmtMoney(r.bestOffer, r.currency)}</div>
+            <span class="qty">${fmtQty(r.offerQty)}</span>
+          </td>
+          <td>
+            <div class="levels">
+              ${r.offerLevels.map((p,i)=>levelHtml(p, r.offerQty*(i===0?.34:i===1?.35:.31), r.currency, 'BUY', i===0)).join("")}
+            </div>
+          </td>
           <td>${r.spreadPct.toFixed(2).replace(".", ",")} %</td>
-          <td><button class="small-btn green" data-ticket="${r.key}" data-side="BUY" data-price="${r.bestOffer}">${t("button.buy").toUpperCase()}</button> <button class="small-btn" data-ticket="${r.key}" data-side="SELL" data-price="${r.bestBid}">${t("button.sell").toUpperCase()}</button></td>
+          <td>
+            <span class="table-actions">
+              <button class="small-btn green" data-ticket="${r.key}" data-side="BUY" data-price="${r.bestOffer}">${t("button.buy")}</button>
+              <button class="small-btn" data-ticket="${r.key}" data-side="SELL" data-price="${r.bestBid}">${t("button.sell")}</button>
+            </span>
+          </td>
         </tr>
       `).join("");
-      qsa("#boardRows [data-ticket]").forEach(el => el.addEventListener("click", () => openTicket(el.dataset.ticket, el.dataset.side, Number(el.dataset.price))));
+      qsa("[data-ticket]").forEach(btn => btn.addEventListener("click",()=>openTicket(btn.dataset.ticket, btn.dataset.side, Number(btn.dataset.price))));
+      qsa(".level").forEach(el => el.addEventListener("click", () => {
+        const tr = el.closest("tr");
+        const key = tr?.dataset.row;
+        if(!key) return;
+        openTicket(key, el.dataset.side, Number(el.dataset.price));
+      }));
     }
 
-    function renderDepthTable(rows) {
-      $("depthRows").innerHTML = rows.map(r => {
-        const levelsBid = [r.bestBid, r.bestBid * .9993, r.bestBid * .9987];
-        const levelsOffer = [r.bestOffer, r.bestOffer * 1.0007, r.bestOffer * 1.0014];
-        return `
-          <tr>
-            <td>${t("metal." + r.metal)}: ${r.location}</td><td>${r.currency}</td>
-            <td>${fmtMoney(levelsBid[0], r.currency)}</td><td>${fmtMoney(levelsBid[1], r.currency)}</td><td>${fmtMoney(levelsBid[2], r.currency)}</td>
-            <td>${fmtMoney(levelsOffer[0], r.currency)}</td><td>${fmtMoney(levelsOffer[1], r.currency)}</td><td>${fmtMoney(levelsOffer[2], r.currency)}</td>
-            <td>${fmtQty(r.bidQty + r.offerQty)}</td>
-          </tr>`;
-      }).join("");
+    function renderDepth(rows){
+      $("depthRows").innerHTML = rows.map(r => `
+        <tr>
+          <td><span class="market-name">${t("metal." + r.metal)} ${r.location}</span><span class="market-sub">${availabilityLabel(r.availability)}</span></td>
+          <td>${r.currency}</td>
+          <td>${fmtMoney(r.bidLevels[0], r.currency)}</td>
+          <td>${fmtMoney(r.bidLevels[1], r.currency)}</td>
+          <td>${fmtMoney(r.bidLevels[2], r.currency)}</td>
+          <td>${fmtMoney(r.offerLevels[0], r.currency)}</td>
+          <td>${fmtMoney(r.offerLevels[1], r.currency)}</td>
+          <td>${fmtMoney(r.offerLevels[2], r.currency)}</td>
+          <td>${fmtQty(r.bidQty + r.offerQty)}</td>
+        </tr>
+      `).join("");
     }
 
-    function renderSpreadTable(rows) {
+    function renderSpreads(rows){
       $("spreadRows").innerHTML = rows.map(r => `
         <tr>
-          <td>${t("metal." + r.metal)}: ${r.location}</td><td>${r.currency}</td>
+          <td><span class="market-name">${t("metal." + r.metal)} ${r.location}</span><span class="market-sub">${availabilityLabel(r.availability)}</span></td>
+          <td>${r.currency}</td>
           <td>${fmtMoney(r.base, r.currency)}</td>
-          <td style="color:var(--green);font-weight:900;">${fmtMoney(r.bestBid, r.currency)}</td>
-          <td style="color:#ffd6d6;font-weight:900;">${fmtMoney(r.bestOffer, r.currency)}</td>
+          <td>${fmtMoney(r.bestBid, r.currency)}</td>
+          <td>${fmtMoney(r.bestOffer, r.currency)}</td>
           <td>${fmtMoney(r.bestOffer - r.bestBid, r.currency)}</td>
           <td>${r.spreadPct.toFixed(2).replace(".", ",")} %</td>
           <td>${Number(pricing.commissionBps || 0)} bps</td>
@@ -2053,136 +1196,112 @@
       `).join("");
     }
 
-    function availabilityLabel(v) {
-      return t("availability." + v);
-    }
-
-    function renderTicketMarketOptions(rows = marketRows()) {
-      const current = $("ticketMarket").value;
+    function renderTicketOptions(rows){
+      const prev = $("ticketMarket").value;
       $("ticketMarket").innerHTML = rows.map(r => `<option value="${r.key}">${t("metal." + r.metal)}: ${r.location} / ${r.currency}</option>`).join("");
-      if (rows.some(r => r.key === current)) $("ticketMarket").value = current;
-      if (!$("ticketMarket").value && rows[0]) $("ticketMarket").value = rows[0].key;
+      if(rows.some(r=>r.key === prev)) $("ticketMarket").value = prev;
+      if(!$("ticketMarket").value && rows[0]) $("ticketMarket").value = rows[0].key;
       $("ticketUser").innerHTML = users.map(u => `<option value="${u.id}">${u.name} · ${u.email}</option>`).join("");
     }
 
-    function openTicket(key, side = "BUY", price = null) {
-      const r = marketRows().find(x => x.key === key) || filteredRows()[0] || marketRows()[0];
-      if (!r) return;
-      $("ticketMarket").value = r.key;
-      $("ticketCurrency").value = r.currency;
-      $("ticketSide").value = side;
-      $("ticketPrice").value = Number(price || (side === "BUY" ? r.bestOffer : r.bestBid)).toFixed(r.currency === "CZK" ? 0 : 2);
-      $("ticketQty").value = r.metal === "AG" ? 1000 : 10;
-      $("orderDrawer").classList.add("open");
+    function updateStats(){
+      $("ordersToday").textContent = orders.length;
+      const totalCzk = orders.reduce((s,o)=>s + (o.currency === "CZK" ? o.total : 0), 0);
+      $("ordersVolume").textContent = fmtMoney(totalCzk, "CZK");
+    }
+
+    function renderMarket(){
+      const rows = filteredRows();
+      $("resultCount").textContent = rows.length;
+      $("visibleCount").textContent = rows.length;
+      $("totalCount").textContent = allRows().length;
+      renderTicketOptions(rows);
+
+      $("boardShell").classList.toggle("hidden", activeView !== "board");
+      $("depthShell").classList.toggle("hidden", activeView !== "depth");
+      $("spreadsShell").classList.toggle("hidden", activeView !== "spreads");
+      qsa(".tabs button").forEach(b=>b.classList.toggle("active", b.dataset.view === activeView));
+
+      renderBoard(rows);
+      renderDepth(rows);
+      renderSpreads(rows);
+      updateStats();
       updateSummary();
     }
 
-    function closeTicket() {
-      $("orderDrawer").classList.remove("open");
+    function selectedTicketRow(){
+      return allRows().find(r => r.key === $("ticketMarket").value) || filteredRows()[0] || allRows()[0];
     }
 
-    function selectedTicketRow() {
-      return marketRows().find(r => r.key === $("ticketMarket").value) || marketRows()[0];
+    function openTicket(key, side="BUY", price=null){
+      const row = allRows().find(r => r.key === key) || filteredRows()[0] || allRows()[0];
+      if(!row) return;
+      $("ticketMarket").value = row.key;
+      $("ticketCurrency").value = row.currency;
+      $("ticketSide").value = side;
+      $("ticketPrice").value = Number(price || (side === "BUY" ? row.bestOffer : row.bestBid)).toFixed(row.currency === "CZK" ? 0 : 2);
+      $("ticketQty").value = row.metal === "AG" ? 1000 : 10;
+      $("orderDrawer").classList.add("open");
+      updateSummary();
     }
+    function closeTicket(){ $("orderDrawer").classList.remove("open"); }
 
-    function updateSummary() {
-      const r = selectedTicketRow();
-      if (!r) return;
+    function updateSummary(){
+      const row = selectedTicketRow();
+      if(!row) return;
       const qty = Number($("ticketQty").value || 0);
       const price = Number($("ticketPrice").value || 0);
-      const currency = $("ticketCurrency").value || r.currency;
+      const currency = $("ticketCurrency").value || row.currency;
       const gross = qty * price;
       const fee = gross * Number(pricing.commissionBps || 0) / 10000;
       const total = $("ticketSide").value === "BUY" ? gross + fee : gross - fee;
-
-      $("sumMarket").textContent = `${t("metal." + r.metal)}: ${r.location} / ${currency}`;
+      $("sumMarket").textContent = `${t("metal." + row.metal)}: ${row.location} / ${currency}`;
       $("sumQty").textContent = fmtQty(qty);
       $("sumGross").textContent = fmtMoney(gross, currency);
       $("sumFee").textContent = fmtMoney(fee, currency);
       $("sumTotal").textContent = fmtMoney(total, currency);
     }
 
-    function createOrder(status = "draft") {
-      const r = selectedTicketRow();
+    function createOrder(status="draft"){
+      const row = selectedTicketRow();
       const user = users.find(u => u.id === $("ticketUser").value) || users[0];
       const qty = Number($("ticketQty").value || 0);
       const price = Number($("ticketPrice").value || 0);
-      const currency = $("ticketCurrency").value || r.currency;
+      const currency = $("ticketCurrency").value || row.currency;
       const gross = qty * price;
       const fee = gross * Number(pricing.commissionBps || 0) / 10000;
       const total = $("ticketSide").value === "BUY" ? gross + fee : gross - fee;
-
       const order = {
         id: "O" + Date.now().toString().slice(-8),
         createdAt: new Date().toISOString(),
         userId: user.id,
         userName: user.name,
         side: $("ticketSide").value,
-        marketKey: r.key,
-        market: `${t("metal." + r.metal)}: ${r.location}`,
-        metal: r.metal,
+        marketKey: row.key,
+        market: `${t("metal." + row.metal)}: ${row.location}`,
         currency,
         quantityG: qty,
         pricePerG: price,
-        gross,
-        fee,
-        total,
+        gross, fee, total,
         settlement: $("ticketSettlement").value,
         type: $("ticketType").value,
         status
       };
-
       orders.unshift(order);
       saveJson(LS.orders, orders);
       logEvent("order." + status, `${order.id} ${order.side} ${order.market} ${fmtQty(order.quantityG)}`);
-      toast(status === "pending" ? "Objednávka odeslána ke schválení." : "Draft objednávky uložen.");
+      toast(currentLang === "cs"
+        ? (status === "pending" ? "Objednávka odeslána ke schválení." : "Draft objednávky uložen.")
+        : (status === "pending" ? "Order submitted for approval." : "Draft order saved."));
       closeTicket();
       renderAll();
     }
 
-    function updateStats() {
-      $("ordersToday").textContent = orders.length;
-      const total = orders.reduce((s,o) => s + (o.currency === "CZK" ? o.total : 0), 0);
-      $("ordersVolume").textContent = fmtMoney(total, "CZK");
-    }
-
-    async function loadLivePrices() {
-      try {
-        $("feedMode").textContent = "Načítám…";
-        const response = await fetch("/.netlify/functions/metals-prices", { cache: "no-store" });
-        if (!response.ok) throw new Error("HTTP " + response.status);
-        const data = await response.json();
-        if (!data || !data.prices) throw new Error("Invalid payload");
-        spot = mergeSpot(data.prices);
-        $("feedMode").textContent = data.mode === "live" ? "Live" : "Demo";
-        $("lastUpdate").textContent = new Date(data.timestamp || Date.now()).toLocaleString("cs-CZ");
-        logEvent("price.refresh", data.mode === "live" ? "Live prices loaded" : "Demo fallback loaded");
-      } catch (e) {
-        spot = structuredClone(DEMO_SPOT_TOZ);
-        $("feedMode").textContent = "Demo fallback";
-        $("lastUpdate").textContent = new Date().toLocaleString("cs-CZ");
-        logEvent("price.error", e.message);
-      }
-      renderAll();
-    }
-
-    function mergeSpot(prices) {
-      const merged = structuredClone(DEMO_SPOT_TOZ);
-      for (const metal of Object.keys(merged)) {
-        for (const cur of Object.keys(merged[metal])) {
-          const v = Number(prices?.[metal]?.[cur]);
-          if (Number.isFinite(v) && v > 0) merged[metal][cur] = v;
-        }
-      }
-      return merged;
-    }
-
-    function renderAdmin() {
+    function renderAdmin(){
       $("adminUsersCount").textContent = users.length;
-      $("adminKycCount").textContent = users.filter(u => u.kyc === "pending").length;
-      $("adminOpenOrders").textContent = orders.filter(o => ["draft","pending","approved"].includes(o.status)).length;
+      $("adminKycCount").textContent = users.filter(u=>u.kyc === "pending").length;
+      $("adminOpenOrders").textContent = orders.filter(o=>["draft","pending","approved"].includes(o.status)).length;
       $("adminAuditCount").textContent = audit.length;
-
       renderDashboard();
       renderUsers();
       renderOrders();
@@ -2191,69 +1310,71 @@
       renderSystem();
     }
 
-    function renderDashboard() {
+    function renderDashboard(){
       const rows = [
-        [currentLang === "cs" ? "Cenový feed" : "Price feed", $("feedMode").textContent || "Demo", $("feedMode").textContent === "Live" ? (currentLang === "cs" ? "Nízké" : "Low") : (currentLang === "cs" ? "Střední" : "Medium"), currentLang === "cs" ? "Zkontrolovat API klíč a fallback" : "Check API key and fallback"],
-        ["KYC", users.filter(u => u.kyc === "pending").length + " pending", currentLang === "cs" ? "Střední" : "Medium", currentLang === "cs" ? "Ověřit klienty před výběrem / vyšším limitem" : "Verify clients before withdrawal / higher limit"],
-        [currentLang === "cs" ? "Otevřené objednávky" : "Open orders", orders.filter(o => ["pending","approved"].includes(o.status)).length, currentLang === "cs" ? "Provozní" : "Operational", currentLang === "cs" ? "Schválit nebo odmítnout pokyny" : "Approve or reject orders"],
-        [currentLang === "cs" ? "Pricing / marže" : "Pricing", pricing.commissionBps + " bps commission", currentLang === "cs" ? "Nízké" : "Low", currentLang === "cs" ? "Kontrola spreadů a marží" : "Check spreads and margins"]
+        [currentLang === "cs" ? "Cenový feed" : "Price feed", $("feedMode").textContent || "Demo", currentLang === "cs" ? (($("feedMode").textContent || "").includes("Live") ? "Nízké" : "Střední") : (($("feedMode").textContent || "").includes("Live") ? "Low" : "Medium"), currentLang === "cs" ? "Zkontrolovat API klíč a fallback" : "Check API key and fallback"],
+        ["KYC", users.filter(u=>u.kyc === "pending").length + " pending", currentLang === "cs" ? "Střední" : "Medium", currentLang === "cs" ? "Ověřit klienty před výběrem / vyšším limitem" : "Verify clients before withdrawal / higher limit"],
+        [currentLang === "cs" ? "Otevřené objednávky" : "Open orders", orders.filter(o=>["pending","approved"].includes(o.status)).length, currentLang === "cs" ? "Provozní" : "Operational", currentLang === "cs" ? "Schválit nebo odmítnout pokyny" : "Approve or reject orders"],
+        [currentLang === "cs" ? "Pricing / marže" : "Pricing", `${pricing.commissionBps} bps`, currentLang === "cs" ? "Nízké" : "Low", currentLang === "cs" ? "Kontrola spreadů a marží" : "Check spreads and margins"]
       ];
       $("dashboardRows").innerHTML = rows.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`).join("");
     }
 
-    function renderUsers() {
-      const search = ($("userSearch")?.value || "").toLowerCase();
+    function renderUsers(){
+      const s = ($("userSearch")?.value || "").toLowerCase();
       const kyc = $("kycFilter")?.value || "ALL";
       const filtered = users.filter(u => {
-        const match = (u.name + u.email + u.id).toLowerCase().includes(search);
-        const kycOk = kyc === "ALL" || u.kyc === kyc;
-        return match && kycOk;
+        const match = (u.id + u.name + u.email).toLowerCase().includes(s);
+        const ok = kyc === "ALL" || u.kyc === kyc;
+        return match && ok;
       });
       $("usersRows").innerHTML = filtered.map(u => `
         <tr>
           <td>${u.id}</td><td>${u.name}</td><td>${u.email}</td><td>${u.role}</td><td>${u.kyc}</td>
           <td>${fmtMoney(u.cashCZK, "CZK")}</td><td>${fmtQty(u.auG)}</td><td>${u.status}</td>
-          <td><span class="table-actions">
-            <button class="small-btn" data-edit-user="${u.id}">${t("button.edit")}</button>
-            <button class="small-btn ${u.kyc === "verified" ? "" : "green"}" data-verify-user="${u.id}">${t("button.verify")}</button>
-            <button class="small-btn red" data-block-user="${u.id}">${t("button.block")}</button>
-          </span></td>
+          <td>
+            <span class="table-actions">
+              <button class="small-btn" data-edit-user="${u.id}">${t("button.edit")}</button>
+              <button class="small-btn green" data-verify-user="${u.id}">${t("button.verify")}</button>
+              <button class="small-btn red" data-block-user="${u.id}">${t("button.block")}</button>
+            </span>
+          </td>
         </tr>
       `).join("");
-      qsa("[data-edit-user]").forEach(b => b.addEventListener("click", () => openUserModal(b.dataset.editUser)));
-      qsa("[data-verify-user]").forEach(b => b.addEventListener("click", () => updateUserKyc(b.dataset.verifyUser, "verified")));
-      qsa("[data-block-user]").forEach(b => b.addEventListener("click", () => updateUserKyc(b.dataset.blockUser, "blocked")));
+      qsa("[data-edit-user]").forEach(b => b.addEventListener("click", ()=>openUserModal(b.dataset.editUser)));
+      qsa("[data-verify-user]").forEach(b => b.addEventListener("click", ()=>updateUserKyc(b.dataset.verifyUser, "verified")));
+      qsa("[data-block-user]").forEach(b => b.addEventListener("click", ()=>updateUserKyc(b.dataset.blockUser, "blocked")));
     }
 
-    function renderOrders() {
-      const search = ($("orderSearch")?.value || "").toLowerCase();
+    function renderOrders(){
+      const s = ($("orderSearch")?.value || "").toLowerCase();
       const st = $("orderStatusFilter")?.value || "ALL";
       const filtered = orders.filter(o => {
-        const match = (o.id + o.userName + o.market + o.side + o.status).toLowerCase().includes(search);
-        const statusOk = st === "ALL" || o.status === st;
-        return match && statusOk;
+        const match = (o.id + o.userName + o.market + o.side + o.status).toLowerCase().includes(s);
+        const ok = st === "ALL" || o.status === st;
+        return match && ok;
       });
       $("ordersRows").innerHTML = filtered.map(o => `
         <tr>
           <td>${o.id}</td><td>${o.userName}</td><td>${o.side}</td><td>${o.market} / ${o.currency}</td>
           <td>${fmtQty(o.quantityG)}</td><td>${fmtMoney(o.pricePerG, o.currency)}</td><td>${fmtMoney(o.total, o.currency)}</td><td>${o.status}</td>
-          <td><span class="table-actions">
-            <button class="small-btn green" data-order-status="${o.id}:approved">${t("button.approve")}</button>
-            <button class="small-btn green" data-order-status="${o.id}:matched">${t("button.match")}</button>
-            <button class="small-btn red" data-order-status="${o.id}:rejected">${t("button.reject")}</button>
-            <button class="small-btn" data-order-status="${o.id}:cancelled">${t("button.cancel")}</button>
-          </span></td>
+          <td>
+            <span class="table-actions">
+              <button class="small-btn green" data-order-status="${o.id}:approved">${t("button.approve")}</button>
+              <button class="small-btn green" data-order-status="${o.id}:matched">${t("button.match")}</button>
+              <button class="small-btn red" data-order-status="${o.id}:rejected">${t("button.reject")}</button>
+              <button class="small-btn" data-order-status="${o.id}:cancelled">${t("button.cancel")}</button>
+            </span>
+          </td>
         </tr>
       `).join("");
-      qsa("[data-order-status]").forEach(b => {
-        b.addEventListener("click", () => {
-          const [id, status] = b.dataset.orderStatus.split(":");
-          setOrderStatus(id, status);
-        });
-      });
+      qsa("[data-order-status]").forEach(b => b.addEventListener("click", () => {
+        const [id, status] = b.dataset.orderStatus.split(":");
+        setOrderStatus(id, status);
+      }));
     }
 
-    function renderPricing() {
+    function renderPricing(){
       $("spreadAU").value = pricing.spreads.AU;
       $("spreadAG").value = pricing.spreads.AG;
       $("spreadPT").value = pricing.spreads.PT;
@@ -2262,33 +1383,33 @@
       $("refreshMs").value = pricing.refreshMs;
     }
 
-    function renderAudit() {
-      $("auditRows").innerHTML = audit.slice(0, 100).map(a => `<tr><td>${new Date(a.time).toLocaleString("cs-CZ")}</td><td>${a.user}</td><td>${a.event}</td><td>${a.detail}</td></tr>`).join("");
+    function renderAudit(){
+      $("auditRows").innerHTML = audit.slice(0,100).map(a => `<tr><td>${new Date(a.time).toLocaleString("cs-CZ")}</td><td>${a.user}</td><td>${a.event}</td><td>${a.detail}</td></tr>`).join("");
     }
 
-    function renderSystem() {
+    function renderSystem(){
       const checks = [
-        ["Environment / API", $("feedMode").textContent === "Live" ? "OK" : "DEMO", "Nastavit GOLDAPI_KEY v Netlify"],
-        ["Local users", users.length > 0 ? "OK" : "ERROR", "V produkci nahradit databází"],
-        ["Orders storage", "LOCALSTORAGE", "Nutné nahradit serverem"],
-        ["RBAC", session.role === "admin" ? "Admin demo active" : "Not admin", "Produkčně použít serverové role"]
+        [currentLang === "cs" ? "Environment / API" : "Environment / API", ($("feedMode").textContent || "").includes("Live") ? "OK" : "DEMO", currentLang === "cs" ? "Nastavit GOLDAPI_KEY v Netlify" : "Set GOLDAPI_KEY in Netlify"],
+        [currentLang === "cs" ? "Lokální uživatelé" : "Local users", users.length > 0 ? "OK" : "ERROR", currentLang === "cs" ? "V produkci nahradit databází" : "Replace with database in production"],
+        [currentLang === "cs" ? "Uložení objednávek" : "Orders storage", "LOCALSTORAGE", currentLang === "cs" ? "Nutné nahradit serverem" : "Must be replaced by server"],
+        ["RBAC", session.role === "admin" ? "Admin demo active" : "Not admin", currentLang === "cs" ? "Produkčně použít serverové role" : "Use server-side roles in production"]
       ];
       $("systemRows").innerHTML = checks.map(c => `<tr><td>${c[0]}</td><td>${c[1]}</td><td>${c[2]}</td></tr>`).join("");
     }
 
-    function setOrderStatus(id, status) {
+    function setOrderStatus(id, status){
       const order = orders.find(o => o.id === id);
-      if (!order) return;
+      if(!order) return;
       order.status = status;
       order.updatedAt = new Date().toISOString();
       saveJson(LS.orders, orders);
       logEvent("order.status", `${id} -> ${status}`);
-      toast(`Objednávka ${id}: ${status}`);
+      toast(currentLang === "cs" ? `Objednávka ${id}: ${status}` : `Order ${id}: ${status}`);
       renderAll();
     }
 
-    function openUserModal(id = null) {
-      const u = users.find(x => x.id === id) || { id: "", name: "", email: "", role: "client", kyc: "pending", cashCZK: 0, auG: 0, status: "active" };
+    function openUserModal(id=null){
+      const u = users.find(x=>x.id === id) || { id:"", name:"", email:"", role:"client", kyc:"pending", cashCZK:0, auG:0, status:"active" };
       $("editUserId").value = u.id;
       $("editUserName").value = u.name;
       $("editUserEmail").value = u.email;
@@ -2297,17 +1418,14 @@
       $("editUserCash").value = u.cashCZK;
       $("editUserAu").value = u.auG;
       $("editUserStatus").value = u.status;
-      $("userModalTitle").textContent = id ? "Upravit uživatele" : "Přidat uživatele";
+      $("userModalTitle").textContent = id ? (currentLang === "cs" ? "Upravit uživatele" : "Edit user") : (currentLang === "cs" ? "Přidat uživatele" : "Add user");
       $("userModal").classList.add("open");
     }
 
-    function saveUserFromModal() {
+    function saveUserFromModal(){
       const id = $("editUserId").value || "U" + Date.now().toString().slice(-6);
-      let u = users.find(x => x.id === id);
-      if (!u) {
-        u = { id };
-        users.unshift(u);
-      }
+      let u = users.find(x=>x.id === id);
+      if(!u){ u = { id }; users.unshift(u); }
       Object.assign(u, {
         name: $("editUserName").value,
         email: $("editUserEmail").value,
@@ -2320,21 +1438,21 @@
       saveJson(LS.users, users);
       $("userModal").classList.remove("open");
       logEvent("user.save", `${u.id} ${u.email}`);
-      toast("Uživatel uložen.");
+      toast(currentLang === "cs" ? "Uživatel uložen." : "User saved.");
       renderAll();
     }
 
-    function updateUserKyc(id, kyc) {
-      const u = users.find(x => x.id === id);
-      if (!u) return;
+    function updateUserKyc(id, kyc){
+      const u = users.find(x=>x.id === id);
+      if(!u) return;
       u.kyc = kyc;
-      if (kyc === "blocked") u.status = "blocked";
+      if(kyc === "blocked") u.status = "blocked";
       saveJson(LS.users, users);
       logEvent("user.kyc", `${id} -> ${kyc}`);
       renderAll();
     }
 
-    function savePricing() {
+    function savePricing(){
       pricing.spreads.AU = Number($("spreadAU").value || 0);
       pricing.spreads.AG = Number($("spreadAG").value || 0);
       pricing.spreads.PT = Number($("spreadPT").value || 0);
@@ -2342,89 +1460,120 @@
       pricing.commissionBps = Number($("commissionBps").value || 0);
       pricing.refreshMs = Number($("refreshMs").value || 30000);
       saveJson(LS.pricing, pricing);
-      logEvent("pricing.save", JSON.stringify(pricing.spreads) + " commission=" + pricing.commissionBps);
+      logEvent("pricing.save", JSON.stringify(pricing.spreads));
       resetRefreshTimer();
-      toast("Pricing uložen.");
+      toast(currentLang === "cs" ? "Pricing uloženo." : "Pricing saved.");
       renderAll();
     }
 
-    function exportOrdersCsv() {
+    function exportOrdersCsv(){
       const header = ["id","createdAt","userName","side","market","currency","quantityG","pricePerG","total","status"];
       const rows = orders.map(o => header.map(k => String(o[k] ?? "").replaceAll('"','""')));
-      const csv = [header.join(","), ...rows.map(r => r.map(v => `"${v}"`).join(","))].join("\n");
-      downloadFile("orders.csv", csv, "text/csv;charset=utf-8");
+      const csv = [header.join(","), ...rows.map(r => r.map(v => `"${v}"`).join(",")).join("\n")].join("\n");
+      const blob = new Blob([csv], { type:"text/csv;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url; a.download = "orders.csv"; a.click();
+      URL.revokeObjectURL(url);
       logEvent("orders.export", `${orders.length} orders`);
     }
 
-    function downloadFile(name, content, type) {
-      const blob = new Blob([content], { type });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = name;
-      a.click();
-      URL.revokeObjectURL(url);
+    function setView(view){
+      activeView = view;
+      renderMarket();
     }
 
-    function setSection(section) {
-      activeSection = section;
+    function setSection(section){
       $("marketSection").classList.toggle("hidden", section === "admin");
-      $("adminSection").classList.toggle("active", section === "admin");
-      $("marketStats").classList.toggle("hidden", section === "admin");
-      $("homeSection").classList.toggle("hidden", section === "admin");
-      qsa(".nav a").forEach(a => a.classList.toggle("active", a.dataset.nav === section || (section === "market" && a.dataset.nav === "market") || (section === "home" && a.dataset.nav === "home")));
-      if (section === "admin") renderAdmin();
-      if (section === "help") {
+      $("adminSection").classList.toggle("active", section === "admin" || section === "orders");
+      $("marketStats").classList.toggle("hidden", section === "admin" || section === "orders");
+      $("homeSection").classList.toggle("hidden", section === "admin" || section === "orders");
+      qsa(".nav a").forEach(a => a.classList.toggle("active", a.dataset.nav === section || (section === "market" && a.dataset.nav === "market")));
+      if(section === "help"){
         $("helpModal").classList.add("open");
-        setSection("market");
+        qsa(".nav a").forEach(a => a.classList.toggle("active", a.dataset.nav === "market"));
+        return;
       }
-      if (section === "ticket") {
-        openTicket((filteredRows()[0] || marketRows()[0]).key, "BUY");
-        setSection("market");
+      if(section === "ticket"){
+        const row = filteredRows()[0] || allRows()[0];
+        if(row) openTicket(row.key, "BUY", row.bestOffer);
+        qsa(".nav a").forEach(a => a.classList.toggle("active", a.dataset.nav === "market"));
+        return;
       }
-      if (section === "orders") {
-        setSection("admin");
+      if(section === "orders"){
         setAdminTab("orders");
       }
+      if(section === "admin"){
+        setAdminTab("dashboard");
+      }
     }
 
-    function setAdminTab(tab) {
-      activeAdminTab = tab;
+    function setAdminTab(tab){
       qsa(".admin-menu button").forEach(b => b.classList.toggle("active", b.dataset.adminTab === tab));
       qsa("[data-admin-panel]").forEach(p => p.classList.toggle("hidden", p.dataset.adminPanel !== tab));
       renderAdmin();
     }
 
-    function setView(view) {
-      activeView = view;
-      qsa(".view-tabs button").forEach(b => b.classList.toggle("active", b.dataset.view === view));
+    function resetFilters(){
+      qsa('input[name="metalFilter"]').forEach(x=>x.checked = x.value === "ALL");
+      qsa('input[name="currencyFilter"]').forEach(x=>x.checked = x.value === currentCurrency);
+      qsa('input[name="locationFilter"], input[name="availabilityFilter"], input[name="sizeFilter"]').forEach(x=>x.checked = false);
       renderMarket();
     }
 
-    function resetFilters() {
-      qsa('input[name="metalFilter"]').forEach(x => x.checked = x.value === "ALL");
-      qsa('input[name="currencyFilter"]').forEach(x => x.checked = x.value === activeCurrency);
-      qsa('input[name="locationFilter"], input[name="availabilityFilter"], input[name="sizeFilter"]').forEach(x => x.checked = false);
-      renderMarket();
-    }
-
-    function resetRefreshTimer() {
-      if (refreshTimer) clearInterval(refreshTimer);
+    function resetRefreshTimer(){
+      if(refreshTimer) clearInterval(refreshTimer);
       refreshTimer = setInterval(loadLivePrices, Math.max(5000, Number(pricing.refreshMs || 30000)));
     }
 
-    function renderAll() {
+    function mergeSpot(prices){
+      const merged = structuredClone(DEMO_SPOT_TOZ);
+      for(const metal of Object.keys(merged)){
+        for(const cur of Object.keys(merged[metal])){
+          const v = Number(prices?.[metal]?.[cur]);
+          if(Number.isFinite(v) && v > 0) merged[metal][cur] = v;
+        }
+      }
+      return merged;
+    }
+
+    async function loadLivePrices(){
+      try{
+        $("feedMode").textContent = currentLang === "cs" ? "Načítám…" : "Loading…";
+        const res = await fetch("/.netlify/functions/metals-prices", { cache:"no-store" });
+        if(!res.ok) throw new Error("HTTP " + res.status);
+        const data = await res.json();
+        if(!data || !data.prices) throw new Error("Invalid payload");
+        spot = mergeSpot(data.prices);
+        $("feedMode").textContent = data.mode === "live" ? "Live" : "Demo";
+        $("lastUpdate").textContent = new Date(data.timestamp || Date.now()).toLocaleString("cs-CZ");
+        logEvent("price.refresh", data.mode === "live" ? "Live prices loaded" : "Demo fallback loaded");
+      }catch(e){
+        spot = structuredClone(DEMO_SPOT_TOZ);
+        $("feedMode").textContent = currentLang === "cs" ? "Demo fallback" : "Demo fallback";
+        $("lastUpdate").textContent = new Date().toLocaleString("cs-CZ");
+        logEvent("price.error", e.message);
+      }
+      renderAll();
+    }
+
+    function renderAll(){
       renderMarket();
       renderAdmin();
     }
 
-    function attachEvents() {
-
+    function attachEvents(){
       qsa("[data-lang]").forEach(btn => btn.addEventListener("click", () => {
         currentLang = btn.dataset.lang;
-        localStorage.setItem("sgmb_lang_v1", currentLang);
+        localStorage.setItem(LS.lang, currentLang);
         applyI18n();
         toast(currentLang === "cs" ? "Jazyk přepnut na češtinu." : "Language switched to English.");
+      }));
+
+      qsa("[data-currency]").forEach(btn => btn.addEventListener("click", () => {
+        currentCurrency = btn.dataset.currency;
+        qsa('input[name="currencyFilter"]').forEach(x => x.checked = x.value === currentCurrency);
+        applyI18n();
       }));
 
       qsa("[data-nav]").forEach(a => a.addEventListener("click", e => {
@@ -2432,55 +1581,38 @@
         setSection(a.dataset.nav);
       }));
 
-      qsa(".currency-toggle button").forEach(b => b.addEventListener("click", () => {
-        activeCurrency = b.dataset.currency;
-        qsa(".currency-toggle button").forEach(x => x.classList.toggle("active", x === b));
-        qsa('input[name="currencyFilter"]').forEach(x => x.checked = x.value === activeCurrency);
-        renderMarket();
-      }));
-
-      $("loginBtn").addEventListener("click", () => $("loginBox").classList.toggle("active"));
-      $("loginSubmit").addEventListener("click", () => {
-        session = { email: $("loginEmail").value || "demo", role: $("loginRole").value };
-        saveJson(LS.session, session);
-        $("loginBox").classList.remove("active");
-        $("loginBtn").textContent = session.role + " · " + session.email.split("@")[0];
-        logEvent("auth.login", `${session.email} role=${session.role}`);
-        toast("Demo přihlášení aktivní.");
-      });
-
-      qsa('input[name="metalFilter"], input[name="currencyFilter"], input[name="locationFilter"], input[name="availabilityFilter"], input[name="sizeFilter"]').forEach(x => {
-        x.addEventListener("change", renderMarket);
-      });
-
+      qsa('input[name="metalFilter"], input[name="currencyFilter"], input[name="locationFilter"], input[name="availabilityFilter"], input[name="sizeFilter"]').forEach(x => x.addEventListener("change", renderMarket));
       $("sortSelect").addEventListener("change", renderMarket);
-      qsa(".view-tabs button").forEach(b => b.addEventListener("click", () => setView(b.dataset.view)));
+      qsa(".tabs button").forEach(b => b.addEventListener("click", ()=>setView(b.dataset.view)));
       $("refreshPrices").addEventListener("click", loadLivePrices);
       $("resetFilters").addEventListener("click", resetFilters);
 
-      $("closeDrawer").addEventListener("click", closeTicket);
-      $("orderDrawer").addEventListener("click", e => {
-        if (e.target.id === "orderDrawer") closeTicket();
+      $("loginBtn").addEventListener("click", () => {
+        session = session.role === "guest" ? { email:"admin@demo.local", role:"admin" } : { email:"guest", role:"guest" };
+        saveJson(LS.session, session);
+        $("loginBtn").textContent = session.role !== "guest" ? `${session.role} · ${session.email.split("@")[0]}` : t("button.login");
+        toast(session.role !== "guest" ? (currentLang === "cs" ? "Demo přihlášení aktivní." : "Demo login active.") : (currentLang === "cs" ? "Odhlášeno." : "Logged out."));
       });
 
+      $("closeDrawer").addEventListener("click", closeTicket);
+      $("orderDrawer").addEventListener("click", e => { if(e.target.id === "orderDrawer") closeTicket(); });
       ["ticketSide","ticketMarket","ticketCurrency","ticketQty","ticketPrice","ticketType","ticketSettlement"].forEach(id => {
         $(id).addEventListener("input", updateSummary);
         $(id).addEventListener("change", () => {
-          if (id === "ticketMarket") {
-            const r = selectedTicketRow();
-            $("ticketCurrency").value = r.currency;
-            $("ticketPrice").value = ($("ticketSide").value === "BUY" ? r.bestOffer : r.bestBid).toFixed(r.currency === "CZK" ? 0 : 2);
+          if(id === "ticketMarket"){
+            const row = selectedTicketRow();
+            $("ticketCurrency").value = row.currency;
+            $("ticketPrice").value = ($("ticketSide").value === "BUY" ? row.bestOffer : row.bestBid).toFixed(row.currency === "CZK" ? 0 : 2);
           }
           updateSummary();
         });
       });
+      $("saveDraftBtn").addEventListener("click", ()=>createOrder("draft"));
+      $("submitOrderBtn").addEventListener("click", ()=>createOrder("pending"));
 
-      $("saveDraftBtn").addEventListener("click", () => createOrder("draft"));
-      $("submitOrderBtn").addEventListener("click", () => createOrder("pending"));
-
-      qsa(".admin-menu button").forEach(b => b.addEventListener("click", () => setAdminTab(b.dataset.adminTab)));
+      qsa(".admin-menu button").forEach(b => b.addEventListener("click", ()=>setAdminTab(b.dataset.adminTab)));
       $("adminRefresh").addEventListener("click", renderAll);
-      $("addUserBtn").addEventListener("click", () => openUserModal());
+      $("addUserBtn").addEventListener("click", ()=>openUserModal());
       $("saveUserBtn").addEventListener("click", saveUserFromModal);
       $("userSearch").addEventListener("input", renderUsers);
       $("kycFilter").addEventListener("change", renderUsers);
@@ -2489,30 +1621,26 @@
       $("savePricingBtn").addEventListener("click", savePricing);
       $("exportOrdersBtn").addEventListener("click", exportOrdersCsv);
       $("clearAuditBtn").addEventListener("click", () => {
-        audit = [];
-        saveJson(LS.audit, audit);
-        renderAll();
-        toast("Audit demo vymazán.");
+        audit = []; saveJson(LS.audit, audit); renderAll();
+        toast(currentLang === "cs" ? "Audit demo vymazán." : "Demo audit cleared.");
       });
       $("systemCheckBtn").addEventListener("click", () => {
         logEvent("system.check", "Manual system check");
         renderSystem();
-        toast("Kontrola systému dokončena.");
+        toast(currentLang === "cs" ? "Kontrola systému dokončena." : "System check completed.");
       });
 
-      qsa("[data-close-modal]").forEach(b => b.addEventListener("click", () => $(b.dataset.closeModal).classList.remove("open")));
-      qsa(".modal").forEach(m => m.addEventListener("click", e => {
-        if (e.target === m) m.classList.remove("open");
-      }));
+      qsa("[data-edit-user],[data-verify-user],[data-block-user],[data-order-status]").forEach(()=>{});
+      qsa("[data-close-modal]").forEach(b => b.addEventListener("click", ()=>$(b.dataset.closeModal).classList.remove("open")));
+      qsa(".modal").forEach(m => m.addEventListener("click", e => { if(e.target === m) m.classList.remove("open"); }));
     }
 
-    function init() {
-      if (!localStorage.getItem(LS.users)) saveJson(LS.users, users);
-      if (!localStorage.getItem(LS.pricing)) saveJson(LS.pricing, pricing);
-      $("loginBtn").textContent = session.role && session.role !== "guest" ? session.role + " · " + (session.email || "").split("@")[0] : t("button.login");
+    function init(){
+      if(!localStorage.getItem(LS.users)) saveJson(LS.users, users);
+      if(!localStorage.getItem(LS.pricing)) saveJson(LS.pricing, pricing);
+      if(!localStorage.getItem(LS.session)) saveJson(LS.session, session);
       attachEvents();
       resetFilters();
-      renderPricing();
       applyI18n();
       loadLivePrices();
       resetRefreshTimer();
