@@ -22,6 +22,7 @@
       --orange:#f2ba5a;
       --shadow:0 18px 48px rgba(0,0,0,.42);
       --radius:0px;
+      --content-max: 1180px;
       --font-head:"Manrope","Inter",system-ui,sans-serif;
       --font:"Inter",system-ui,sans-serif;
       --mono:"JetBrains Mono",Consolas,monospace;
@@ -111,8 +112,8 @@
     .btn-green{border-color:rgba(127,215,164,.35);background:rgba(127,215,164,.08);color:#dfffea}
     .btn-red{border-color:rgba(255,140,140,.35);background:rgba(255,140,140,.08);color:#ffe4e4}
 
-    .page{max-width:1420px;margin:0 auto;padding:42px 24px 64px}
-    .hero{text-align:center;min-height:220px;display:grid;place-items:center;margin-bottom:18px}
+    .page{max-width:1380px;margin:0 auto;padding:34px 24px 64px}
+    .hero{text-align:center;min-height:150px;display:grid;place-items:center;margin-bottom:10px}
     .hero h1{
       margin:0;font-family:var(--font-head);font-size:clamp(30px,4.8vw,58px);font-weight:300;
       letter-spacing:.20em;text-transform:uppercase;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.72);
@@ -123,7 +124,7 @@
     }
 
     .stats{
-      display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:0 0 16px;
+      display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:0 auto 16px;max-width:var(--content-max);
     }
     .stat{
       background:rgba(10,12,15,.88);border:1px solid var(--line);box-shadow:var(--shadow);padding:16px;
@@ -139,10 +140,10 @@
     }
 
     .layout{
-      display:grid;grid-template-columns:270px minmax(0,1fr);gap:20px;align-items:start;
+      display:grid;grid-template-columns:220px minmax(0,1fr);gap:18px;align-items:start;max-width:var(--content-max);margin:0 auto;
     }
     .sidebar{
-      position:sticky;top:92px;background:var(--panel);border:1px solid var(--line);padding:22px;box-shadow:var(--shadow);
+      position:sticky;top:92px;background:var(--panel);border:1px solid var(--line);padding:20px 18px;box-shadow:var(--shadow);
     }
     .filter-group{padding-bottom:20px;margin-bottom:20px;border-bottom:1px solid rgba(255,255,255,.07)}
     .filter-group:last-child{padding-bottom:0;margin-bottom:0;border-bottom:0}
@@ -159,7 +160,7 @@
     input:focus,select:focus{border-color:rgba(201,169,106,.50);box-shadow:0 0 0 4px rgba(201,169,106,.06)}
 
     .main-card{
-      background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow);
+      background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow);min-width:0;
     }
     .main-top{
       padding:16px 18px;border-bottom:1px solid rgba(255,255,255,.08);
@@ -181,7 +182,7 @@
     .sort-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
     .sort-row select{max-width:220px}
 
-    .board-wrap{overflow-x:auto}
+    .board-wrap{overflow-x:auto; width:100%}
     table{width:100%;border-collapse:collapse}
     .order-board{min-width:1180px}
     .order-board th{
@@ -319,6 +320,7 @@
       .stats,.admin-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
       .layout,.admin-grid{grid-template-columns:1fr}
       .sidebar{position:static}
+      .stats,.layout{max-width:100%}
     }
     @media (max-width:920px){
       .topbar{position:static;height:auto}
@@ -373,7 +375,7 @@
     <section class="hero" id="homeSection">
       <div>
         <h1 data-i18n="hero.title">ZLATO, KTERÉMU SVĚT VĚŘÍ</h1>
-      </div>
+</div>
     </section>
 
     <section class="stats" id="marketStats">
@@ -433,28 +435,6 @@
               <label><input type="radio" name="currencyFilter" value="USD"> USD</label>
             </div>
           </div>
-
-          <div class="filter-group">
-            <h4 data-i18n="filter.size">Hmotnost / velikost</h4>
-            <div class="filter-list">
-              <label><input type="checkbox" name="sizeFilter" value="1"> 1 g</label>
-              <label><input type="checkbox" name="sizeFilter" value="5"> 5 g</label>
-              <label><input type="checkbox" name="sizeFilter" value="31.1035"> 31,1 g (1 oz)</label>
-              <label><input type="checkbox" name="sizeFilter" value="100"> 100 g</label>
-              <label><input type="checkbox" name="sizeFilter" value="1000"> 1 000 g (1 kg)</label>
-            </div>
-          </div>
-
-          <div class="filter-group">
-            <h4 data-i18n="filter.availability">Dostupnost</h4>
-            <div class="filter-list">
-              <label><input type="checkbox" name="availabilityFilter" value="skladem-cz"> <span data-i18n="availability.skladem-cz">Skladem CZ</span></label>
-              <label><input type="checkbox" name="availabilityFilter" value="skladem-de-ch"> <span data-i18n="availability.skladem-de-ch">Skladem DE/CH</span></label>
-              <label><input type="checkbox" name="availabilityFilter" value="na-ceste"> <span data-i18n="availability.na-ceste">Na cestě</span></label>
-              <label><input type="checkbox" name="availabilityFilter" value="predobjednavka"> <span data-i18n="availability.predobjednavka">Předobjednávka</span></label>
-            </div>
-          </div>
-
           <div class="filter-group">
             <h4 data-i18n="filter.liveData">Live data</h4>
             <button class="btn btn-gold" id="refreshPrices" style="width:100%;" data-i18n="filter.refresh">Obnovit ceny</button>
@@ -878,7 +858,7 @@
         "button.buy":"Koupit","button.sell":"Prodat","button.exportCsv":"Export CSV","button.orderTicket":"Order Ticket",
         "button.approve":"Schválit","button.match":"Spárovat","button.reject":"Odmítnout","button.block":"Blokovat","button.verify":"Ověřit","button.edit":"Upravit",
         "hero.title":"ZLATO, KTERÉMU SVĚT VĚŘÍ",
-        "hero.subtitle":"Live tržní tabule pro nákup a prodej drahých kovů podle lokace, měny, dostupnosti a spreadu. Ceny se načítají z live feedu přes backend proxy a objednávky lze spravovat v Admin Console.",
+        
         "stats.feedStatus":"Stav feedu","stats.lastUpdate":"Poslední update","stats.markets":"Trhy","stats.filteredMarkets":"Filtrované trhy podle kovu a lokace",
         "stats.todayOrders":"Dnešní objednávky","stats.ordersNote":"Včetně draftů a pokynů ke schválení","stats.orderVolume":"Objem objednávek","stats.volumeNote":"Hrubá hodnota v základní měně",
         "filter.group":"Skupina","filter.all":"Vše","filter.investmentGold":"Investiční zlato","filter.investmentSilver":"Investiční stříbro","filter.platinum":"Platina","filter.palladium":"Palladium",
@@ -910,7 +890,7 @@
         "button.buy":"Buy","button.sell":"Sell","button.exportCsv":"Export CSV","button.orderTicket":"Order Ticket",
         "button.approve":"Approve","button.match":"Match","button.reject":"Reject","button.block":"Block","button.verify":"Verify","button.edit":"Edit",
         "hero.title":"GOLD THE WORLD TRUSTS",
-        "hero.subtitle":"A live order board for buying and selling precious metals by location, currency, availability and spread. Prices are loaded from a live feed through a backend proxy and orders can be managed in the Admin Console.",
+        
         "stats.feedStatus":"Feed status","stats.lastUpdate":"Last update","stats.markets":"Markets","stats.filteredMarkets":"Filtered markets by metal and location",
         "stats.todayOrders":"Today’s orders","stats.ordersNote":"Including drafts and orders awaiting approval","stats.orderVolume":"Order volume","stats.volumeNote":"Gross value in base currency",
         "filter.group":"Group","filter.all":"All","filter.investmentGold":"Investment gold","filter.investmentSilver":"Investment silver","filter.platinum":"Platinum","filter.palladium":"Palladium",
