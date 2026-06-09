@@ -112,11 +112,11 @@
     .btn-green{border-color:rgba(127,215,164,.35);background:rgba(127,215,164,.08);color:#dfffea}
     .btn-red{border-color:rgba(255,140,140,.35);background:rgba(255,140,140,.08);color:#ffe4e4}
 
-    .page{max-width:1320px;margin:0 auto;padding:18px 24px 56px}
-    .hero{text-align:center;min-height:92px;display:grid;place-items:end center;margin-bottom:6px;padding-top:6px}
+    .page{max-width:1400px;margin:0 auto;padding:12px 20px 48px}
+    .hero{text-align:center;min-height:74px;display:grid;place-items:end center;margin-bottom:6px;padding-top:2px}
     .hero h1{
-      margin:0;font-family:var(--font-head);font-size:clamp(28px,4.2vw,54px);font-weight:300;
-      letter-spacing:.20em;text-transform:uppercase;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.72);
+      margin:0;font-family:var(--font-head);font-size:clamp(26px,3.4vw,46px);font-weight:300;
+      letter-spacing:.18em;text-transform:uppercase;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.72);
     }
     .hero p{
       max-width:900px;margin:16px auto 0;line-height:1.7;font-size:15px;color:#f0e3cf;
@@ -140,15 +140,14 @@
     }
 
     .layout{
-      display:grid;grid-template-columns:185px minmax(0,1fr);gap:14px;align-items:start;max-width:var(--content-max);margin:0 auto;
+      display:grid;grid-template-columns:minmax(0,1fr);gap:12px;align-items:start;max-width:1320px;margin:0 auto;
     }
-    .sidebar{
-      position:sticky;top:86px;background:rgba(8,10,12,.96);border:1px solid rgba(255,255,255,.08);padding:16px 14px;box-shadow:0 10px 28px rgba(0,0,0,.28);
-    }
+    .layout--single{grid-template-columns:minmax(0,1fr)}
+    .sidebar{display:none}
     .filter-group{padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid rgba(255,255,255,.06)}
     .filter-group:last-child{padding-bottom:0;margin-bottom:0;border-bottom:0}
     .filter-group h4{
-      margin:0 0 10px;font-size:9px;letter-spacing:.20em;text-transform:uppercase;font-weight:900;color:var(--gold);
+      margin:0 0 10px;font-size:9px;letter-spacing:.18em;text-transform:uppercase;font-weight:900;color:var(--gold);
     }
     .filter-list{display:grid;gap:10px;font-size:12px;color:#ddd5c9}
     .filter-list label{display:flex;align-items:center;gap:9px;cursor:pointer}
@@ -160,18 +159,18 @@
     input:focus,select:focus{border-color:rgba(201,169,106,.50);box-shadow:0 0 0 4px rgba(201,169,106,.06)}
 
     .main-card{
-      background:rgba(8,10,12,.96);border:1px solid rgba(255,255,255,.08);box-shadow:0 10px 28px rgba(0,0,0,.28);min-width:0;
+      background:rgba(8,10,12,.97);border:1px solid rgba(255,255,255,.08);box-shadow:0 8px 22px rgba(0,0,0,.24);min-width:0;
     }
     .main-top{
-      padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.08);
-      display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;
+      padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.08);
+      display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;
     }
     .main-left{
-      display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+      display:flex;align-items:center;gap:12px;flex-wrap:wrap;
     }
-    .results-count{color:var(--muted);font-size:12px;font-weight:800}
+    .results-count{color:var(--muted);font-size:11px;font-weight:800}
     .tabs{
-      display:inline-flex;border:1px solid var(--line);background:rgba(255,255,255,.02);
+      display:inline-flex;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.015);
     }
     .tabs button{
       border:0;border-right:1px solid var(--line);background:transparent;color:var(--muted);
@@ -180,33 +179,33 @@
     .tabs button:last-child{border-right:0}
     .tabs button.active{background:var(--gold);color:#120f08}
     .sort-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-    .sort-row select{max-width:180px}
+    .sort-row select{max-width:170px}
 
-    .board-wrap{overflow-x:auto; width:100%}
+    .board-wrap{overflow-x:auto;width:100%}
     table{width:100%;border-collapse:collapse}
-    .order-board{min-width:980px}
+    .order-board{min-width:100%}
     .order-board th{
-      background:rgba(255,255,255,.02);border-bottom:1px solid rgba(255,255,255,.08);
-      color:#bfa168;font-size:9px;letter-spacing:.16em;text-transform:uppercase;
-      text-align:left;padding:11px 10px;white-space:nowrap;
+      background:rgba(255,255,255,.018);border-bottom:1px solid rgba(255,255,255,.08);
+      color:#bfa168;font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+      text-align:left;padding:10px 8px;white-space:nowrap;
     }
     .order-board td{
-      border-bottom:1px solid rgba(255,255,255,.05);padding:10px 10px;font-size:12px;white-space:nowrap;vertical-align:middle;
+      border-bottom:1px solid rgba(255,255,255,.045);padding:9px 8px;font-size:12px;white-space:nowrap;vertical-align:middle;
     }
     .order-board tr:hover td{background:rgba(201,169,106,.035)}
 
     .market-name{font-weight:700;color:#fff}
-    .market-sub{display:block;color:var(--muted-2);font-size:10px;margin-top:3px}
+    .market-sub{display:block;color:var(--muted-2);font-size:10px;margin-top:2px}
     .price{
-      font-family:var(--font-head);font-size:17px;font-weight:800;letter-spacing:-.03em;
+      font-family:var(--font-head);font-size:16px;font-weight:800;letter-spacing:-.03em;
     }
     .price.bid{color:var(--green)}
     .price.offer{color:#ffe4cf}
     .qty{display:block;color:var(--muted);font-size:11px;margin-top:4px;font-family:var(--mono)}
     .metal-pill{
-      display:inline-flex;align-items:center;gap:6px;padding:4px 6px;
-      border:1px solid rgba(201,169,106,.18);background:rgba(201,169,106,.05);color:#f8ead1;
-      font-size:9px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;
+      display:inline-flex;align-items:center;gap:6px;padding:3px 5px;
+      border:1px solid rgba(201,169,106,.14);background:rgba(201,169,106,.04);color:#f8ead1;
+      font-size:8px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;
     }
     .m-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);display:inline-block}
     .m-ag{background:#cfd6e0}.m-pt{background:#93b3e4}.m-pd{background:#a9a39b}
@@ -224,8 +223,8 @@
     .level .l-qty{display:block;color:var(--muted);font-size:9px;margin-top:3px}
 
     .risk-note{
-      margin:10px 12px 12px;padding:10px 12px;border:1px solid rgba(201,169,106,.16);
-      background:rgba(201,169,106,.04);color:#cdbda4;line-height:1.5;font-size:11px;
+      margin:8px 12px 12px;padding:8px 10px;border:1px solid rgba(201,169,106,.12);
+      background:rgba(201,169,106,.035);color:#cdbda4;line-height:1.45;font-size:10px;
     }
 
     .admin-shell{display:none;margin-top:18px}
@@ -316,11 +315,37 @@
     }
     .toast.show{display:block}
 
+    
+    .filter-toolbar{
+      display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;align-items:end;
+      padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.01);
+    }
+    .filter-inline label{
+      display:block;margin-bottom:5px;color:var(--gold);font-size:9px;letter-spacing:.16em;text-transform:uppercase;font-weight:900;
+    }
+    .filter-inline select{min-height:34px;padding:7px 10px;background:#0c0d10}
+    .filter-inline--meta .feed-chip{
+      min-height:34px;display:flex;align-items:center;padding:7px 10px;border:1px solid rgba(255,255,255,.10);
+      background:#0c0d10;color:var(--muted);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    }
+    .filter-actions{display:flex;gap:8px;justify-content:flex-end;align-items:end}
+    .filter-actions .btn{min-height:34px;padding:7px 10px;font-size:11px}
+    .order-board--compact th:nth-child(1){width:68px}
+    .order-board--compact th:nth-child(2){width:220px}
+    .order-board--compact th:nth-child(3),.order-board--compact th:nth-child(5){width:140px}
+    .order-board--compact th:nth-child(4),.order-board--compact th:nth-child(6){width:130px}
+    .order-board--compact th:nth-child(7){width:90px}
+    .order-board--compact th:nth-child(8){width:130px}
+    .action-buttons{display:flex;gap:6px}
+    .action-buttons .small-btn{padding:6px 8px;font-size:10px}
+
+
     @media (max-width:1180px){
       .admin-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
       .layout,.admin-grid{grid-template-columns:1fr}
-      .sidebar{position:static}
       .layout{max-width:100%}
+      .filter-toolbar{grid-template-columns:repeat(3,minmax(0,1fr))}
+      .filter-actions{grid-column:1/-1;justify-content:flex-start}
     }
     @media (max-width:920px){
       .topbar{position:static;height:auto}
@@ -336,6 +361,7 @@
       .admin-stats{grid-template-columns:1fr}
       .tabs{width:100%;overflow:auto}
       .main-top,.sort-row{flex-direction:column;align-items:stretch}
+      .filter-toolbar{grid-template-columns:1fr}
     }
   </style>
 </head>
@@ -378,82 +404,60 @@
 </div>
     </section>
 
-    <section class="stats" id="marketStats">
-      <div class="stat">
-        <div class="label" data-i18n="stats.feedStatus">Stav feedu</div>
-        <div class="value" id="feedMode">Demo</div>
-        <div class="note"><span data-i18n="stats.lastUpdate">Poslední update</span>: <span id="lastUpdate">—</span></div>
-      </div>
-      <div class="stat">
-        <div class="label" data-i18n="stats.markets">Trhy</div>
-        <div class="value"><span id="visibleCount">0</span> / <span id="totalCount">0</span></div>
-        <div class="note" data-i18n="stats.filteredMarkets">Filtrované trhy podle kovu a lokace</div>
-      </div>
-      <div class="stat">
-        <div class="label" data-i18n="stats.todayOrders">Dnešní objednávky</div>
-        <div class="value" id="ordersToday">0</div>
-        <div class="note" data-i18n="stats.ordersNote">Včetně draftů a pokynů ke schválení</div>
-      </div>
-      <div class="stat">
-        <div class="label" data-i18n="stats.orderVolume">Objem objednávek</div>
-        <div class="value" id="ordersVolume">0 Kč</div>
-        <div class="note" data-i18n="stats.volumeNote">Hrubá hodnota v základní měně</div>
-      </div>
-    </section>
-
     <section id="marketSection">
-      <div class="layout">
-        <aside class="sidebar">
-          <div class="filter-group">
-            <h4 data-i18n="filter.group">Skupina</h4>
-            <div class="filter-list">
-              <label><input type="radio" name="metalFilter" value="ALL" checked> <span data-i18n="filter.all">Vše</span></label>
-              <label><input type="radio" name="metalFilter" value="AU"> <span data-i18n="filter.investmentGold">Investiční zlato</span></label>
-              <label><input type="radio" name="metalFilter" value="AG"> <span data-i18n="filter.investmentSilver">Investiční stříbro</span></label>
-              <label><input type="radio" name="metalFilter" value="PT"> <span data-i18n="filter.platinum">Platina</span></label>
-              <label><input type="radio" name="metalFilter" value="PD"> <span data-i18n="filter.palladium">Palladium</span></label>
-            </div>
-          </div>
-
-          <div class="filter-group">
-            <h4 data-i18n="filter.location">Lokace</h4>
-            <div class="filter-list">
-              <label><input type="checkbox" name="locationFilter" value="Curych"> Curych</label>
-              <label><input type="checkbox" name="locationFilter" value="Praha"> Praha</label>
-              <label><input type="checkbox" name="locationFilter" value="Londýn"> Londýn</label>
-              <label><input type="checkbox" name="locationFilter" value="Frankfurt"> Frankfurt</label>
-            </div>
-          </div>
-
-          <div class="filter-group">
-            <h4 data-i18n="filter.currency">Měna</h4>
-            <div class="filter-list">
-              <label><input type="radio" name="currencyFilter" value="ALL"> <span data-i18n="filter.all">Vše</span></label>
-              <label><input type="radio" name="currencyFilter" value="CZK" checked> CZK</label>
-              <label><input type="radio" name="currencyFilter" value="EUR"> EUR</label>
-              <label><input type="radio" name="currencyFilter" value="CHF"> CHF</label>
-              <label><input type="radio" name="currencyFilter" value="USD"> USD</label>
-            </div>
-          </div>
-          <div class="filter-group">
-            <h4 data-i18n="filter.liveData">Live data</h4>
-            <button class="btn btn-gold" id="refreshPrices" style="width:100%;" data-i18n="filter.refresh">Obnovit ceny</button>
-            <button class="btn btn-dark" id="resetFilters" style="width:100%;margin-top:10px;" data-i18n="filter.reset">Reset filtrů</button>
-          </div>
-        </aside>
-
+      <div class="layout layout--single">
         <section class="main-card">
+          <div class="filter-toolbar">
+            <div class="filter-inline">
+              <label data-i18n="filter.group">Komodita</label>
+              <select id="metalFilterSelect">
+                <option value="ALL" data-i18n="filter.all">Vše</option>
+                <option value="AU" data-i18n="filter.investmentGold">Investiční zlato</option>
+                <option value="AG" data-i18n="filter.investmentSilver">Investiční stříbro</option>
+                <option value="PT" data-i18n="filter.platinum">Platina</option>
+                <option value="PD" data-i18n="filter.palladium">Palladium</option>
+              </select>
+            </div>
+            <div class="filter-inline">
+              <label data-i18n="filter.location">Lokace</label>
+              <select id="locationFilterSelect">
+                <option value="ALL" data-i18n="filter.all">Vše</option>
+                <option value="Curych">Curych</option>
+                <option value="Praha">Praha</option>
+                <option value="Londýn">Londýn</option>
+                <option value="Frankfurt">Frankfurt</option>
+              </select>
+            </div>
+            <div class="filter-inline">
+              <label data-i18n="filter.currency">Měna</label>
+              <select id="currencyFilterSelect">
+                <option value="ALL" data-i18n="filter.all">Vše</option>
+                <option value="CZK">CZK</option>
+                <option value="EUR">EUR</option>
+                <option value="CHF">CHF</option>
+                <option value="USD">USD</option>
+              </select>
+            </div>
+            <div class="filter-inline filter-inline--meta">
+              <label>Feed</label>
+              <div class="feed-chip"><span id="miniFeedMode">Demo</span> · <span id="miniLastUpdate">—</span></div>
+            </div>
+            <div class="filter-actions">
+              <button class="btn btn-dark" id="refreshPrices" data-i18n="filter.refresh">Obnovit ceny</button>
+              <button class="btn btn-dark" id="resetFilters" data-i18n="filter.reset">Reset filtrů</button>
+            </div>
+          </div>
+
           <div class="main-top">
             <div class="main-left">
-              <span class="results-count"><span id="resultCount">0</span> <span data-i18n="text.marketsCount">trhů</span></span>
               <div class="tabs">
                 <button class="active" data-view="board" data-i18n="view.board">Order board</button>
                 <button data-view="depth" data-i18n="view.depth">Hloubka trhu</button>
                 <button data-view="spreads" data-i18n="view.spreads">Spready</button>
               </div>
+              <span class="results-count"><span id="resultCount">0</span> <span data-i18n="text.marketsCount">trhů</span></span>
             </div>
             <div class="sort-row">
-              <span class="results-count" id="miniFeedStatus"><span id="miniFeedMode">Demo</span> · <span id="miniLastUpdate">—</span></span>
               <select id="sortSelect">
                 <option value="featured" data-i18n="sort.featured">Doporučené</option>
                 <option value="spread-asc" data-i18n="sort.spreadAsc">Nejnižší spread</option>
@@ -464,7 +468,7 @@
           </div>
 
           <div class="board-wrap" id="boardShell">
-            <table class="order-board">
+            <table class="order-board order-board--compact">
               <thead>
                 <tr>
                   <th data-i18n="table.currency">Měna</th>
@@ -524,6 +528,7 @@
         </section>
       </div>
     </section>
+
 
     <section class="admin-shell" id="adminSection">
       <div class="admin-grid">
@@ -1069,12 +1074,10 @@
     }
 
     function selectedFilters(){
-      const metal = document.querySelector('input[name="metalFilter"]:checked')?.value || "ALL";
-      const currency = document.querySelector('input[name="currencyFilter"]:checked')?.value || "ALL";
-      const locs = new Set(qsa('input[name="locationFilter"]:checked').map(x => x.value));
-      const av = new Set(qsa('input[name="availabilityFilter"]:checked').map(x => x.value));
-      const sizes = qsa('input[name="sizeFilter"]:checked').map(x => Number(x.value));
-      return { metal, currency, locs, av, sizes };
+      const metal = $("metalFilterSelect")?.value || "ALL";
+      const currency = $("currencyFilterSelect")?.value || "ALL";
+      const location = $("locationFilterSelect")?.value || "ALL";
+      return { metal, currency, location };
     }
 
     function filteredRows(){
@@ -1082,10 +1085,8 @@
       let rows = allRows().filter(r => {
         const okMetal = f.metal === "ALL" || r.metal === f.metal;
         const okCurrency = f.currency === "ALL" || r.currency === f.currency;
-        const okLoc = f.locs.size === 0 || f.locs.has(r.location);
-        const okAv = f.av.size === 0 || f.av.has(r.availability);
-        const okSize = f.sizes.length === 0 || f.sizes.some(s => Math.abs(r.unitGrams - s) < 0.3 || r.offerQty >= s);
-        return okMetal && okCurrency && okLoc && okAv && okSize;
+        const okLoc = f.location === "ALL" || r.location === f.location;
+        return okMetal && okCurrency && okLoc;
       });
       const sort = $("sortSelect").value;
       if(sort === "spread-asc") rows.sort((a,b)=>a.spreadPct - b.spreadPct);
@@ -1111,38 +1112,22 @@
           </td>
           <td>
             <div class="price bid">${fmtMoney(r.bestBid, r.currency)}</div>
-            <span class="qty">${fmtQty(r.bidQty)}</span>
           </td>
-          <td>
-            <div class="levels">
-              ${r.bidLevels.map((p,i)=>levelHtml(p, r.bidQty*(i===0?.36:i===1?.33:.31), r.currency, 'SELL', i===0)).join("")}
-            </div>
-          </td>
+          <td>${fmtQty(r.bidQty)}</td>
           <td>
             <div class="price offer">${fmtMoney(r.bestOffer, r.currency)}</div>
-            <span class="qty">${fmtQty(r.offerQty)}</span>
           </td>
-          <td>
-            <div class="levels">
-              ${r.offerLevels.map((p,i)=>levelHtml(p, r.offerQty*(i===0?.34:i===1?.35:.31), r.currency, 'BUY', i===0)).join("")}
-            </div>
-          </td>
+          <td>${fmtQty(r.offerQty)}</td>
           <td>${r.spreadPct.toFixed(2).replace(".", ",")} %</td>
           <td>
-            <span class="table-actions">
+            <div class="action-buttons">
               <button class="small-btn green" data-ticket="${r.key}" data-side="BUY" data-price="${r.bestOffer}">${t("button.buy")}</button>
               <button class="small-btn" data-ticket="${r.key}" data-side="SELL" data-price="${r.bestBid}">${t("button.sell")}</button>
-            </span>
+            </div>
           </td>
         </tr>
       `).join("");
       qsa("[data-ticket]").forEach(btn => btn.addEventListener("click",()=>openTicket(btn.dataset.ticket, btn.dataset.side, Number(btn.dataset.price))));
-      qsa(".level").forEach(el => el.addEventListener("click", () => {
-        const tr = el.closest("tr");
-        const key = tr?.dataset.row;
-        if(!key) return;
-        openTicket(key, el.dataset.side, Number(el.dataset.price));
-      }));
     }
 
     function renderDepth(rows){
@@ -1185,9 +1170,9 @@
     }
 
     function updateStats(){
-      $("ordersToday").textContent = orders.length;
+      if($("ordersToday")) $("ordersToday").textContent = orders.length;
       const totalCzk = orders.reduce((s,o)=>s + (o.currency === "CZK" ? o.total : 0), 0);
-      $("ordersVolume").textContent = fmtMoney(totalCzk, "CZK");
+      if($("ordersVolume")) $("ordersVolume").textContent = fmtMoney(totalCzk, "CZK");
       const fm = $("feedMode"); const lu = $("lastUpdate");
       if($("miniFeedMode")) $("miniFeedMode").textContent = fm ? fm.textContent : "—";
       if($("miniLastUpdate")) $("miniLastUpdate").textContent = lu ? lu.textContent : "—";
@@ -1196,8 +1181,8 @@
     function renderMarket(){
       const rows = filteredRows();
       $("resultCount").textContent = rows.length;
-      $("visibleCount").textContent = rows.length;
-      $("totalCount").textContent = allRows().length;
+      if($("visibleCount")) $("visibleCount").textContent = rows.length;
+      if($("totalCount")) $("totalCount").textContent = allRows().length;
       renderTicketOptions(rows);
 
       $("boardShell").classList.toggle("hidden", activeView !== "board");
@@ -1469,8 +1454,8 @@
     function setSection(section){
       $("marketSection").classList.toggle("hidden", section === "admin");
       $("adminSection").classList.toggle("active", section === "admin" || section === "orders");
-      $("marketStats").classList.toggle("hidden", section === "admin" || section === "orders");
-      $("homeSection").classList.toggle("hidden", section === "admin" || section === "orders");
+      if($("marketStats")) $("marketStats").classList.toggle("hidden", section === "admin" || section === "orders");
+      if($("homeSection")) $("homeSection").classList.toggle("hidden", section === "admin" || section === "orders");
       qsa(".nav a").forEach(a => a.classList.toggle("active", a.dataset.nav === section || (section === "market" && a.dataset.nav === "market")));
       if(section === "help"){
         $("helpModal").classList.add("open");
@@ -1498,9 +1483,9 @@
     }
 
     function resetFilters(){
-      qsa('input[name="metalFilter"]').forEach(x=>x.checked = x.value === "ALL");
-      qsa('input[name="currencyFilter"]').forEach(x=>x.checked = x.value === currentCurrency);
-      qsa('input[name="locationFilter"], input[name="availabilityFilter"], input[name="sizeFilter"]').forEach(x=>x.checked = false);
+      $("metalFilterSelect").value = "ALL";
+      $("locationFilterSelect").value = "ALL";
+      $("currencyFilterSelect").value = currentCurrency;
       renderMarket();
     }
 
@@ -1555,7 +1540,7 @@
 
       qsa("[data-currency]").forEach(btn => btn.addEventListener("click", () => {
         currentCurrency = btn.dataset.currency;
-        qsa('input[name="currencyFilter"]').forEach(x => x.checked = x.value === currentCurrency);
+        if($("currencyFilterSelect")) $("currencyFilterSelect").value = currentCurrency;
         applyI18n();
       }));
 
@@ -1564,7 +1549,7 @@
         setSection(a.dataset.nav);
       }));
 
-      qsa('input[name="metalFilter"], input[name="currencyFilter"], input[name="locationFilter"], input[name="availabilityFilter"], input[name="sizeFilter"]').forEach(x => x.addEventListener("change", renderMarket));
+      [("metalFilterSelect"), ("currencyFilterSelect"), ("locationFilterSelect")].forEach(id => $(id).addEventListener("change", renderMarket));
       $("sortSelect").addEventListener("change", renderMarket);
       qsa(".tabs button").forEach(b => b.addEventListener("click", ()=>setView(b.dataset.view)));
       $("refreshPrices").addEventListener("click", loadLivePrices);
