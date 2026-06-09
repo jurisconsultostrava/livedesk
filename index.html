@@ -22,7 +22,7 @@
       --orange:#f2ba5a;
       --shadow:0 18px 48px rgba(0,0,0,.42);
       --radius:0px;
-      --content-max: 1180px;
+      --content-max: 1120px;
       --font-head:"Manrope","Inter",system-ui,sans-serif;
       --font:"Inter",system-ui,sans-serif;
       --mono:"JetBrains Mono",Consolas,monospace;
@@ -43,7 +43,7 @@
       content:"";
       position:fixed;
       inset:0 0 auto 0;
-      height:520px;
+      height:390px;
       z-index:-1;
       background:
         linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.78)),
@@ -112,10 +112,10 @@
     .btn-green{border-color:rgba(127,215,164,.35);background:rgba(127,215,164,.08);color:#dfffea}
     .btn-red{border-color:rgba(255,140,140,.35);background:rgba(255,140,140,.08);color:#ffe4e4}
 
-    .page{max-width:1380px;margin:0 auto;padding:34px 24px 64px}
-    .hero{text-align:center;min-height:150px;display:grid;place-items:center;margin-bottom:10px}
+    .page{max-width:1320px;margin:0 auto;padding:18px 24px 56px}
+    .hero{text-align:center;min-height:92px;display:grid;place-items:end center;margin-bottom:6px;padding-top:6px}
     .hero h1{
-      margin:0;font-family:var(--font-head);font-size:clamp(30px,4.8vw,58px);font-weight:300;
+      margin:0;font-family:var(--font-head);font-size:clamp(28px,4.2vw,54px);font-weight:300;
       letter-spacing:.20em;text-transform:uppercase;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.72);
     }
     .hero p{
@@ -124,7 +124,7 @@
     }
 
     .stats{
-      display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:0 auto 16px;max-width:var(--content-max);
+      display:none;
     }
     .stat{
       background:rgba(10,12,15,.88);border:1px solid var(--line);box-shadow:var(--shadow);padding:16px;
@@ -140,92 +140,92 @@
     }
 
     .layout{
-      display:grid;grid-template-columns:220px minmax(0,1fr);gap:18px;align-items:start;max-width:var(--content-max);margin:0 auto;
+      display:grid;grid-template-columns:185px minmax(0,1fr);gap:14px;align-items:start;max-width:var(--content-max);margin:0 auto;
     }
     .sidebar{
-      position:sticky;top:92px;background:var(--panel);border:1px solid var(--line);padding:20px 18px;box-shadow:var(--shadow);
+      position:sticky;top:86px;background:rgba(8,10,12,.96);border:1px solid rgba(255,255,255,.08);padding:16px 14px;box-shadow:0 10px 28px rgba(0,0,0,.28);
     }
-    .filter-group{padding-bottom:20px;margin-bottom:20px;border-bottom:1px solid rgba(255,255,255,.07)}
+    .filter-group{padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid rgba(255,255,255,.06)}
     .filter-group:last-child{padding-bottom:0;margin-bottom:0;border-bottom:0}
     .filter-group h4{
-      margin:0 0 14px;font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:900;color:var(--gold);
+      margin:0 0 10px;font-size:9px;letter-spacing:.20em;text-transform:uppercase;font-weight:900;color:var(--gold);
     }
-    .filter-list{display:grid;gap:12px;font-size:13px;color:#ddd5c9}
+    .filter-list{display:grid;gap:10px;font-size:12px;color:#ddd5c9}
     .filter-list label{display:flex;align-items:center;gap:9px;cursor:pointer}
     .filter-list input{width:auto;accent-color:var(--gold)}
     input,select{
-      width:100%;min-height:40px;padding:10px 12px;border:1px solid rgba(255,255,255,.10);
+      width:100%;min-height:36px;padding:8px 10px;border:1px solid rgba(255,255,255,.10);
       background:#0c0d10;color:var(--text);outline:none;
     }
     input:focus,select:focus{border-color:rgba(201,169,106,.50);box-shadow:0 0 0 4px rgba(201,169,106,.06)}
 
     .main-card{
-      background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow);min-width:0;
+      background:rgba(8,10,12,.96);border:1px solid rgba(255,255,255,.08);box-shadow:0 10px 28px rgba(0,0,0,.28);min-width:0;
     }
     .main-top{
-      padding:16px 18px;border-bottom:1px solid rgba(255,255,255,.08);
-      display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
+      padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.08);
+      display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;
     }
     .main-left{
-      display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+      display:flex;align-items:center;gap:10px;flex-wrap:wrap;
     }
-    .results-count{color:var(--muted);font-size:13px;font-weight:800}
+    .results-count{color:var(--muted);font-size:12px;font-weight:800}
     .tabs{
       display:inline-flex;border:1px solid var(--line);background:rgba(255,255,255,.02);
     }
     .tabs button{
       border:0;border-right:1px solid var(--line);background:transparent;color:var(--muted);
-      padding:11px 14px;cursor:pointer;font-size:12px;font-weight:900;
+      padding:9px 12px;cursor:pointer;font-size:11px;font-weight:900;
     }
     .tabs button:last-child{border-right:0}
     .tabs button.active{background:var(--gold);color:#120f08}
     .sort-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-    .sort-row select{max-width:220px}
+    .sort-row select{max-width:180px}
 
     .board-wrap{overflow-x:auto; width:100%}
     table{width:100%;border-collapse:collapse}
-    .order-board{min-width:1180px}
+    .order-board{min-width:980px}
     .order-board th{
-      background:rgba(255,255,255,.03);border-bottom:1px solid var(--line);
-      color:var(--gold);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
-      text-align:left;padding:15px 12px;white-space:nowrap;
+      background:rgba(255,255,255,.02);border-bottom:1px solid rgba(255,255,255,.08);
+      color:#bfa168;font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+      text-align:left;padding:11px 10px;white-space:nowrap;
     }
     .order-board td{
-      border-bottom:1px solid rgba(255,255,255,.07);padding:14px 12px;font-size:13px;white-space:nowrap;vertical-align:middle;
+      border-bottom:1px solid rgba(255,255,255,.05);padding:10px 10px;font-size:12px;white-space:nowrap;vertical-align:middle;
     }
-    .order-board tr:hover td{background:rgba(201,169,106,.05)}
+    .order-board tr:hover td{background:rgba(201,169,106,.035)}
 
     .market-name{font-weight:700;color:#fff}
-    .market-sub{display:block;color:var(--muted-2);font-size:11px;margin-top:4px}
+    .market-sub{display:block;color:var(--muted-2);font-size:10px;margin-top:3px}
     .price{
-      font-family:var(--font-head);font-size:19px;font-weight:800;letter-spacing:-.03em;
+      font-family:var(--font-head);font-size:17px;font-weight:800;letter-spacing:-.03em;
     }
     .price.bid{color:var(--green)}
     .price.offer{color:#ffe4cf}
     .qty{display:block;color:var(--muted);font-size:11px;margin-top:4px;font-family:var(--mono)}
     .metal-pill{
-      display:inline-flex;align-items:center;gap:6px;padding:5px 8px;
-      border:1px solid rgba(201,169,106,.22);background:rgba(201,169,106,.08);color:#f8ead1;
-      font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;
+      display:inline-flex;align-items:center;gap:6px;padding:4px 6px;
+      border:1px solid rgba(201,169,106,.18);background:rgba(201,169,106,.05);color:#f8ead1;
+      font-size:9px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;
     }
     .m-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);display:inline-block}
     .m-ag{background:#cfd6e0}.m-pt{background:#93b3e4}.m-pd{background:#a9a39b}
 
-    .levels{display:grid;grid-template-columns:repeat(3,minmax(112px,1fr));gap:6px}
+    .levels{display:grid;grid-template-columns:repeat(3,minmax(96px,1fr));gap:4px}
     .level{
-      border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);
-      padding:8px 8px;cursor:pointer;transition:.16s ease;
+      border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02);
+      padding:6px 6px;cursor:pointer;transition:.16s ease;
     }
     .level:hover{border-color:rgba(201,169,106,.42);background:rgba(201,169,106,.07)}
     .level.best{background:rgba(201,169,106,.10);border-color:rgba(201,169,106,.36)}
-    .level .l-price{display:block;font-size:13px;font-weight:900}
+    .level .l-price{display:block;font-size:12px;font-weight:900}
     .level .l-price.bid{color:var(--green)}
     .level .l-price.offer{color:#ffe5cf}
-    .level .l-qty{display:block;color:var(--muted);font-size:10px;margin-top:4px}
+    .level .l-qty{display:block;color:var(--muted);font-size:9px;margin-top:3px}
 
     .risk-note{
-      margin:16px 18px 18px;padding:15px 16px;border:1px solid rgba(201,169,106,.22);
-      background:rgba(201,169,106,.06);color:#dbcbb4;line-height:1.6;font-size:12px;
+      margin:10px 12px 12px;padding:10px 12px;border:1px solid rgba(201,169,106,.16);
+      background:rgba(201,169,106,.04);color:#cdbda4;line-height:1.5;font-size:11px;
     }
 
     .admin-shell{display:none;margin-top:18px}
@@ -317,10 +317,10 @@
     .toast.show{display:block}
 
     @media (max-width:1180px){
-      .stats,.admin-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .admin-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
       .layout,.admin-grid{grid-template-columns:1fr}
       .sidebar{position:static}
-      .stats,.layout{max-width:100%}
+      .layout{max-width:100%}
     }
     @media (max-width:920px){
       .topbar{position:static;height:auto}
@@ -333,7 +333,7 @@
     }
     @media (max-width:620px){
       .page{padding:26px 12px 44px}
-      .stats,.admin-stats{grid-template-columns:1fr}
+      .admin-stats{grid-template-columns:1fr}
       .tabs{width:100%;overflow:auto}
       .main-top,.sort-row{flex-direction:column;align-items:stretch}
     }
@@ -453,6 +453,7 @@
               </div>
             </div>
             <div class="sort-row">
+              <span class="results-count" id="miniFeedStatus"><span id="miniFeedMode">Demo</span> · <span id="miniLastUpdate">—</span></span>
               <select id="sortSelect">
                 <option value="featured" data-i18n="sort.featured">Doporučené</option>
                 <option value="spread-asc" data-i18n="sort.spreadAsc">Nejnižší spread</option>
@@ -1187,6 +1188,9 @@
       $("ordersToday").textContent = orders.length;
       const totalCzk = orders.reduce((s,o)=>s + (o.currency === "CZK" ? o.total : 0), 0);
       $("ordersVolume").textContent = fmtMoney(totalCzk, "CZK");
+      const fm = $("feedMode"); const lu = $("lastUpdate");
+      if($("miniFeedMode")) $("miniFeedMode").textContent = fm ? fm.textContent : "—";
+      if($("miniLastUpdate")) $("miniLastUpdate").textContent = lu ? lu.textContent : "—";
     }
 
     function renderMarket(){
