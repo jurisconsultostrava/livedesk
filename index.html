@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Swiss Gold Market Board — Meister Style + Admin Console</title>
+  <title>Swiss Gold Market Board — CZ / EN</title>
   <style>
     :root {
       --bg: #050506;
@@ -145,6 +145,33 @@
       justify-content: flex-end;
       gap: 10px;
       min-width: 260px;
+    }
+
+
+    .language-toggle {
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.035);
+      padding: 3px;
+      margin-right: 8px;
+    }
+
+    .language-toggle button {
+      border: 0;
+      background: transparent;
+      color: var(--muted2);
+      font-weight: 900;
+      cursor: pointer;
+      padding: 6px 8px;
+      font-size: 11px;
+      letter-spacing: .10em;
+    }
+
+    .language-toggle button.active {
+      background: var(--gold);
+      color: #120f08;
     }
 
     .currency-toggle {
@@ -948,20 +975,24 @@
       </a>
 
       <nav class="nav">
-        <a data-nav="home" class="active">Domů</a>
-        <a data-nav="market">Live Board</a>
-        <a data-nav="orders">Objednávky</a>
-        <a data-nav="admin">Admin Console</a>
-        <a data-nav="help">Nápověda</a>
+        <a data-nav="home" class="active" data-i18n="nav.home">Domů</a>
+        <a data-nav="market" data-i18n="nav.liveBoard">Live Board</a>
+        <a data-nav="orders" data-i18n="nav.orders">Objednávky</a>
+        <a data-nav="admin" data-i18n="nav.admin">Admin Console</a>
+        <a data-nav="help" data-i18n="nav.help">Nápověda</a>
       </nav>
 
       <div class="top-actions">
+        <div class="language-toggle" aria-label="Language">
+          <button class="active" data-lang="cs" type="button">CZ</button>
+          <button data-lang="en" type="button">EN</button>
+        </div>
         <div class="currency-toggle">
           <button class="active" data-currency="CZK">CZK</button><span>/</span>
           <button data-currency="EUR">EUR</button><span>/</span>
           <button data-currency="CHF">CHF</button>
         </div>
-        <button class="btn btn--dark" id="loginBtn">Přihlásit</button>
+        <button class="btn btn--dark" id="loginBtn" data-i18n="button.login">Přihlásit</button>
         <button class="btn btn--gold" data-nav="ticket">Order Ticket</button>
       </div>
     </div>
@@ -970,8 +1001,8 @@
   <main class="page">
     <section class="hero" id="homeSection">
       <div>
-        <h1>ZLATO, KTERÉMU SVĚT VĚŘÍ</h1>
-        <p>
+        <h1 data-i18n="hero.title">ZLATO, KTERÉMU SVĚT VĚŘÍ</h1>
+        <p data-i18n="hero.subtitle">
           Live tržní tabule pro nákup a prodej drahých kovů podle lokace, měny, dostupnosti a spreadu.
           Ceny se načítají z live feedu přes backend proxy a objednávky lze spravovat v Admin Console.
         </p>
@@ -1002,24 +1033,24 @@
 
     <section class="market-status-row" id="marketStats">
       <div class="status-card">
-        <div class="status-label">Stav feedu</div>
+        <div class="status-label" data-i18n="stats.feedStatus">Stav feedu</div>
         <div class="status-value" id="feedMode">Demo</div>
-        <div class="status-note">Poslední update: <span id="lastUpdate">—</span></div>
+        <div class="status-note"><span data-i18n="stats.lastUpdate">Poslední update</span>: <span id="lastUpdate">—</span></div>
       </div>
       <div class="status-card">
-        <div class="status-label">Trhy</div>
+        <div class="status-label" data-i18n="stats.markets">Trhy</div>
         <div class="status-value"><span id="visibleCount">0</span> / <span id="totalCount">0</span></div>
-        <div class="status-note">Filtrované trhy podle kovu a lokace</div>
+        <div class="status-note" data-i18n="stats.filteredMarkets">Filtrované trhy podle kovu a lokace</div>
       </div>
       <div class="status-card">
-        <div class="status-label">Dnešní objednávky</div>
+        <div class="status-label" data-i18n="stats.todayOrders">Dnešní objednávky</div>
         <div class="status-value" id="ordersToday">0</div>
-        <div class="status-note">Včetně draftů a pokynů ke schválení</div>
+        <div class="status-note" data-i18n="stats.ordersNote">Včetně draftů a pokynů ke schválení</div>
       </div>
       <div class="status-card">
-        <div class="status-label">Objem objednávek</div>
+        <div class="status-label" data-i18n="stats.orderVolume">Objem objednávek</div>
         <div class="status-value" id="ordersVolume">0 Kč</div>
-        <div class="status-note">Hrubá hodnota v základní měně</div>
+        <div class="status-note" data-i18n="stats.volumeNote">Hrubá hodnota v základní měně</div>
       </div>
     </section>
 
@@ -1027,18 +1058,18 @@
       <div class="catalog-layout">
         <aside class="filters">
           <div class="filter-group">
-            <h4>Skupina</h4>
+            <h4 data-i18n="filter.group">Skupina</h4>
             <div class="filter-list">
-              <label><input type="radio" name="metalFilter" value="ALL" checked> Vše</label>
-              <label><input type="radio" name="metalFilter" value="AU"> Investiční zlato</label>
-              <label><input type="radio" name="metalFilter" value="AG"> Investiční stříbro</label>
-              <label><input type="radio" name="metalFilter" value="PT"> Platina</label>
-              <label><input type="radio" name="metalFilter" value="PD"> Palladium</label>
+              <label><input type="radio" name="metalFilter" value="ALL" checked> <span data-i18n="filter.all">Vše</span></label>
+              <label><input type="radio" name="metalFilter" value="AU"> <span data-i18n="filter.investmentGold">Investiční zlato</span></label>
+              <label><input type="radio" name="metalFilter" value="AG"> <span data-i18n="filter.investmentSilver">Investiční stříbro</span></label>
+              <label><input type="radio" name="metalFilter" value="PT"> <span data-i18n="filter.platinum">Platina</span></label>
+              <label><input type="radio" name="metalFilter" value="PD"> <span data-i18n="filter.palladium">Palladium</span></label>
             </div>
           </div>
 
           <div class="filter-group">
-            <h4>Lokace</h4>
+            <h4 data-i18n="filter.location">Lokace</h4>
             <div class="filter-list">
               <label><input type="checkbox" name="locationFilter" value="Curych"> Curych</label>
               <label><input type="checkbox" name="locationFilter" value="Praha"> Praha</label>
@@ -1048,9 +1079,9 @@
           </div>
 
           <div class="filter-group">
-            <h4>Měna</h4>
+            <h4 data-i18n="filter.currency">Měna</h4>
             <div class="filter-list">
-              <label><input type="radio" name="currencyFilter" value="ALL"> Vše</label>
+              <label><input type="radio" name="currencyFilter" value="ALL"> <span data-i18n="filter.all">Vše</span></label>
               <label><input type="radio" name="currencyFilter" value="CZK" checked> CZK</label>
               <label><input type="radio" name="currencyFilter" value="EUR"> EUR</label>
               <label><input type="radio" name="currencyFilter" value="CHF"> CHF</label>
@@ -1059,7 +1090,7 @@
           </div>
 
           <div class="filter-group">
-            <h4>Hmotnost / velikost</h4>
+            <h4 data-i18n="filter.size">Hmotnost / velikost</h4>
             <div class="filter-list">
               <label><input type="checkbox" name="sizeFilter" value="1"> 1 g</label>
               <label><input type="checkbox" name="sizeFilter" value="5"> 5 g</label>
@@ -1070,19 +1101,19 @@
           </div>
 
           <div class="filter-group">
-            <h4>Dostupnost</h4>
+            <h4 data-i18n="filter.availability">Dostupnost</h4>
             <div class="filter-list">
-              <label><input type="checkbox" name="availabilityFilter" value="skladem-cz"> Skladem CZ</label>
-              <label><input type="checkbox" name="availabilityFilter" value="skladem-de-ch"> Skladem DE/CH</label>
-              <label><input type="checkbox" name="availabilityFilter" value="na-ceste"> Na cestě</label>
-              <label><input type="checkbox" name="availabilityFilter" value="predobjednavka"> Předobjednávka</label>
+              <label><input type="checkbox" name="availabilityFilter" value="skladem-cz"> <span data-i18n="availability.skladem-cz">Skladem CZ</span></label>
+              <label><input type="checkbox" name="availabilityFilter" value="skladem-de-ch"> <span data-i18n="availability.skladem-de-ch">Skladem DE/CH</span></label>
+              <label><input type="checkbox" name="availabilityFilter" value="na-ceste"> <span data-i18n="availability.na-ceste">Na cestě</span></label>
+              <label><input type="checkbox" name="availabilityFilter" value="predobjednavka"> <span data-i18n="availability.predobjednavka">Předobjednávka</span></label>
             </div>
           </div>
 
           <div class="filter-group">
-            <h4>Live data</h4>
-            <button class="btn btn--gold" id="refreshPrices" style="width:100%;">Obnovit ceny</button>
-            <button class="btn btn--dark" id="resetFilters" style="width:100%;margin-top:10px;">Reset filtrů</button>
+            <h4 data-i18n="filter.liveData">Live data</h4>
+            <button class="btn btn--gold" id="refreshPrices" style="width:100%;" data-i18n="filter.refresh">Obnovit ceny</button>
+            <button class="btn btn--dark" id="resetFilters" style="width:100%;margin-top:10px;" data-i18n="filter.reset">Reset filtrů</button>
           </div>
         </aside>
 
@@ -1091,17 +1122,17 @@
             <div class="toolbar-left">
               <span class="results-count"><span id="resultCount">0</span> trhů</span>
               <div class="view-tabs">
-                <button class="active" data-view="cards">Karty</button>
-                <button data-view="board">Order board</button>
-                <button data-view="depth">Market depth</button>
-                <button data-view="spreads">Spreads</button>
+                <button class="active" data-view="cards" data-i18n="view.cards">Karty</button>
+                <button data-view="board" data-i18n="view.board">Order board</button>
+                <button data-view="depth" data-i18n="view.depth">Market depth</button>
+                <button data-view="spreads" data-i18n="view.spreads">Spreads</button>
               </div>
             </div>
             <select id="sortSelect" style="max-width:190px;">
-              <option value="featured">Doporučené</option>
-              <option value="spread-asc">Nejnižší spread</option>
-              <option value="offer-asc">Nejnižší prodejní cena</option>
-              <option value="liquidity-desc">Nejvyšší likvidita</option>
+              <option value="featured" data-i18n="sort.featured">Doporučené</option>
+              <option value="spread-asc" data-i18n="sort.spreadAsc">Nejnižší spread</option>
+              <option value="offer-asc" data-i18n="sort.offerAsc">Nejnižší prodejní cena</option>
+              <option value="liquidity-desc" data-i18n="sort.liquidityDesc">Nejvyšší likvidita</option>
             </select>
           </div>
 
@@ -1111,7 +1142,7 @@
             <table class="market-table">
               <thead>
                 <tr>
-                  <th>Měna</th><th>Kov / lokace</th><th>Best bid : Sell</th><th>Objem bid</th><th>Buy : Best offer</th><th>Objem offer</th><th>Spread</th><th>Akce</th>
+                  <th data-i18n="table.currency">Měna</th><th data-i18n="table.metalLocation">Kov / lokace</th><th data-i18n="table.bestBidSell">Nejlepší poptávka: prodej</th><th data-i18n="table.bidQuantity">Množství v poptávce</th><th data-i18n="table.buyBestOffer">Nákup: nejlepší nabídka</th><th data-i18n="table.offerQuantity">Množství v nabídce</th><th data-i18n="table.spread">Spread</th><th data-i18n="table.action">Akce</th>
                 </tr>
               </thead>
               <tbody id="boardRows"></tbody>
@@ -1122,7 +1153,7 @@
             <table class="market-table">
               <thead>
                 <tr>
-                  <th>Trh</th><th>Měna</th><th>Bid 1</th><th>Bid 2</th><th>Bid 3</th><th>Offer 1</th><th>Offer 2</th><th>Offer 3</th><th>Likvidita</th>
+                  <th data-i18n="table.market">Trh</th><th data-i18n="table.currency">Měna</th><th>Bid 1</th><th>Bid 2</th><th>Bid 3</th><th>Offer 1</th><th>Offer 2</th><th>Offer 3</th><th data-i18n="table.indicativeLiquidity">Orientační likvidita</th>
                 </tr>
               </thead>
               <tbody id="depthRows"></tbody>
@@ -1133,18 +1164,14 @@
             <table class="market-table">
               <thead>
                 <tr>
-                  <th>Trh</th><th>Měna</th><th>Spot</th><th>Best bid</th><th>Best offer</th><th>Spread</th><th>Spread %</th><th>Poplatek</th>
+                  <th data-i18n="table.market">Trh</th><th data-i18n="table.currency">Měna</th><th data-i18n="table.spot">Spot</th><th data-i18n="table.bestBid">Nejlepší poptávka</th><th data-i18n="table.bestOffer">Nejlepší nabídka</th><th data-i18n="table.spread">Spread</th><th>Spread %</th><th data-i18n="table.fee">Poplatek</th>
                 </tr>
               </thead>
               <tbody id="spreadRows"></tbody>
             </table>
           </div>
 
-          <div class="risk-note">
-            Uvedené ceny jsou indikativní do okamžiku potvrzení pokynu. Ostrý obchod musí projít kontrolou zůstatku,
-            AML/KYC limitem, auditním záznamem a druhým potvrzením klienta. Tento prototyp používá lokální úložiště,
-            produkčně je nutný server, databáze a role-based access control.
-          </div>
+          <div class="risk-note" data-i18n="risk.footer">Uvedené ceny jsou indikativní do okamžiku potvrzení pokynu. Ostrý obchod musí projít kontrolou zůstatku, AML/KYC limitem, auditním záznamem a druhým potvrzením klienta. Tento prototyp používá lokální úložiště, produkčně je nutný server, databáze a role-based access control.</div>
         </section>
       </div>
     </section>
@@ -1154,48 +1181,48 @@
         <aside class="admin-sidebar">
           <h3>Admin Console</h3>
           <div class="admin-menu">
-            <button class="active" data-admin-tab="dashboard">Dashboard</button>
-            <button data-admin-tab="users">Uživatelé</button>
-            <button data-admin-tab="orders">Objednávky</button>
-            <button data-admin-tab="pricing">Marže & pricing</button>
-            <button data-admin-tab="audit">Audit log</button>
-            <button data-admin-tab="system">Systém</button>
+            <button class="active" data-admin-tab="dashboard" data-i18n="admin.dashboard">Dashboard</button>
+            <button data-admin-tab="users" data-i18n="admin.users">Uživatelé</button>
+            <button data-admin-tab="orders" data-i18n="admin.orders">Objednávky</button>
+            <button data-admin-tab="pricing" data-i18n="admin.pricing">Marže & pricing</button>
+            <button data-admin-tab="audit" data-i18n="admin.audit">Audit log</button>
+            <button data-admin-tab="system" data-i18n="admin.system">Systém</button>
           </div>
         </aside>
 
         <section class="admin-main">
           <div class="admin-stats">
             <div class="status-card">
-              <div class="status-label">Uživatelé</div>
+              <div class="status-label" data-i18n="admin.users">Uživatelé</div>
               <div class="status-value" id="adminUsersCount">0</div>
-              <div class="status-note">Registrované účty</div>
+              <div class="status-note" data-i18n="admin.registeredAccounts">Registrované účty</div>
             </div>
             <div class="status-card">
-              <div class="status-label">Pending KYC</div>
+              <div class="status-label" data-i18n="admin.pendingKyc">Pending KYC</div>
               <div class="status-value" id="adminKycCount">0</div>
-              <div class="status-note">Vyžaduje kontrolu</div>
+              <div class="status-note" data-i18n="admin.requiresReview">Vyžaduje kontrolu</div>
             </div>
             <div class="status-card">
-              <div class="status-label">Open orders</div>
+              <div class="status-label" data-i18n="admin.openOrders">Open orders</div>
               <div class="status-value" id="adminOpenOrders">0</div>
-              <div class="status-note">Draft / pending / approved</div>
+              <div class="status-note" data-i18n="admin.openOrdersNote">Draft / pending / approved</div>
             </div>
             <div class="status-card">
-              <div class="status-label">Audit events</div>
+              <div class="status-label" data-i18n="admin.auditEvents">Audit events</div>
               <div class="status-value" id="adminAuditCount">0</div>
-              <div class="status-note">Lokální audit prototypu</div>
+              <div class="status-note" data-i18n="admin.localAudit">Lokální audit prototypu</div>
             </div>
           </div>
 
           <div class="admin-panel" data-admin-panel="dashboard">
             <div class="admin-panel-head">
-              <h2>Strategický přehled</h2>
+              <h2 data-i18n="admin.overview">Strategický přehled</h2>
               <button class="btn btn--gold" id="adminRefresh">Refresh</button>
             </div>
             <div class="admin-panel-body">
               <div class="table-shell">
                 <table class="market-table">
-                  <thead><tr><th>Oblast</th><th>Stav</th><th>Riziko</th><th>Akce</th></tr></thead>
+                  <thead><tr><th data-i18n="table.area">Oblast</th><th data-i18n="table.status">Status</th><th data-i18n="table.risk">Riziko</th><th data-i18n="table.action">Akce</th></tr></thead>
                   <tbody id="dashboardRows"></tbody>
                 </table>
               </div>
@@ -1204,8 +1231,8 @@
 
           <div class="admin-panel hidden" data-admin-panel="users">
             <div class="admin-panel-head">
-              <h2>Správa uživatelů</h2>
-              <button class="btn btn--gold" id="addUserBtn">Přidat uživatele</button>
+              <h2 data-i18n="admin.userManagement">Správa uživatelů</h2>
+              <button class="btn btn--gold" id="addUserBtn" data-i18n="admin.addUser">Přidat uživatele</button>
             </div>
             <div class="admin-panel-body">
               <div class="admin-toolbar">
@@ -1220,7 +1247,7 @@
               <div class="table-shell">
                 <table class="market-table">
                   <thead>
-                    <tr><th>ID</th><th>Uživatel</th><th>E-mail</th><th>Role</th><th>KYC</th><th>Cash</th><th>Au</th><th>Status</th><th>Akce</th></tr>
+                    <tr><th data-i18n="table.orderId">ID</th><th data-i18n="table.user">Uživatel</th><th data-i18n="table.email">E-mail</th><th data-i18n="table.role">Role</th><th>KYC</th><th data-i18n="table.cash">Hotovost</th><th>Au</th><th data-i18n="table.status">Status</th><th data-i18n="table.action">Akce</th></tr>
                   </thead>
                   <tbody id="usersRows"></tbody>
                 </table>
@@ -1230,8 +1257,8 @@
 
           <div class="admin-panel hidden" data-admin-panel="orders">
             <div class="admin-panel-head">
-              <h2>Správa objednávek</h2>
-              <button class="btn btn--dark" id="exportOrdersBtn">Export CSV</button>
+              <h2 data-i18n="admin.orderManagement">Správa objednávek</h2>
+              <button class="btn btn--dark" id="exportOrdersBtn" data-i18n="button.exportCsv">Export CSV</button>
             </div>
             <div class="admin-panel-body">
               <div class="admin-toolbar">
@@ -1249,7 +1276,7 @@
               <div class="table-shell">
                 <table class="market-table">
                   <thead>
-                    <tr><th>ID</th><th>Klient</th><th>Strana</th><th>Trh</th><th>Množství</th><th>Cena</th><th>Hodnota</th><th>Status</th><th>Akce</th></tr>
+                    <tr><th data-i18n="table.orderId">ID</th><th data-i18n="table.client">Klient</th><th data-i18n="table.side">Strana</th><th data-i18n="table.market">Trh</th><th data-i18n="table.quantity">Množství</th><th data-i18n="table.price">Cena</th><th data-i18n="table.value">Hodnota</th><th data-i18n="table.status">Status</th><th data-i18n="table.action">Akce</th></tr>
                   </thead>
                   <tbody id="ordersRows"></tbody>
                 </table>
@@ -1259,8 +1286,8 @@
 
           <div class="admin-panel hidden" data-admin-panel="pricing">
             <div class="admin-panel-head">
-              <h2>Marže, poplatky a spread</h2>
-              <button class="btn btn--gold" id="savePricingBtn">Uložit nastavení</button>
+              <h2 data-i18n="admin.marginPricing">Marže, poplatky a spread</h2>
+              <button class="btn btn--gold" id="savePricingBtn" data-i18n="admin.savePricing">Uložit nastavení</button>
             </div>
             <div class="admin-panel-body">
               <div class="form-grid">
@@ -1280,12 +1307,12 @@
           <div class="admin-panel hidden" data-admin-panel="audit">
             <div class="admin-panel-head">
               <h2>Audit log</h2>
-              <button class="btn btn--red" id="clearAuditBtn">Vymazat audit demo</button>
+              <button class="btn btn--red" id="clearAuditBtn" data-i18n="admin.clearAudit">Vymazat audit demo</button>
             </div>
             <div class="admin-panel-body">
               <div class="table-shell">
                 <table class="market-table">
-                  <thead><tr><th>Čas</th><th>Uživatel</th><th>Událost</th><th>Detail</th></tr></thead>
+                  <thead><tr><th data-i18n="table.time">Čas</th><th data-i18n="table.user">Uživatel</th><th data-i18n="table.event">Událost</th><th data-i18n="table.detail">Detail</th></tr></thead>
                   <tbody id="auditRows"></tbody>
                 </table>
               </div>
@@ -1294,13 +1321,13 @@
 
           <div class="admin-panel hidden" data-admin-panel="system">
             <div class="admin-panel-head">
-              <h2>Systém</h2>
-              <button class="btn btn--gold" id="systemCheckBtn">Spustit kontrolu</button>
+              <h2 data-i18n="admin.systemCheck">Systém</h2>
+              <button class="btn btn--gold" id="systemCheckBtn" data-i18n="admin.runCheck">Spustit kontrolu</button>
             </div>
             <div class="admin-panel-body">
               <div class="table-shell">
                 <table class="market-table">
-                  <thead><tr><th>Kontrola</th><th>Výsledek</th><th>Poznámka</th></tr></thead>
+                  <thead><tr><th>Kontrola</th><th data-i18n="table.result">Výsledek</th><th data-i18n="table.note">Poznámka</th></tr></thead>
                   <tbody id="systemRows"></tbody>
                 </table>
               </div>
@@ -1316,21 +1343,21 @@
       <div class="drawer-head">
         <div>
           <h2>Order Ticket</h2>
-          <div style="color:var(--muted);font-size:13px;margin-top:6px;">Zadání pokynu k nákupu/prodeji kovu</div>
+          <div style="color:var(--muted);font-size:13px;margin-top:6px;" data-i18n="ticket.subtitle">Zadání pokynu k nákupu/prodeji kovu</div>
         </div>
-        <button class="btn btn--dark" id="closeDrawer">Zavřít</button>
+        <button class="btn btn--dark" id="closeDrawer" data-i18n="button.close">Zavřít</button>
       </div>
 
       <div class="form-grid" style="grid-template-columns:1fr 1fr;">
         <div class="form-group">
-          <label>Strana</label>
+          <label data-i18n="ticket.side">Strana</label>
           <select id="ticketSide">
             <option value="BUY">BUY / nákup</option>
             <option value="SELL">SELL / prodej</option>
           </select>
         </div>
         <div class="form-group">
-          <label>Typ pokynu</label>
+          <label data-i18n="ticket.type">Typ pokynu</label>
           <select id="ticketType">
             <option value="limit">Limit</option>
             <option value="market">Market</option>
@@ -1338,29 +1365,29 @@
           </select>
         </div>
         <div class="form-group">
-          <label>Trh</label>
+          <label data-i18n="ticket.market">Trh</label>
           <select id="ticketMarket"></select>
         </div>
         <div class="form-group">
-          <label>Měna</label>
+          <label data-i18n="ticket.currency">Měna</label>
           <select id="ticketCurrency">
             <option>CZK</option><option>EUR</option><option>CHF</option><option>USD</option>
           </select>
         </div>
         <div class="form-group">
-          <label>Množství g</label>
+          <label data-i18n="ticket.quantityG">Množství v g</label>
           <input id="ticketQty" type="number" step="0.001" min="0.001" value="10">
         </div>
         <div class="form-group">
-          <label>Limit cena / g</label>
+          <label data-i18n="ticket.limitPriceG">Limitní cena / g</label>
           <input id="ticketPrice" type="number" step="0.01" min="0" value="0">
         </div>
         <div class="form-group">
-          <label>Klient</label>
+          <label data-i18n="ticket.client">Klient</label>
           <select id="ticketUser"></select>
         </div>
         <div class="form-group">
-          <label>Vypořádání</label>
+          <label data-i18n="ticket.settlement">Vypořádání</label>
           <select id="ticketSettlement">
             <option value="internal">Klientská evidence</option>
             <option value="allocated">Alokovaný kov</option>
@@ -1371,21 +1398,19 @@
       </div>
 
       <div class="order-summary">
-        <div class="summary-line"><span>Trh</span><strong id="sumMarket">—</strong></div>
-        <div class="summary-line"><span>Objem</span><strong id="sumQty">—</strong></div>
-        <div class="summary-line"><span>Hrubá hodnota</span><strong id="sumGross">—</strong></div>
-        <div class="summary-line"><span>Poplatek</span><strong id="sumFee">—</strong></div>
-        <div class="summary-line"><span>Celkem</span><strong id="sumTotal">—</strong></div>
+        <div class="summary-line"><span data-i18n="ticket.marketSummary">Trh</span><strong id="sumMarket">—</strong></div>
+        <div class="summary-line"><span data-i18n="ticket.volume">Objem</span><strong id="sumQty">—</strong></div>
+        <div class="summary-line"><span data-i18n="ticket.gross">Hrubá hodnota</span><strong id="sumGross">—</strong></div>
+        <div class="summary-line"><span data-i18n="ticket.fee">Poplatek</span><strong id="sumFee">—</strong></div>
+        <div class="summary-line"><span data-i18n="ticket.total">Celkem</span><strong id="sumTotal">—</strong></div>
       </div>
 
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;">
-        <button class="btn btn--dark" id="saveDraftBtn">Uložit draft</button>
-        <button class="btn btn--gold" id="submitOrderBtn">Odeslat ke schválení</button>
+        <button class="btn btn--dark" id="saveDraftBtn" data-i18n="ticket.saveDraft">Uložit draft</button>
+        <button class="btn btn--gold" id="submitOrderBtn" data-i18n="ticket.submitApproval">Odeslat ke schválení</button>
       </div>
 
-      <div class="risk-note">
-        Produkčně musí následovat kontrola zůstatku, AML/KYC limit, potvrzení klienta a auditní stopa.
-      </div>
+      <div class="risk-note" data-i18n="ticket.risk">Produkčně musí následovat kontrola zůstatku, AML/KYC limit, potvrzení klienta a auditní stopa.</div>
     </div>
   </aside>
 
@@ -1440,6 +1465,318 @@
       commissionBps: 50,
       refreshMs: 30000
     };
+
+
+    const I18N = {
+      cs: {
+        "nav.home": "Domů",
+        "nav.liveBoard": "Live Board",
+        "nav.orders": "Objednávky",
+        "nav.admin": "Admin Console",
+        "nav.help": "Nápověda",
+        "button.login": "Přihlásit",
+        "button.logout": "Odhlásit",
+        "hero.title": "ZLATO, KTERÉMU SVĚT VĚŘÍ",
+        "hero.subtitle": "Live tržní tabule pro nákup a prodej drahých kovů podle lokace, měny, dostupnosti a spreadu. Ceny se načítají z live feedu přes backend proxy a objednávky lze spravovat v Admin Console.",
+        "stats.feedStatus": "Stav feedu",
+        "stats.markets": "Trhy",
+        "stats.todayOrders": "Dnešní objednávky",
+        "stats.orderVolume": "Objem objednávek",
+        "stats.lastUpdate": "Poslední update",
+        "stats.filteredMarkets": "Filtrované trhy podle kovu a lokace",
+        "stats.ordersNote": "Včetně draftů a pokynů ke schválení",
+        "stats.volumeNote": "Hrubá hodnota v základní měně",
+
+        "filter.group": "Skupina",
+        "filter.all": "Vše",
+        "filter.investmentGold": "Investiční zlato",
+        "filter.investmentSilver": "Investiční stříbro",
+        "filter.platinum": "Platina",
+        "filter.palladium": "Palladium",
+        "filter.location": "Lokace",
+        "filter.currency": "Měna",
+        "filter.size": "Hmotnost / velikost",
+        "filter.availability": "Dostupnost",
+        "filter.liveData": "Live data",
+        "filter.refresh": "Obnovit ceny",
+        "filter.reset": "Reset filtrů",
+
+        "view.cards": "Karty",
+        "view.board": "Order board",
+        "view.depth": "Hloubka trhu",
+        "view.spreads": "Spready",
+        "sort.featured": "Doporučené",
+        "sort.spreadAsc": "Nejnižší spread",
+        "sort.offerAsc": "Nejnižší prodejní cena",
+        "sort.liquidityDesc": "Nejvyšší likvidita",
+
+        "table.market": "Trh",
+        "table.currency": "Měna",
+        "table.bestBid": "Nejlepší poptávka",
+        "table.bestOffer": "Nejlepší nabídka",
+        "table.bidQuantity": "Množství v poptávce",
+        "table.offerQuantity": "Množství v nabídce",
+        "table.indicativeLiquidity": "Orientační likvidita",
+        "table.metalLocation": "Kov / lokace",
+        "table.bestBidSell": "Nejlepší poptávka: prodej",
+        "table.buyBestOffer": "Nákup: nejlepší nabídka",
+        "table.spread": "Spread",
+        "table.action": "Akce",
+        "table.spot": "Spot",
+        "table.fee": "Poplatek",
+        "table.liquidity": "Likvidita",
+        "table.status": "Status",
+        "table.user": "Uživatel",
+        "table.email": "E-mail",
+        "table.role": "Role",
+        "table.cash": "Hotovost",
+        "table.orderId": "ID",
+        "table.client": "Klient",
+        "table.side": "Strana",
+        "table.quantity": "Množství",
+        "table.price": "Cena",
+        "table.value": "Hodnota",
+        "table.time": "Čas",
+        "table.event": "Událost",
+        "table.detail": "Detail",
+        "table.result": "Výsledek",
+        "table.note": "Poznámka",
+        "table.area": "Oblast",
+        "table.risk": "Riziko",
+
+        "quote.bestBidSell": "Nejlepší poptávka / PRODEJ",
+        "quote.bestOfferBuy": "Nejlepší nabídka / NÁKUP",
+        "button.buy": "Koupit",
+        "button.sell": "Prodat",
+        "button.approve": "Schválit",
+        "button.match": "Spárovat",
+        "button.reject": "Odmítnout",
+        "button.cancel": "Zrušit",
+        "button.edit": "Upravit",
+        "button.verify": "Ověřit",
+        "button.block": "Blokovat",
+        "button.exportCsv": "Export CSV",
+        "button.save": "Uložit",
+        "button.close": "Zavřít",
+
+        "ticket.title": "Order Ticket",
+        "ticket.subtitle": "Zadání pokynu k nákupu/prodeji kovu",
+        "ticket.side": "Strana",
+        "ticket.type": "Typ pokynu",
+        "ticket.market": "Trh",
+        "ticket.currency": "Měna",
+        "ticket.quantityG": "Množství v g",
+        "ticket.limitPriceG": "Limitní cena / g",
+        "ticket.client": "Klient",
+        "ticket.settlement": "Vypořádání",
+        "ticket.marketSummary": "Trh",
+        "ticket.volume": "Objem",
+        "ticket.gross": "Hrubá hodnota",
+        "ticket.fee": "Poplatek",
+        "ticket.total": "Celkem",
+        "ticket.saveDraft": "Uložit draft",
+        "ticket.submitApproval": "Odeslat ke schválení",
+        "ticket.risk": "Produkčně musí následovat kontrola zůstatku, AML/KYC limit, potvrzení klienta a auditní stopa.",
+
+        "admin.dashboard": "Dashboard",
+        "admin.users": "Uživatelé",
+        "admin.orders": "Objednávky",
+        "admin.pricing": "Marže & pricing",
+        "admin.audit": "Audit log",
+        "admin.system": "Systém",
+        "admin.overview": "Strategický přehled",
+        "admin.userManagement": "Správa uživatelů",
+        "admin.orderManagement": "Správa objednávek",
+        "admin.marginPricing": "Marže, poplatky a spread",
+        "admin.systemCheck": "Systém",
+        "admin.addUser": "Přidat uživatele",
+        "admin.savePricing": "Uložit nastavení",
+        "admin.clearAudit": "Vymazat audit demo",
+        "admin.runCheck": "Spustit kontrolu",
+        "admin.pendingKyc": "Pending KYC",
+        "admin.openOrders": "Open orders",
+        "admin.auditEvents": "Audit events",
+        "admin.registeredAccounts": "Registrované účty",
+        "admin.requiresReview": "Vyžaduje kontrolu",
+        "admin.openOrdersNote": "Draft / pending / approved",
+        "admin.localAudit": "Lokální audit prototypu",
+
+        "risk.footer": "Uvedené ceny jsou indikativní do okamžiku potvrzení pokynu. Ostrý obchod musí projít kontrolou zůstatku, AML/KYC limitem, auditním záznamem a druhým potvrzením klienta. Tento prototyp používá lokální úložiště, produkčně je nutný server, databáze a role-based access control.",
+
+        "metal.AU": "Zlato",
+        "metal.AG": "Stříbro",
+        "metal.PT": "Platina",
+        "metal.PD": "Palladium",
+        "availability.skladem-cz": "Skladem CZ",
+        "availability.skladem-de-ch": "Skladem DE/CH",
+        "availability.na-ceste": "Na cestě",
+        "availability.predobjednavka": "Předobjednávka"
+      },
+      en: {
+        "nav.home": "Home",
+        "nav.liveBoard": "Live Board",
+        "nav.orders": "Orders",
+        "nav.admin": "Admin Console",
+        "nav.help": "Help",
+        "button.login": "Log in",
+        "button.logout": "Log out",
+        "hero.title": "GOLD THE WORLD TRUSTS",
+        "hero.subtitle": "A live order board for buying and selling precious metals by location, currency, availability and spread. Prices are loaded from a live feed through a backend proxy and orders can be managed in the Admin Console.",
+        "stats.feedStatus": "Feed status",
+        "stats.markets": "Markets",
+        "stats.todayOrders": "Today’s orders",
+        "stats.orderVolume": "Order volume",
+        "stats.lastUpdate": "Last update",
+        "stats.filteredMarkets": "Filtered markets by metal and location",
+        "stats.ordersNote": "Including drafts and orders awaiting approval",
+        "stats.volumeNote": "Gross value in base currency",
+
+        "filter.group": "Group",
+        "filter.all": "All",
+        "filter.investmentGold": "Investment gold",
+        "filter.investmentSilver": "Investment silver",
+        "filter.platinum": "Platinum",
+        "filter.palladium": "Palladium",
+        "filter.location": "Location",
+        "filter.currency": "Currency",
+        "filter.size": "Weight / size",
+        "filter.availability": "Availability",
+        "filter.liveData": "Live data",
+        "filter.refresh": "Refresh prices",
+        "filter.reset": "Reset filters",
+
+        "view.cards": "Cards",
+        "view.board": "Order board",
+        "view.depth": "Market depth",
+        "view.spreads": "Spreads",
+        "sort.featured": "Featured",
+        "sort.spreadAsc": "Lowest spread",
+        "sort.offerAsc": "Lowest offer price",
+        "sort.liquidityDesc": "Highest liquidity",
+
+        "table.market": "Market",
+        "table.currency": "Currency",
+        "table.bestBid": "Best bid",
+        "table.bestOffer": "Best offer",
+        "table.bidQuantity": "Bid quantity",
+        "table.offerQuantity": "Offer quantity",
+        "table.indicativeLiquidity": "Indicative liquidity",
+        "table.metalLocation": "Bullion / location",
+        "table.bestBidSell": "Best bid : SELL",
+        "table.buyBestOffer": "BUY : Best offer",
+        "table.spread": "Spread",
+        "table.action": "Action",
+        "table.spot": "Spot",
+        "table.fee": "Fee",
+        "table.liquidity": "Liquidity",
+        "table.status": "Status",
+        "table.user": "User",
+        "table.email": "E-mail",
+        "table.role": "Role",
+        "table.cash": "Cash",
+        "table.orderId": "ID",
+        "table.client": "Client",
+        "table.side": "Side",
+        "table.quantity": "Quantity",
+        "table.price": "Price",
+        "table.value": "Value",
+        "table.time": "Time",
+        "table.event": "Event",
+        "table.detail": "Detail",
+        "table.result": "Result",
+        "table.note": "Note",
+        "table.area": "Area",
+        "table.risk": "Risk",
+
+        "quote.bestBidSell": "Best bid / SELL",
+        "quote.bestOfferBuy": "Best offer / BUY",
+        "button.buy": "Buy",
+        "button.sell": "Sell",
+        "button.approve": "Approve",
+        "button.match": "Match",
+        "button.reject": "Reject",
+        "button.cancel": "Cancel",
+        "button.edit": "Edit",
+        "button.verify": "Verify",
+        "button.block": "Block",
+        "button.exportCsv": "Export CSV",
+        "button.save": "Save",
+        "button.close": "Close",
+
+        "ticket.title": "Order Ticket",
+        "ticket.subtitle": "Place a buy/sell order for metal",
+        "ticket.side": "Side",
+        "ticket.type": "Order type",
+        "ticket.market": "Market",
+        "ticket.currency": "Currency",
+        "ticket.quantityG": "Quantity in g",
+        "ticket.limitPriceG": "Limit price / g",
+        "ticket.client": "Client",
+        "ticket.settlement": "Settlement",
+        "ticket.marketSummary": "Market",
+        "ticket.volume": "Volume",
+        "ticket.gross": "Gross value",
+        "ticket.fee": "Fee",
+        "ticket.total": "Total",
+        "ticket.saveDraft": "Save draft",
+        "ticket.submitApproval": "Submit for approval",
+        "ticket.risk": "Production mode must include balance checks, AML/KYC limits, client confirmation and an audit trail.",
+
+        "admin.dashboard": "Dashboard",
+        "admin.users": "Users",
+        "admin.orders": "Orders",
+        "admin.pricing": "Margins & pricing",
+        "admin.audit": "Audit log",
+        "admin.system": "System",
+        "admin.overview": "Strategic overview",
+        "admin.userManagement": "User management",
+        "admin.orderManagement": "Order management",
+        "admin.marginPricing": "Margins, fees and spread",
+        "admin.systemCheck": "System",
+        "admin.addUser": "Add user",
+        "admin.savePricing": "Save settings",
+        "admin.clearAudit": "Clear demo audit",
+        "admin.runCheck": "Run check",
+        "admin.pendingKyc": "Pending KYC",
+        "admin.openOrders": "Open orders",
+        "admin.auditEvents": "Audit events",
+        "admin.registeredAccounts": "Registered accounts",
+        "admin.requiresReview": "Requires review",
+        "admin.openOrdersNote": "Draft / pending / approved",
+        "admin.localAudit": "Local prototype audit",
+
+        "risk.footer": "Prices shown are indicative until the order is confirmed. A live order must pass balance checks, AML/KYC limits, audit logging and a second client confirmation. This prototype uses local storage; production requires a server, database and role-based access control.",
+
+        "metal.AU": "Gold",
+        "metal.AG": "Silver",
+        "metal.PT": "Platinum",
+        "metal.PD": "Palladium",
+        "availability.skladem-cz": "In stock CZ",
+        "availability.skladem-de-ch": "In stock DE/CH",
+        "availability.na-ceste": "In transit",
+        "availability.predobjednavka": "Pre-order"
+      }
+    };
+
+    let currentLang = localStorage.getItem("sgmb_lang_v1") || "cs";
+
+    function t(key) {
+      return I18N[currentLang]?.[key] || I18N.cs[key] || key;
+    }
+
+    function applyI18n() {
+      document.documentElement.lang = currentLang;
+      document.querySelectorAll("[data-i18n]").forEach(node => {
+        const key = node.dataset.i18n;
+        if (key) node.textContent = t(key);
+      });
+      document.querySelectorAll("[data-lang]").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.lang === currentLang);
+      });
+      renderMarket();
+      renderAdmin();
+      updateSummary();
+    }
 
     const DEMO_SPOT_TOZ = {
       AU: { USD: 4325.10, EUR: 4018.80, CHF: 3775.40, CZK: 98120.00 },
@@ -1595,6 +1932,14 @@
       return rows;
     }
 
+
+    function marketDisplayName(r) {
+      if (currentLang === "cs") {
+        return `${t("metal." + r.metal)} ${r.location}`;
+      }
+      return `${t("metal." + r.metal)} ${r.location}`;
+    }
+
     function metalVisualClass(metal) {
       return metal === "AG" ? "silver" : metal === "PT" ? "platinum" : metal === "PD" ? "palladium" : "";
     }
@@ -1631,8 +1976,8 @@
             <div class="bar-visual ${metalVisualClass(r.metal)}">${metalSymbol(r.metal)}<br>${r.purity}</div>
           </div>
           <div class="product-body">
-            <div class="product-type">${r.name} · ${r.location}</div>
-            <div class="product-title">${r.display}<br>${r.currency}</div>
+            <div class="product-type">${t("metal." + r.metal)} · ${r.location}</div>
+            <div class="product-title">${marketDisplayName(r)}<br>${r.currency}</div>
             <div class="product-meta">
               <span>${fmtQty(r.unitGrams)}</span>
               <span>·</span>
@@ -1641,19 +1986,19 @@
             </div>
             <div class="quote-grid">
               <div class="quote-box" data-ticket="${r.key}" data-side="SELL" data-price="${r.bestBid}">
-                <div class="quote-label">Best bid / SELL</div>
+                <div class="quote-label">${t("quote.bestBidSell")}</div>
                 <div class="quote-price bid">${fmtMoney(r.bestBid, r.currency)}</div>
                 <div class="quote-qty">${fmtQty(r.bidQty)}</div>
               </div>
               <div class="quote-box" data-ticket="${r.key}" data-side="BUY" data-price="${r.bestOffer}">
-                <div class="quote-label">Best offer / BUY</div>
+                <div class="quote-label">${t("quote.bestOfferBuy")}</div>
                 <div class="quote-price offer">${fmtMoney(r.bestOffer, r.currency)}</div>
                 <div class="quote-qty">${fmtQty(r.offerQty)}</div>
               </div>
             </div>
             <div class="card-actions">
-              <button class="btn btn--green" data-ticket="${r.key}" data-side="SELL" data-price="${r.bestBid}">Prodat</button>
-              <button class="btn btn--gold" data-ticket="${r.key}" data-side="BUY" data-price="${r.bestOffer}">Koupit</button>
+              <button class="btn btn--green" data-ticket="${r.key}" data-side="SELL" data-price="${r.bestBid}">${t("button.sell")}</button>
+              <button class="btn btn--gold" data-ticket="${r.key}" data-side="BUY" data-price="${r.bestOffer}">${t("button.buy")}</button>
             </div>
           </div>
         </article>
@@ -1668,13 +2013,13 @@
       $("boardRows").innerHTML = rows.map(r => `
         <tr>
           <td>${r.currency}</td>
-          <td>${r.name}: ${r.location}</td>
+          <td>${t("metal." + r.metal)}: ${r.location}</td>
           <td style="color:var(--green);font-weight:900;">${fmtMoney(r.bestBid, r.currency)}</td>
           <td>${fmtQty(r.bidQty)}</td>
           <td style="color:#ffd6d6;font-weight:900;">${fmtMoney(r.bestOffer, r.currency)}</td>
           <td>${fmtQty(r.offerQty)}</td>
           <td>${r.spreadPct.toFixed(2).replace(".", ",")} %</td>
-          <td><button class="small-btn green" data-ticket="${r.key}" data-side="BUY" data-price="${r.bestOffer}">BUY</button> <button class="small-btn" data-ticket="${r.key}" data-side="SELL" data-price="${r.bestBid}">SELL</button></td>
+          <td><button class="small-btn green" data-ticket="${r.key}" data-side="BUY" data-price="${r.bestOffer}">${t("button.buy").toUpperCase()}</button> <button class="small-btn" data-ticket="${r.key}" data-side="SELL" data-price="${r.bestBid}">${t("button.sell").toUpperCase()}</button></td>
         </tr>
       `).join("");
       qsa("#boardRows [data-ticket]").forEach(el => el.addEventListener("click", () => openTicket(el.dataset.ticket, el.dataset.side, Number(el.dataset.price))));
@@ -1686,7 +2031,7 @@
         const levelsOffer = [r.bestOffer, r.bestOffer * 1.0007, r.bestOffer * 1.0014];
         return `
           <tr>
-            <td>${r.name}: ${r.location}</td><td>${r.currency}</td>
+            <td>${t("metal." + r.metal)}: ${r.location}</td><td>${r.currency}</td>
             <td>${fmtMoney(levelsBid[0], r.currency)}</td><td>${fmtMoney(levelsBid[1], r.currency)}</td><td>${fmtMoney(levelsBid[2], r.currency)}</td>
             <td>${fmtMoney(levelsOffer[0], r.currency)}</td><td>${fmtMoney(levelsOffer[1], r.currency)}</td><td>${fmtMoney(levelsOffer[2], r.currency)}</td>
             <td>${fmtQty(r.bidQty + r.offerQty)}</td>
@@ -1697,7 +2042,7 @@
     function renderSpreadTable(rows) {
       $("spreadRows").innerHTML = rows.map(r => `
         <tr>
-          <td>${r.name}: ${r.location}</td><td>${r.currency}</td>
+          <td>${t("metal." + r.metal)}: ${r.location}</td><td>${r.currency}</td>
           <td>${fmtMoney(r.base, r.currency)}</td>
           <td style="color:var(--green);font-weight:900;">${fmtMoney(r.bestBid, r.currency)}</td>
           <td style="color:#ffd6d6;font-weight:900;">${fmtMoney(r.bestOffer, r.currency)}</td>
@@ -1709,17 +2054,12 @@
     }
 
     function availabilityLabel(v) {
-      return {
-        "skladem-cz": "Skladem CZ",
-        "skladem-de-ch": "Skladem DE/CH",
-        "na-ceste": "Na cestě",
-        "predobjednavka": "Předobjednávka"
-      }[v] || v;
+      return t("availability." + v);
     }
 
     function renderTicketMarketOptions(rows = marketRows()) {
       const current = $("ticketMarket").value;
-      $("ticketMarket").innerHTML = rows.map(r => `<option value="${r.key}">${r.name}: ${r.location} / ${r.currency}</option>`).join("");
+      $("ticketMarket").innerHTML = rows.map(r => `<option value="${r.key}">${t("metal." + r.metal)}: ${r.location} / ${r.currency}</option>`).join("");
       if (rows.some(r => r.key === current)) $("ticketMarket").value = current;
       if (!$("ticketMarket").value && rows[0]) $("ticketMarket").value = rows[0].key;
       $("ticketUser").innerHTML = users.map(u => `<option value="${u.id}">${u.name} · ${u.email}</option>`).join("");
@@ -1755,7 +2095,7 @@
       const fee = gross * Number(pricing.commissionBps || 0) / 10000;
       const total = $("ticketSide").value === "BUY" ? gross + fee : gross - fee;
 
-      $("sumMarket").textContent = `${r.name}: ${r.location} / ${currency}`;
+      $("sumMarket").textContent = `${t("metal." + r.metal)}: ${r.location} / ${currency}`;
       $("sumQty").textContent = fmtQty(qty);
       $("sumGross").textContent = fmtMoney(gross, currency);
       $("sumFee").textContent = fmtMoney(fee, currency);
@@ -1779,7 +2119,7 @@
         userName: user.name,
         side: $("ticketSide").value,
         marketKey: r.key,
-        market: `${r.name}: ${r.location}`,
+        market: `${t("metal." + r.metal)}: ${r.location}`,
         metal: r.metal,
         currency,
         quantityG: qty,
@@ -1853,10 +2193,10 @@
 
     function renderDashboard() {
       const rows = [
-        ["Price feed", $("feedMode").textContent || "Demo", $("feedMode").textContent === "Live" ? "Nízké" : "Střední", "Zkontrolovat API klíč a fallback"],
-        ["KYC", users.filter(u => u.kyc === "pending").length + " pending", "Střední", "Ověřit klienty před výběrem / vyšším limitem"],
-        ["Open orders", orders.filter(o => ["pending","approved"].includes(o.status)).length, "Provozní", "Schválit nebo odmítnout pokyny"],
-        ["Pricing", pricing.commissionBps + " bps commission", "Nízké", "Kontrola spreadů a marží"]
+        [currentLang === "cs" ? "Cenový feed" : "Price feed", $("feedMode").textContent || "Demo", $("feedMode").textContent === "Live" ? (currentLang === "cs" ? "Nízké" : "Low") : (currentLang === "cs" ? "Střední" : "Medium"), currentLang === "cs" ? "Zkontrolovat API klíč a fallback" : "Check API key and fallback"],
+        ["KYC", users.filter(u => u.kyc === "pending").length + " pending", currentLang === "cs" ? "Střední" : "Medium", currentLang === "cs" ? "Ověřit klienty před výběrem / vyšším limitem" : "Verify clients before withdrawal / higher limit"],
+        [currentLang === "cs" ? "Otevřené objednávky" : "Open orders", orders.filter(o => ["pending","approved"].includes(o.status)).length, currentLang === "cs" ? "Provozní" : "Operational", currentLang === "cs" ? "Schválit nebo odmítnout pokyny" : "Approve or reject orders"],
+        [currentLang === "cs" ? "Pricing / marže" : "Pricing", pricing.commissionBps + " bps commission", currentLang === "cs" ? "Nízké" : "Low", currentLang === "cs" ? "Kontrola spreadů a marží" : "Check spreads and margins"]
       ];
       $("dashboardRows").innerHTML = rows.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`).join("");
     }
@@ -1874,9 +2214,9 @@
           <td>${u.id}</td><td>${u.name}</td><td>${u.email}</td><td>${u.role}</td><td>${u.kyc}</td>
           <td>${fmtMoney(u.cashCZK, "CZK")}</td><td>${fmtQty(u.auG)}</td><td>${u.status}</td>
           <td><span class="table-actions">
-            <button class="small-btn" data-edit-user="${u.id}">Edit</button>
-            <button class="small-btn ${u.kyc === "verified" ? "" : "green"}" data-verify-user="${u.id}">Verify</button>
-            <button class="small-btn red" data-block-user="${u.id}">Block</button>
+            <button class="small-btn" data-edit-user="${u.id}">${t("button.edit")}</button>
+            <button class="small-btn ${u.kyc === "verified" ? "" : "green"}" data-verify-user="${u.id}">${t("button.verify")}</button>
+            <button class="small-btn red" data-block-user="${u.id}">${t("button.block")}</button>
           </span></td>
         </tr>
       `).join("");
@@ -1898,10 +2238,10 @@
           <td>${o.id}</td><td>${o.userName}</td><td>${o.side}</td><td>${o.market} / ${o.currency}</td>
           <td>${fmtQty(o.quantityG)}</td><td>${fmtMoney(o.pricePerG, o.currency)}</td><td>${fmtMoney(o.total, o.currency)}</td><td>${o.status}</td>
           <td><span class="table-actions">
-            <button class="small-btn green" data-order-status="${o.id}:approved">Approve</button>
-            <button class="small-btn green" data-order-status="${o.id}:matched">Match</button>
-            <button class="small-btn red" data-order-status="${o.id}:rejected">Reject</button>
-            <button class="small-btn" data-order-status="${o.id}:cancelled">Cancel</button>
+            <button class="small-btn green" data-order-status="${o.id}:approved">${t("button.approve")}</button>
+            <button class="small-btn green" data-order-status="${o.id}:matched">${t("button.match")}</button>
+            <button class="small-btn red" data-order-status="${o.id}:rejected">${t("button.reject")}</button>
+            <button class="small-btn" data-order-status="${o.id}:cancelled">${t("button.cancel")}</button>
           </span></td>
         </tr>
       `).join("");
@@ -2079,6 +2419,14 @@
     }
 
     function attachEvents() {
+
+      qsa("[data-lang]").forEach(btn => btn.addEventListener("click", () => {
+        currentLang = btn.dataset.lang;
+        localStorage.setItem("sgmb_lang_v1", currentLang);
+        applyI18n();
+        toast(currentLang === "cs" ? "Jazyk přepnut na češtinu." : "Language switched to English.");
+      }));
+
       qsa("[data-nav]").forEach(a => a.addEventListener("click", e => {
         e.preventDefault();
         setSection(a.dataset.nav);
@@ -2161,10 +2509,11 @@
     function init() {
       if (!localStorage.getItem(LS.users)) saveJson(LS.users, users);
       if (!localStorage.getItem(LS.pricing)) saveJson(LS.pricing, pricing);
-      $("loginBtn").textContent = session.role && session.role !== "guest" ? session.role + " · " + (session.email || "").split("@")[0] : "Přihlásit";
+      $("loginBtn").textContent = session.role && session.role !== "guest" ? session.role + " · " + (session.email || "").split("@")[0] : t("button.login");
       attachEvents();
       resetFilters();
       renderPricing();
+      applyI18n();
       loadLivePrices();
       resetRefreshTimer();
     }

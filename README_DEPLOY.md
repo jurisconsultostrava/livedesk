@@ -67,3 +67,31 @@ Před ostrým spuštěním doplnit:
 8. schvalování změn marží,
 9. VOP a riziková upozornění,
 10. rozhodnutí, zda jde o interní dealing nebo matching klient-klient.
+
+
+## Dvojjazyčnost CZ/EN
+
+Doplněn přepínač jazyka CZ / EN.
+
+Výchozí jazyk je čeština. Stav se ukládá do:
+
+```text
+localStorage.sgmb_lang_v1
+```
+
+Přeložené jsou zejména order-board pojmy:
+
+| EN | CZ |
+|---|---|
+| Market | Trh |
+| Currency | Měna |
+| Best bid | Nejlepší poptávka |
+| Best offer | Nejlepší nabídka |
+| Bid quantity | Množství v poptávce |
+| Offer quantity | Množství v nabídce |
+| Indicative liquidity | Orientační likvidita |
+| Market depth | Hloubka trhu |
+| Spreads | Spready |
+| Order Ticket | Order Ticket / pokynový lístek |
+
+Poznámka: termín „Order Ticket“ jsem ponechal jako obchodní název modulu, ale v textu je vysvětlen jako zadání pokynu.
