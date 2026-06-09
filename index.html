@@ -3,1675 +3,2170 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Swiss Gold Market Board – Live</title>
+  <title>Swiss Gold Market Board — Meister Style + Admin Console</title>
   <style>
     :root {
-      --bg: #edf1f5;
-      --surface: #ffffff;
-      --surface-2: #f7f9fb;
-      --surface-3: #eef3f8;
-      --border: #d7e0ea;
-      --border-dark: #bdc8d4;
-      --text: #1d2935;
-      --muted: #637282;
-      --blue: #1e5b98;
-      --blue-dark: #15446f;
-      --gold: #b78a33;
-      --gold-light: #fff7df;
-      --green: #198754;
-      --red: #c83e3e;
-      --orange: #d08a00;
-      --shadow: 0 8px 28px rgba(18, 38, 63, 0.10);
-      --radius: 6px;
-      --font: Arial, Helvetica, sans-serif;
+      --bg: #050506;
+      --bg2: #0c0c0e;
+      --panel: rgba(18, 18, 20, 0.94);
+      --panel2: rgba(24, 24, 27, 0.96);
+      --line: rgba(255,255,255,.10);
+      --line2: rgba(201,169,106,.34);
+      --text: #f5f1e9;
+      --muted: #aaa39a;
+      --muted2: #77716a;
+      --gold: #c9a96a;
+      --gold2: #8d7540;
+      --gold3: #f0d892;
+      --red: #e06161;
+      --green: #72d394;
+      --blue: #77aaff;
+      --orange: #e7a84b;
+      --shadow: 0 28px 90px rgba(0,0,0,.45);
+      --radius: 0;
+      --font-head: "Manrope", "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --mono: "JetBrains Mono", Consolas, monospace;
     }
 
     * { box-sizing: border-box; }
 
+    html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
-      font-family: var(--font);
-      background: var(--bg);
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.20), rgba(0,0,0,.90) 460px, #050506 780px),
+        radial-gradient(circle at 30% 8%, rgba(201,169,106,.25), transparent 25%),
+        linear-gradient(135deg, #2b261e 0%, #11151c 28%, #060606 78%);
       color: var(--text);
-      font-size: 14px;
+      font-family: var(--font);
+      min-height: 100vh;
     }
 
-    button, input, select { font: inherit; }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 72px 0 auto 0;
+      height: 430px;
+      z-index: -2;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.78)),
+        url("data:image/svg+xml,%3Csvg width='1900' height='650' viewBox='0 0 1900 650' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='sky' x1='0' x2='1' y1='0' y2='1'%3E%3Cstop stop-color='%23d6b07b' offset='0'/%3E%3Cstop stop-color='%23212f42' offset='.52'/%3E%3Cstop stop-color='%2306080c' offset='1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1900' height='650' fill='url(%23sky)'/%3E%3Cpath d='M0 570 L210 260 L320 390 L520 120 L720 450 L890 220 L1040 460 L1260 170 L1430 440 L1600 210 L1900 560 L1900 650 L0 650 Z' fill='%23091117' opacity='.94'/%3E%3Cpath d='M210 260 L255 335 L318 388 L520 120 L590 250 L672 410 L890 220 L936 320 L1040 460 L1260 170 L1318 272 L1430 440 L1600 210 L1662 335 L1900 560 L1900 650 L0 650 L0 570 Z' fill='%23131a25' opacity='.72'/%3E%3Cpath d='M520 120 L480 200 L546 174 L590 250 L1260 170 L1226 250 L1296 226 L1320 275 L1600 210 L1568 285 L1640 260 L1662 335 L1900 560 L1900 650 L0 650 L210 260 L182 332 L262 312 L320 390 Z' fill='%23f7e8ca' opacity='.26'/%3E%3C/svg%3E") center top / cover no-repeat;
+      filter: saturate(.88) contrast(1.05);
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    button, input, select, textarea { font: inherit; }
 
     .topbar {
-      background: #10253f;
-      color: #fff;
-      border-bottom: 4px solid var(--gold);
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      height: 72px;
+      background: rgba(15,15,17,.96);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      backdrop-filter: blur(12px);
     }
 
-    .topbar-inner {
-      max-width: 1420px;
+    .topbar__inner {
+      max-width: 1360px;
       margin: 0 auto;
-      padding: 0 18px;
-      min-height: 62px;
+      height: 72px;
+      padding: 0 22px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 18px;
+      gap: 22px;
     }
 
-    .brand {
-      display: flex;
+    .logo {
+      display: inline-flex;
       align-items: center;
-      gap: 12px;
-      font-size: 20px;
+      gap: 10px;
+      font-family: var(--font-head);
+      font-size: 22px;
+      letter-spacing: -.03em;
       font-weight: 700;
-      letter-spacing: .2px;
-      white-space: nowrap;
+      min-width: 190px;
     }
 
-    .brand-mark {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #f6df95, #b8862e);
-      border: 2px solid rgba(255,255,255,.35);
+    .logo span:first-child {
+      color: #e8e0d0;
+    }
+
+    .logo span:last-child {
+      color: var(--gold);
+      text-shadow: 0 0 22px rgba(201,169,106,.35);
+    }
+
+    .logo-mark {
+      width: 31px;
+      height: 31px;
+      border-radius: 3px;
+      background: linear-gradient(135deg, #f7e4ae, #9a762f 52%, #2a1c0b);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.5), 0 0 22px rgba(201,169,106,.22);
     }
 
     .nav {
       display: flex;
       align-items: center;
-      gap: 14px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
+      justify-content: center;
+      gap: 26px;
       font-size: 13px;
+      color: #cbc5bb;
+      font-weight: 650;
     }
 
     .nav a {
-      color: rgba(255,255,255,.88);
-      text-decoration: none;
-      font-weight: 600;
+      position: relative;
+      cursor: pointer;
     }
 
-    .nav .account-btn {
-      color: #101010;
+    .nav a.active,
+    .nav a:hover {
+      color: var(--gold);
+    }
+
+    .nav a.active::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -12px;
+      height: 2px;
       background: var(--gold);
-      padding: 9px 12px;
-      border-radius: 4px;
-      font-weight: 700;
     }
 
-    .page-header {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .page-header-inner {
-      max-width: 1420px;
-      margin: 0 auto;
-      padding: 20px 18px;
+    .top-actions {
       display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 18px;
-    }
-
-    h1 {
-      margin: 0 0 7px;
-      font-size: 30px;
-      color: #24384f;
-      font-weight: 500;
-    }
-
-    .subtitle {
-      color: var(--muted);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
       align-items: center;
-    }
-
-    .status-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 5px 8px;
-      border-radius: 999px;
-      border: 1px solid var(--border-dark);
-      background: #fff;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--orange);
-    }
-
-    .status-dot.live { background: var(--green); }
-    .status-dot.error { background: var(--red); }
-
-    .header-actions {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
       justify-content: flex-end;
+      gap: 10px;
+      min-width: 260px;
+    }
+
+    .currency-toggle {
+      display: inline-flex;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      color: var(--muted2);
+      margin-right: 10px;
+    }
+
+    .currency-toggle button {
+      border: 0;
+      background: transparent;
+      color: var(--muted2);
+      font-weight: 900;
+      cursor: pointer;
+      padding: 2px;
+    }
+
+    .currency-toggle button.active {
+      color: var(--gold);
     }
 
     .btn {
-      border: 1px solid var(--border-dark);
-      background: var(--surface);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
       color: var(--text);
-      border-radius: 4px;
-      padding: 9px 12px;
+      min-height: 38px;
+      padding: 10px 14px;
       cursor: pointer;
-      font-weight: 700;
-      line-height: 1.15;
-      font-size: 13px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .02em;
+      transition: .18s ease;
     }
 
-    .btn:hover { background: var(--surface-3); }
-    .btn-primary { background: var(--blue); color: #fff; border-color: var(--blue); }
-    .btn-primary:hover { background: var(--blue-dark); }
-    .btn-gold { background: var(--gold); border-color: var(--gold); color: #111; }
-    .btn-danger { background: var(--red); border-color: var(--red); color: #fff; }
+    .btn:hover {
+      border-color: var(--line2);
+      background: rgba(201,169,106,.08);
+      transform: translateY(-1px);
+    }
 
-    .layout {
-      max-width: 1420px;
-      margin: 18px auto 42px;
-      padding: 0 18px;
+    .btn--gold {
+      background: linear-gradient(135deg, #d8bb77, #98783e);
+      color: #17110a;
+      border-color: transparent;
+    }
+
+    .btn--dark {
+      background: #0d0d0f;
+      border-color: rgba(255,255,255,.14);
+    }
+
+    .btn--red {
+      background: rgba(224,97,97,.14);
+      border-color: rgba(224,97,97,.42);
+      color: #ffdada;
+    }
+
+    .btn--green {
+      background: rgba(114,211,148,.14);
+      border-color: rgba(114,211,148,.42);
+      color: #d9ffe4;
+    }
+
+    .page {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 44px 22px 70px;
+    }
+
+    .hero {
+      text-align: center;
+      min-height: 225px;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 350px;
-      gap: 18px;
+      place-items: center;
+      padding-top: 10px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-family: var(--font-head);
+      font-size: clamp(30px, 5vw, 55px);
+      font-weight: 300;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: #fff;
+      text-shadow: 0 2px 12px rgba(0,0,0,.85), 0 0 24px rgba(0,0,0,.55);
+    }
+
+    .hero p {
+      max-width: 850px;
+      margin: 18px auto 0;
+      color: #f0e6d2;
+      line-height: 1.7;
+      font-size: 15px;
+      text-shadow: 0 1px 8px rgba(0,0,0,.9), 0 0 16px rgba(0,0,0,.6);
+    }
+
+    .market-status-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap: 14px;
+      margin: 0 0 22px;
+    }
+
+    .status-card {
+      background: rgba(13,13,15,.85);
+      border: 1px solid var(--line);
+      padding: 16px;
+      min-height: 88px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.25);
+    }
+
+    .status-label {
+      color: var(--muted2);
+      font-size: 10px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      font-weight: 900;
+      margin-bottom: 9px;
+    }
+
+    .status-value {
+      font-family: var(--font-head);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .status-note {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .catalog-layout {
+      display: grid;
+      grid-template-columns: 265px minmax(0,1fr);
+      gap: 26px;
       align-items: start;
     }
 
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
+    .filters {
+      background: rgba(16,16,18,.94);
+      border: 1px solid var(--line);
+      padding: 24px;
+      position: sticky;
+      top: 94px;
       box-shadow: var(--shadow);
-      border-radius: var(--radius);
+    }
+
+    .filter-group {
+      padding-bottom: 22px;
+      margin-bottom: 22px;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+
+    .filter-group:last-child {
+      border-bottom: 0;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .filter-group h4 {
+      margin: 0 0 13px;
+      font-size: 10px;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 900;
+    }
+
+    .filter-list {
+      display: grid;
+      gap: 12px;
+      color: #d8d1c5;
+      font-size: 13px;
+    }
+
+    .filter-list label {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      cursor: pointer;
+    }
+
+    .filter-list input {
+      width: auto;
+      accent-color: var(--gold);
+    }
+
+    select, input, textarea {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,.10);
+      background: #0c0c0e;
+      color: var(--text);
+      min-height: 40px;
+      padding: 10px 12px;
+      outline: none;
+    }
+
+    select:focus, input:focus, textarea:focus {
+      border-color: rgba(201,169,106,.62);
+      box-shadow: 0 0 0 4px rgba(201,169,106,.08);
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .toolbar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .results-count {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .view-tabs {
+      display: inline-flex;
+      background: rgba(16,16,18,.9);
+      border: 1px solid var(--line);
+    }
+
+    .view-tabs button {
+      border: 0;
+      border-right: 1px solid var(--line);
+      background: transparent;
+      color: var(--muted);
+      padding: 11px 14px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .view-tabs button:last-child {
+      border-right: 0;
+    }
+
+    .view-tabs button.active {
+      background: var(--gold);
+      color: #120f08;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .product-card {
+      background: rgba(14,14,16,.96);
+      border: 1px solid rgba(255,255,255,.11);
+      min-height: 360px;
+      display: grid;
+      grid-template-rows: 170px auto;
+      transition: .22s ease;
+      box-shadow: 0 22px 50px rgba(0,0,0,.30);
+    }
+
+    .product-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(201,169,106,.45);
+      box-shadow: 0 28px 70px rgba(0,0,0,.45);
+    }
+
+    .product-image {
+      background:
+        radial-gradient(circle at 50% 35%, rgba(201,169,106,.25), transparent 30%),
+        #080809;
+      display: grid;
+      place-items: center;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      position: relative;
       overflow: hidden;
     }
 
-    .card-header {
-      background: var(--surface-2);
-      border-bottom: 1px solid var(--border);
-      padding: 14px 16px;
+    .product-image::after {
+      content: "";
+      position: absolute;
+      inset: auto -20px -50px -20px;
+      height: 90px;
+      background: linear-gradient(180deg, transparent, rgba(201,169,106,.06));
+      transform: rotate(-5deg);
     }
 
-    .market-toolbar {
+    .bar-visual {
+      width: 74px;
+      height: 110px;
+      border-radius: 9px;
+      background: linear-gradient(135deg, #ffe9a8, #ba8c31 55%, #6d4b15);
+      box-shadow: inset 5px 5px 12px rgba(255,255,255,.33), inset -8px -12px 18px rgba(0,0,0,.24), 0 10px 30px rgba(201,169,106,.22);
+      transform: perspective(500px) rotateX(7deg) rotateZ(1deg);
       display: grid;
-      grid-template-columns: 1.05fr .9fr .9fr .9fr .9fr;
+      place-items: center;
+      color: rgba(40,28,8,.74);
+      font-family: var(--font-head);
+      font-size: 17px;
+      font-weight: 900;
+      text-align: center;
+      line-height: 1.1;
+    }
+
+    .bar-visual.silver {
+      background: linear-gradient(135deg, #f5f7fa, #9ba5af 55%, #555e66);
+      color: rgba(15,24,32,.68);
+    }
+
+    .bar-visual.platinum {
+      background: linear-gradient(135deg, #edf6ff, #849cc2 55%, #45546f);
+      color: rgba(15,24,32,.72);
+    }
+
+    .bar-visual.palladium {
+      background: linear-gradient(135deg, #f3f0ec, #918b84 55%, #4b4846);
+      color: rgba(15,15,15,.72);
+    }
+
+    .product-body {
+      padding: 20px;
+    }
+
+    .product-type {
+      color: var(--gold);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .25em;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .product-title {
+      font-family: var(--font-head);
+      font-size: 22px;
+      line-height: 1.08;
+      font-weight: 450;
+      letter-spacing: -.05em;
+      color: #fff;
+      min-height: 48px;
+    }
+
+    .product-meta {
+      margin-top: 12px;
+      color: var(--muted2);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--mono);
+      font-size: 11px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 8px;
+      background: rgba(201,169,106,.23);
+      color: #fff5d9;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .quote-grid {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .quote-box {
+      border: 1px solid rgba(255,255,255,.09);
+      background: rgba(255,255,255,.03);
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .quote-box:hover {
+      border-color: rgba(201,169,106,.45);
+      background: rgba(201,169,106,.08);
+    }
+
+    .quote-label {
+      color: var(--muted2);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .13em;
+      font-weight: 900;
+    }
+
+    .quote-price {
+      margin-top: 5px;
+      font-family: var(--font-head);
+      font-size: 19px;
+      letter-spacing: -.04em;
+      white-space: nowrap;
+    }
+
+    .quote-price.bid { color: var(--green); }
+    .quote-price.offer { color: #ffd6d6; }
+
+    .quote-qty {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 11px;
+      font-family: var(--mono);
+    }
+
+    .card-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+      margin-top: 14px;
+    }
+
+    .table-shell {
+      background: rgba(14,14,16,.96);
+      border: 1px solid var(--line);
+      overflow-x: auto;
+      box-shadow: var(--shadow);
+    }
+
+    .market-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 950px;
+    }
+
+    .market-table th {
+      text-align: left;
+      color: var(--gold);
+      font-size: 10px;
+      letter-spacing: .17em;
+      text-transform: uppercase;
+      padding: 15px 14px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,.03);
+    }
+
+    .market-table td {
+      padding: 15px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      color: #e4ded2;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .market-table tr:hover td {
+      background: rgba(201,169,106,.06);
+    }
+
+    .hidden { display: none !important; }
+
+    .admin-shell {
+      display: none;
+      margin-top: 18px;
+    }
+
+    .admin-shell.active {
+      display: block;
+    }
+
+    .admin-grid {
+      display: grid;
+      grid-template-columns: 260px minmax(0,1fr);
+      gap: 22px;
+    }
+
+    .admin-sidebar {
+      background: rgba(14,14,16,.96);
+      border: 1px solid var(--line);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .admin-sidebar h3 {
+      margin: 0 0 18px;
+      font-family: var(--font-head);
+      font-weight: 450;
+      font-size: 22px;
+    }
+
+    .admin-menu {
+      display: grid;
+      gap: 8px;
+    }
+
+    .admin-menu button {
+      width: 100%;
+      text-align: left;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--muted);
+      padding: 12px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .admin-menu button.active,
+    .admin-menu button:hover {
+      color: var(--gold);
+      border-color: var(--line2);
+      background: rgba(201,169,106,.07);
+    }
+
+    .admin-main {
+      min-width: 0;
+    }
+
+    .admin-stats {
+      display: grid;
+      grid-template-columns: repeat(4,minmax(0,1fr));
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .admin-panel {
+      background: rgba(14,14,16,.96);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .admin-panel-head {
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       gap: 12px;
-      align-items: end;
+    }
+
+    .admin-panel-head h2 {
+      margin: 0;
+      font-family: var(--font-head);
+      font-weight: 450;
+      letter-spacing: -.03em;
+    }
+
+    .admin-panel-body {
+      padding: 18px;
+    }
+
+    .admin-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .admin-toolbar input,
+    .admin-toolbar select {
+      max-width: 240px;
+    }
+
+    .table-actions {
+      display: inline-flex;
+      gap: 6px;
+    }
+
+    .small-btn {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      padding: 7px 9px;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .small-btn:hover { border-color: var(--line2); }
+    .small-btn.green { color: #d7ffe4; border-color: rgba(114,211,148,.38); }
+    .small-btn.red { color: #ffdada; border-color: rgba(224,97,97,.38); }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(3,minmax(0,1fr));
+      gap: 14px;
     }
 
     .form-group label {
       display: block;
-      color: var(--muted);
-      font-weight: 700;
-      font-size: 12px;
-      margin-bottom: 5px;
-    }
-
-    .form-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      min-height: 36px;
-    }
-
-    select, input {
-      width: 100%;
-      min-height: 36px;
-      border: 1px solid var(--border-dark);
-      border-radius: 4px;
-      background: #fff;
-      color: var(--text);
-      padding: 7px 9px;
-      font-size: 14px;
-    }
-
-    input:focus, select:focus {
-      outline: 2px solid rgba(31, 94, 158, .16);
-      border-color: var(--blue);
-    }
-
-    .market-count {
-      font-weight: 700;
-      color: #26384b;
-    }
-
-    .board-wrap {
-      overflow-x: auto;
-      position: relative;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    .order-board-table { min-width: 1000px; }
-
-    th {
-      background: #e9eef4;
-      color: #4f5f70;
-      border-bottom: 1px solid var(--border-dark);
-      padding: 9px 10px;
-      font-size: 12px;
-      text-align: left;
-      white-space: nowrap;
-    }
-
-    td {
-      border-bottom: 1px solid var(--border);
-      padding: 7px 10px;
-      vertical-align: middle;
-      white-space: nowrap;
-    }
-
-    tbody tr:hover { background: #f4f8fc; }
-
-    .currency-cell { width: 110px; color: #2b4057; font-weight: 700; }
-    .bullion-cell { width: 145px; color: #2b4057; font-weight: 700; }
-    .chart-cell { width: 40px; text-align: center; }
-
-    .chart-btn {
-      border: 1px solid var(--border-dark);
-      color: var(--blue);
-      background: #fff;
-      border-radius: 3px;
-      cursor: pointer;
-      width: 28px;
-      height: 28px;
+      color: var(--gold);
+      font-size: 10px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
       font-weight: 900;
+      margin-bottom: 7px;
     }
 
-    .side-heading { text-align: center; font-weight: 700; }
-    .side-heading.sell { color: var(--green); }
-    .side-heading.buy { color: var(--red); }
-
-    .levels {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(105px, 1fr));
-      gap: 5px;
-    }
-
-    .level {
-      border: 1px solid var(--border);
-      background: #fff;
-      border-radius: 3px;
-      padding: 6px 7px;
-      cursor: pointer;
-      line-height: 1.1;
-      min-height: 43px;
-    }
-
-    .level:hover {
-      border-color: var(--blue);
-      box-shadow: inset 0 0 0 1px rgba(31, 94, 158, .15);
-    }
-
-    .level.best {
-      background: var(--gold-light);
-      border-color: #d9bd6e;
-    }
-
-    .level .price {
-      display: block;
-      font-weight: 800;
-      font-size: 13px;
-    }
-
-    .level .qty {
-      display: block;
-      color: var(--muted);
-      font-size: 11px;
-      margin-top: 3px;
-    }
-
-    .bids .price { color: var(--green); }
-    .offers .price { color: var(--red); }
-
-    .metal-dot {
-      display: inline-block;
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      margin-right: 6px;
-      background: var(--gold);
-      vertical-align: middle;
-    }
-
-    .metal-ag { background: #aeb8c2; }
-    .metal-pt { background: #8aa2c7; }
-    .metal-pd { background: #8493a3; }
-
-    .order-tip {
-      display: none;
+    .drawer {
       position: fixed;
-      z-index: 50;
-      width: 265px;
-      background: #fff;
-      border: 1px solid var(--border-dark);
-      box-shadow: 0 12px 32px rgba(18, 38, 63, .2);
-      border-radius: var(--radius);
-      overflow: hidden;
-      pointer-events: none;
+      inset: 0;
+      z-index: 70;
+      display: none;
+      background: rgba(0,0,0,.66);
+      backdrop-filter: blur(5px);
     }
 
-    .order-tip h3 {
+    .drawer.open { display: block; }
+
+    .drawer-panel {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: min(475px, 100%);
+      background: #0e0e10;
+      border-left: 1px solid var(--line2);
+      box-shadow: -22px 0 70px rgba(0,0,0,.55);
+      padding: 22px;
+      overflow-y: auto;
+    }
+
+    .drawer-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 18px;
+    }
+
+    .drawer-head h2 {
       margin: 0;
-      background: #10253f;
-      color: #fff;
-      padding: 9px 10px;
-      font-size: 14px;
+      font-family: var(--font-head);
+      font-weight: 400;
+      letter-spacing: -.05em;
     }
 
-    .order-tip table th,
-    .order-tip table td {
-      padding: 7px 9px;
-      border-bottom: 1px solid var(--border);
-      font-size: 12px;
-    }
-
-    .sidebar {
-      position: sticky;
-      top: 12px;
-    }
-
-    .order-panel .card-header {
-      background: #10253f;
-      color: #fff;
-    }
-
-    .order-panel h2 {
-      margin: 0;
-      font-size: 19px;
-      font-weight: 600;
-    }
-
-    .order-panel .card-body {
-      padding: 14px;
-    }
-
-    .switch {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 7px;
-      margin-bottom: 12px;
-    }
-
-    .switch button {
-      border: 1px solid var(--border-dark);
-      background: #fff;
-      color: var(--text);
-      padding: 10px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: 800;
-    }
-
-    .switch button.active.buy {
-      background: var(--green);
-      color: #fff;
-      border-color: var(--green);
-    }
-
-    .switch button.active.sell {
-      background: var(--red);
-      color: #fff;
-      border-color: var(--red);
-    }
-
-    .panel-grid {
-      display: grid;
-      gap: 10px;
-    }
-
-    .summary {
-      margin-top: 11px;
-      border: 1px solid var(--border);
-      background: var(--surface-2);
-      border-radius: var(--radius);
-      overflow: hidden;
+    .order-summary {
+      margin-top: 18px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.03);
     }
 
     .summary-line {
       display: flex;
       justify-content: space-between;
-      gap: 12px;
-      padding: 8px 10px;
-      border-bottom: 1px solid var(--border);
+      gap: 16px;
+      padding: 11px 13px;
+      border-bottom: 1px solid var(--line);
       color: var(--muted);
       font-size: 13px;
     }
 
     .summary-line:last-child {
       border-bottom: 0;
-      background: #fff;
-      font-weight: 800;
       color: var(--text);
+      font-weight: 900;
+      background: rgba(201,169,106,.08);
     }
 
     .summary-line strong {
-      text-align: right;
       color: var(--text);
-    }
-
-    .footer-buttons {
-      display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: 8px;
-      margin-top: 12px;
-    }
-
-    .warning {
-      background: var(--warning);
-      border: 1px solid #ead29b;
-      color: #5f4a16;
-      padding: 10px;
-      border-radius: var(--radius);
-      font-size: 12px;
-      line-height: 1.45;
-      margin-top: 12px;
-    }
-
-    .side-card {
-      margin-top: 14px;
-    }
-
-    .side-card .card-body {
-      padding: 14px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.45;
-    }
-
-    .mini-list {
-      margin: 0;
-      padding-left: 18px;
-    }
-
-    .mini-list li { margin: 5px 0; }
-
-    .modal-backdrop {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(13, 25, 40, .55);
-      z-index: 100;
-      padding: 20px;
-      overflow: auto;
-    }
-
-    .modal-backdrop.open {
-      display: grid;
-      place-items: start center;
+      text-align: right;
     }
 
     .modal {
-      width: min(760px, 100%);
-      background: #fff;
-      border-radius: var(--radius);
-      box-shadow: 0 18px 70px rgba(0,0,0,.25);
-      overflow: hidden;
-      margin-top: 30px;
+      position: fixed;
+      inset: 0;
+      z-index: 75;
+      background: rgba(0,0,0,.68);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 22px;
+      backdrop-filter: blur(5px);
     }
 
-    .modal-header {
-      background: #10253f;
-      color: #fff;
-      padding: 14px 16px;
+    .modal.open { display: flex; }
+
+    .modal-box {
+      width: min(720px, 100%);
+      max-height: calc(100vh - 44px);
+      overflow-y: auto;
+      background: #0e0e10;
+      border: 1px solid var(--line2);
+      box-shadow: var(--shadow);
+    }
+
+    .modal-head {
+      padding: 18px;
+      border-bottom: 1px solid var(--line);
       display: flex;
       justify-content: space-between;
-      align-items: center;
       gap: 14px;
     }
 
-    .modal-header h2 {
+    .modal-head h2 {
       margin: 0;
-      font-size: 19px;
-      font-weight: 600;
+      font-family: var(--font-head);
+      font-weight: 420;
     }
 
-    .modal-body {
-      padding: 16px;
-      line-height: 1.55;
-    }
+    .modal-body { padding: 18px; }
 
-    .modal-footer {
-      padding: 14px 16px;
-      border-top: 1px solid var(--border);
-      background: var(--surface-2);
+    .modal-foot {
+      padding: 16px 18px;
+      border-top: 1px solid var(--line);
       display: flex;
       justify-content: flex-end;
-      gap: 8px;
+      gap: 10px;
+      background: rgba(255,255,255,.03);
     }
 
-    .source-row {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 8px;
-      margin-top: 10px;
-    }
-
-    .small-note {
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.45;
-      margin-top: 7px;
-    }
-
-    .depth-table, .spreads-table {
-      min-width: 720px;
-    }
-
-    .hidden { display: none !important; }
-
-
-    .btn.active-view {
-      background: var(--blue-dark);
-      border-color: var(--blue-dark);
-      color: #fff;
-      box-shadow: inset 0 -2px 0 rgba(255,255,255,.16);
-    }
-
-    .nav a[data-action] {
-      cursor: pointer;
-    }
-
-    .modal-form-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-      margin-top: 12px;
-    }
-
-    .info-box {
-      border: 1px solid var(--border);
-      background: var(--surface-2);
-      border-radius: var(--radius);
-      padding: 12px;
-      margin: 10px 0;
-    }
-
-    .info-box strong {
+    .toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 100;
+      background: #0e0e10;
+      border: 1px solid var(--line2);
       color: var(--text);
+      padding: 14px 16px;
+      box-shadow: var(--shadow);
+      display: none;
+      min-width: 260px;
+      max-width: 420px;
     }
 
-    @media (max-width: 720px) {
-      .modal-form-grid {
-        grid-template-columns: 1fr;
-      }
+    .toast.show { display: block; }
+
+    .risk-note {
+      margin-top: 24px;
+      padding: 16px 18px;
+      border: 1px solid rgba(201,169,106,.24);
+      background: rgba(201,169,106,.06);
+      color: #d5c9b4;
+      line-height: 1.6;
+      font-size: 12px;
     }
 
-    @media (max-width: 1120px) {
-      .layout {
-        grid-template-columns: 1fr;
-      }
-      .sidebar {
-        position: static;
-      }
-      .market-toolbar {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
+    .login-box {
+      max-width: 520px;
+      margin: 0 auto 20px;
+      background: rgba(14,14,16,.96);
+      border: 1px solid var(--line2);
+      padding: 18px;
+      display: none;
     }
 
-    @media (max-width: 720px) {
-      .topbar-inner, .page-header-inner {
-        flex-direction: column;
-        align-items: flex-start;
+    .login-box.active { display: block; }
+
+    @media (max-width: 1180px) {
+      .products { grid-template-columns: repeat(3,minmax(0,1fr)); }
+      .market-status-row, .admin-stats { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .admin-grid { grid-template-columns: 1fr; }
+      .admin-sidebar { position: static; }
+    }
+
+    @media (max-width: 920px) {
+      .topbar { height: auto; position: static; }
+      .topbar__inner {
+        height: auto;
+        min-height: 72px;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 15px;
       }
-      .nav {
-        justify-content: flex-start;
-      }
-      .market-toolbar {
-        grid-template-columns: 1fr;
-      }
-      .header-actions {
-        justify-content: flex-start;
-      }
-      .layout {
-        padding: 0 10px;
-      }
+
+      .nav { order: 3; width: 100%; flex-wrap: wrap; gap: 14px; }
+      .top-actions { min-width: 0; }
+      .catalog-layout { grid-template-columns: 1fr; }
+      .filters { position: static; }
+      .products { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .form-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 620px) {
+      .page { padding-left: 12px; padding-right: 12px; }
+      .hero { min-height: 190px; }
+      .hero h1 { letter-spacing: .12em; font-size: 29px; }
+      .products { grid-template-columns: 1fr; }
+      .toolbar { align-items: stretch; flex-direction: column; }
+      .view-tabs { width: 100%; overflow-x: auto; }
+      .market-status-row, .admin-stats { grid-template-columns: 1fr; }
+      .card-actions { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
   <header class="topbar">
-    <div class="topbar-inner">
-      <div class="brand">
-        <span class="brand-mark" aria-hidden="true"></span>
-        <span>Swiss Gold Market Board</span>
-      </div>
+    <div class="topbar__inner">
+      <a href="#" class="logo" data-nav="market">
+        <span class="logo-mark"></span>
+        <span>swiss</span><span>gold</span>
+      </a>
+
       <nav class="nav">
-        <a href="#account" data-action="account">Account</a>
-        <a href="#deposit" data-action="deposit">Deposit funds</a>
-        <a href="#statement" data-action="statement">Statement</a>
-        <a href="#help" data-action="help">Help</a>
-        <a class="account-btn" href="#open-account" data-action="open-account">Open account</a>
+        <a data-nav="home" class="active">Domů</a>
+        <a data-nav="market">Live Board</a>
+        <a data-nav="orders">Objednávky</a>
+        <a data-nav="admin">Admin Console</a>
+        <a data-nav="help">Nápověda</a>
       </nav>
+
+      <div class="top-actions">
+        <div class="currency-toggle">
+          <button class="active" data-currency="CZK">CZK</button><span>/</span>
+          <button data-currency="EUR">EUR</button><span>/</span>
+          <button data-currency="CHF">CHF</button>
+        </div>
+        <button class="btn btn--dark" id="loginBtn">Přihlásit</button>
+        <button class="btn btn--gold" data-nav="ticket">Order Ticket</button>
+      </div>
     </div>
   </header>
 
-  <section class="page-header">
-    <div class="page-header-inner">
-      <div class="page-title">
-        <h1>Live order board</h1>
-        <div class="subtitle">
-          <span>Buy and sell at current market prices</span>
-          <button class="btn" id="openHelp" type="button">What is the order board?</button>
-          <span class="status-pill">
-            <span class="status-dot" id="statusDot"></span>
-            <span id="statusText">Demo data</span>
-          </span>
-          <span class="status-pill">Last update: <span id="lastUpdate">—</span></span>
-        </div>
-      </div>
-      <div class="header-actions">
-        <button class="btn active-view" id="viewOrderBoard" type="button">Order board</button>
-        <button class="btn" id="viewDepth" type="button">Market depth</button>
-        <button class="btn" id="viewSpreads" type="button">Market spreads</button>
-        <button class="btn btn-primary" id="refreshPrices" type="button">Refresh prices</button>
-      </div>
-    </div>
-  </section>
-
-  <main class="layout">
-    <section class="card" id="mainCard">
-      <div class="card-header">
-        <div class="market-toolbar">
-          <div class="form-group">
-            <label>Showing</label>
-            <div class="form-row">
-              <span class="market-count"><span id="visibleMarkets">0</span> of <span id="totalMarkets">0</span> markets</span>
-              <button class="btn" id="editMarkets" type="button">Edit</button>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="unitSelect">Weight units</label>
-            <select id="unitSelect">
-              <option value="TOZ">Troy oz</option>
-              <option value="G">Grams</option>
-              <option value="KG">Kilos</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="minOrder">Min. order size</label>
-            <input id="minOrder" type="number" min="0" step="0.01" value="0.32" />
-          </div>
-
-          <div class="form-group">
-            <label for="currencyFilter">Currency</label>
-            <select id="currencyFilter">
-              <option value="ALL">All currencies</option>
-              <option value="CZK">CZK</option>
-              <option value="EUR">EUR</option>
-              <option value="CHF">CHF</option>
-              <option value="USD">USD</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="metalFilter">Bullion</label>
-            <select id="metalFilter">
-              <option value="ALL">All bullion</option>
-              <option value="AU">Gold</option>
-              <option value="AG">Silver</option>
-              <option value="PT">Platinum</option>
-              <option value="PD">Palladium</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <div class="card-body">
-        <div class="board-wrap" id="orderBoardView">
-          <div class="order-tip" id="orderTip"></div>
-          <table class="order-board-table">
-            <thead>
-              <tr>
-                <th>Currency</th>
-                <th>Bullion</th>
-                <th class="side-heading sell" colspan="3">Best bids : SELL</th>
-                <th></th>
-                <th class="side-heading buy" colspan="3">BUY : Best offers</th>
-              </tr>
-            </thead>
-            <tbody id="boardRows"></tbody>
-          </table>
-        </div>
-
-        <div class="board-wrap hidden" id="depthView">
-          <table class="depth-table">
-            <thead>
-              <tr>
-                <th>Market</th>
-                <th>Currency</th>
-                <th>Best bid</th>
-                <th>Best offer</th>
-                <th>Bid quantity</th>
-                <th>Offer quantity</th>
-                <th>Indicative liquidity</th>
-              </tr>
-            </thead>
-            <tbody id="depthRows"></tbody>
-          </table>
-        </div>
-
-        <div class="board-wrap hidden" id="spreadsView">
-          <table class="spreads-table">
-            <thead>
-              <tr>
-                <th>Market</th>
-                <th>Currency</th>
-                <th>Best bid</th>
-                <th>Best offer</th>
-                <th>Spread</th>
-                <th>Spread %</th>
-                <th>Spot basis</th>
-              </tr>
-            </thead>
-            <tbody id="spreadRows"></tbody>
-          </table>
-        </div>
+  <main class="page">
+    <section class="hero" id="homeSection">
+      <div>
+        <h1>ZLATO, KTERÉMU SVĚT VĚŘÍ</h1>
+        <p>
+          Live tržní tabule pro nákup a prodej drahých kovů podle lokace, měny, dostupnosti a spreadu.
+          Ceny se načítají z live feedu přes backend proxy a objednávky lze spravovat v Admin Console.
+        </p>
       </div>
     </section>
 
-    <aside class="sidebar">
-      <section class="card order-panel">
-        <div class="card-header">
-          <h2>Order panel</h2>
+    <section class="login-box" id="loginBox">
+      <div class="form-grid" style="grid-template-columns: 1fr 1fr auto;">
+        <div class="form-group">
+          <label>E-mail</label>
+          <input id="loginEmail" value="admin@swissgold.local">
         </div>
-        <div class="card-body">
-          <div class="switch">
-            <button id="sideBuy" class="active buy" type="button">BUY / BID</button>
-            <button id="sideSell" type="button">SELL / OFFER</button>
+        <div class="form-group">
+          <label>Role</label>
+          <select id="loginRole">
+            <option value="admin">Admin</option>
+            <option value="dealer">Dealer</option>
+            <option value="client">Client</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>&nbsp;</label>
+          <button class="btn btn--gold" id="loginSubmit">Přihlásit demo</button>
+        </div>
+      </div>
+      <div style="margin-top:10px;color:var(--muted);font-size:12px;">Demo přihlášení pouze pro prototyp. Produkčně musí být nahrazeno serverovou autentizací a RBAC.</div>
+    </section>
+
+    <section class="market-status-row" id="marketStats">
+      <div class="status-card">
+        <div class="status-label">Stav feedu</div>
+        <div class="status-value" id="feedMode">Demo</div>
+        <div class="status-note">Poslední update: <span id="lastUpdate">—</span></div>
+      </div>
+      <div class="status-card">
+        <div class="status-label">Trhy</div>
+        <div class="status-value"><span id="visibleCount">0</span> / <span id="totalCount">0</span></div>
+        <div class="status-note">Filtrované trhy podle kovu a lokace</div>
+      </div>
+      <div class="status-card">
+        <div class="status-label">Dnešní objednávky</div>
+        <div class="status-value" id="ordersToday">0</div>
+        <div class="status-note">Včetně draftů a pokynů ke schválení</div>
+      </div>
+      <div class="status-card">
+        <div class="status-label">Objem objednávek</div>
+        <div class="status-value" id="ordersVolume">0 Kč</div>
+        <div class="status-note">Hrubá hodnota v základní měně</div>
+      </div>
+    </section>
+
+    <section id="marketSection" class="market-shell">
+      <div class="catalog-layout">
+        <aside class="filters">
+          <div class="filter-group">
+            <h4>Skupina</h4>
+            <div class="filter-list">
+              <label><input type="radio" name="metalFilter" value="ALL" checked> Vše</label>
+              <label><input type="radio" name="metalFilter" value="AU"> Investiční zlato</label>
+              <label><input type="radio" name="metalFilter" value="AG"> Investiční stříbro</label>
+              <label><input type="radio" name="metalFilter" value="PT"> Platina</label>
+              <label><input type="radio" name="metalFilter" value="PD"> Palladium</label>
+            </div>
           </div>
 
-          <div class="panel-grid">
-            <div class="form-group">
-              <label for="ticketMarket">Market</label>
-              <select id="ticketMarket"></select>
-            </div>
-
-            <div class="form-group">
-              <label for="ticketCurrency">Currency</label>
-              <select id="ticketCurrency">
-                <option>CZK</option>
-                <option>EUR</option>
-                <option>CHF</option>
-                <option>USD</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="ticketType">Order type</label>
-              <select id="ticketType">
-                <option value="TIL_CANCEL">Good until cancelled</option>
-                <option value="TIL_TIME">Good until time</option>
-                <option value="IMMEDIATE">Immediate</option>
-                <option value="FILL_KILL">Fill or kill</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="ticketQuantity">Quantity</label>
-              <input id="ticketQuantity" type="number" min="0.01" step="0.01" value="1.00" />
-            </div>
-
-            <div class="form-group">
-              <label for="ticketLimit">Limit price</label>
-              <input id="ticketLimit" type="number" min="0" step="0.01" value="0" />
-            </div>
-
-            <div class="summary">
-              <div class="summary-line"><span>Action</span><strong id="summaryAction">BUY / BID</strong></div>
-              <div class="summary-line"><span>Quantity</span><strong id="summaryQuantity">—</strong></div>
-              <div class="summary-line"><span>Limit price</span><strong id="summaryLimit">—</strong></div>
-              <div class="summary-line"><span>Commission reserve</span><strong id="summaryFee">—</strong></div>
-              <div class="summary-line"><span>Estimated consideration</span><strong id="summaryTotal">—</strong></div>
-            </div>
-
-            <div class="footer-buttons">
-              <button class="btn" id="resetTicket" type="button">Reset</button>
-              <button class="btn btn-primary" id="submitTicket" type="button">Review order</button>
-            </div>
-
-            <div class="warning">
-              Ostré zadání pokynu musí proběhnout až po přihlášení, kontrole zůstatku, AML/KYC limitů
-              a dvoukrokovém potvrzení. API klíč k cenovým datům nesmí být vložen přímo do tohoto HTML.
+          <div class="filter-group">
+            <h4>Lokace</h4>
+            <div class="filter-list">
+              <label><input type="checkbox" name="locationFilter" value="Curych"> Curych</label>
+              <label><input type="checkbox" name="locationFilter" value="Praha"> Praha</label>
+              <label><input type="checkbox" name="locationFilter" value="Londýn"> Londýn</label>
+              <label><input type="checkbox" name="locationFilter" value="Frankfurt"> Frankfurt</label>
             </div>
           </div>
-        </div>
-      </section>
 
-      <section class="card side-card">
-        <div class="card-header"><strong>Live price source</strong></div>
-        <div class="card-body">
-          <p>
-            Frontend volá endpoint <strong>/api/metals-prices</strong>. V Netlify variantě jej obsluhuje funkce
-            <strong>/.netlify/functions/metals-prices</strong>.
-          </p>
-          <ul class="mini-list">
-            <li>Demo režim funguje bez API.</li>
-            <li>Live režim vyžaduje serverový API klíč.</li>
-            <li>Bid/offer se počítá ze spot ceny, marže a likvidity.</li>
-          </ul>
-        </div>
-      </section>
-    </aside>
+          <div class="filter-group">
+            <h4>Měna</h4>
+            <div class="filter-list">
+              <label><input type="radio" name="currencyFilter" value="ALL"> Vše</label>
+              <label><input type="radio" name="currencyFilter" value="CZK" checked> CZK</label>
+              <label><input type="radio" name="currencyFilter" value="EUR"> EUR</label>
+              <label><input type="radio" name="currencyFilter" value="CHF"> CHF</label>
+              <label><input type="radio" name="currencyFilter" value="USD"> USD</label>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <h4>Hmotnost / velikost</h4>
+            <div class="filter-list">
+              <label><input type="checkbox" name="sizeFilter" value="1"> 1 g</label>
+              <label><input type="checkbox" name="sizeFilter" value="5"> 5 g</label>
+              <label><input type="checkbox" name="sizeFilter" value="31.1035"> 31,1 g (1 oz)</label>
+              <label><input type="checkbox" name="sizeFilter" value="100"> 100 g</label>
+              <label><input type="checkbox" name="sizeFilter" value="1000"> 1 000 g (1 kg)</label>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <h4>Dostupnost</h4>
+            <div class="filter-list">
+              <label><input type="checkbox" name="availabilityFilter" value="skladem-cz"> Skladem CZ</label>
+              <label><input type="checkbox" name="availabilityFilter" value="skladem-de-ch"> Skladem DE/CH</label>
+              <label><input type="checkbox" name="availabilityFilter" value="na-ceste"> Na cestě</label>
+              <label><input type="checkbox" name="availabilityFilter" value="predobjednavka"> Předobjednávka</label>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <h4>Live data</h4>
+            <button class="btn btn--gold" id="refreshPrices" style="width:100%;">Obnovit ceny</button>
+            <button class="btn btn--dark" id="resetFilters" style="width:100%;margin-top:10px;">Reset filtrů</button>
+          </div>
+        </aside>
+
+        <section>
+          <div class="toolbar">
+            <div class="toolbar-left">
+              <span class="results-count"><span id="resultCount">0</span> trhů</span>
+              <div class="view-tabs">
+                <button class="active" data-view="cards">Karty</button>
+                <button data-view="board">Order board</button>
+                <button data-view="depth">Market depth</button>
+                <button data-view="spreads">Spreads</button>
+              </div>
+            </div>
+            <select id="sortSelect" style="max-width:190px;">
+              <option value="featured">Doporučené</option>
+              <option value="spread-asc">Nejnižší spread</option>
+              <option value="offer-asc">Nejnižší prodejní cena</option>
+              <option value="liquidity-desc">Nejvyšší likvidita</option>
+            </select>
+          </div>
+
+          <div class="products" id="productGrid"></div>
+
+          <div class="table-shell hidden" id="boardTableShell">
+            <table class="market-table">
+              <thead>
+                <tr>
+                  <th>Měna</th><th>Kov / lokace</th><th>Best bid : Sell</th><th>Objem bid</th><th>Buy : Best offer</th><th>Objem offer</th><th>Spread</th><th>Akce</th>
+                </tr>
+              </thead>
+              <tbody id="boardRows"></tbody>
+            </table>
+          </div>
+
+          <div class="table-shell hidden" id="depthTableShell">
+            <table class="market-table">
+              <thead>
+                <tr>
+                  <th>Trh</th><th>Měna</th><th>Bid 1</th><th>Bid 2</th><th>Bid 3</th><th>Offer 1</th><th>Offer 2</th><th>Offer 3</th><th>Likvidita</th>
+                </tr>
+              </thead>
+              <tbody id="depthRows"></tbody>
+            </table>
+          </div>
+
+          <div class="table-shell hidden" id="spreadTableShell">
+            <table class="market-table">
+              <thead>
+                <tr>
+                  <th>Trh</th><th>Měna</th><th>Spot</th><th>Best bid</th><th>Best offer</th><th>Spread</th><th>Spread %</th><th>Poplatek</th>
+                </tr>
+              </thead>
+              <tbody id="spreadRows"></tbody>
+            </table>
+          </div>
+
+          <div class="risk-note">
+            Uvedené ceny jsou indikativní do okamžiku potvrzení pokynu. Ostrý obchod musí projít kontrolou zůstatku,
+            AML/KYC limitem, auditním záznamem a druhým potvrzením klienta. Tento prototyp používá lokální úložiště,
+            produkčně je nutný server, databáze a role-based access control.
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="admin-shell" id="adminSection">
+      <div class="admin-grid">
+        <aside class="admin-sidebar">
+          <h3>Admin Console</h3>
+          <div class="admin-menu">
+            <button class="active" data-admin-tab="dashboard">Dashboard</button>
+            <button data-admin-tab="users">Uživatelé</button>
+            <button data-admin-tab="orders">Objednávky</button>
+            <button data-admin-tab="pricing">Marže & pricing</button>
+            <button data-admin-tab="audit">Audit log</button>
+            <button data-admin-tab="system">Systém</button>
+          </div>
+        </aside>
+
+        <section class="admin-main">
+          <div class="admin-stats">
+            <div class="status-card">
+              <div class="status-label">Uživatelé</div>
+              <div class="status-value" id="adminUsersCount">0</div>
+              <div class="status-note">Registrované účty</div>
+            </div>
+            <div class="status-card">
+              <div class="status-label">Pending KYC</div>
+              <div class="status-value" id="adminKycCount">0</div>
+              <div class="status-note">Vyžaduje kontrolu</div>
+            </div>
+            <div class="status-card">
+              <div class="status-label">Open orders</div>
+              <div class="status-value" id="adminOpenOrders">0</div>
+              <div class="status-note">Draft / pending / approved</div>
+            </div>
+            <div class="status-card">
+              <div class="status-label">Audit events</div>
+              <div class="status-value" id="adminAuditCount">0</div>
+              <div class="status-note">Lokální audit prototypu</div>
+            </div>
+          </div>
+
+          <div class="admin-panel" data-admin-panel="dashboard">
+            <div class="admin-panel-head">
+              <h2>Strategický přehled</h2>
+              <button class="btn btn--gold" id="adminRefresh">Refresh</button>
+            </div>
+            <div class="admin-panel-body">
+              <div class="table-shell">
+                <table class="market-table">
+                  <thead><tr><th>Oblast</th><th>Stav</th><th>Riziko</th><th>Akce</th></tr></thead>
+                  <tbody id="dashboardRows"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-panel hidden" data-admin-panel="users">
+            <div class="admin-panel-head">
+              <h2>Správa uživatelů</h2>
+              <button class="btn btn--gold" id="addUserBtn">Přidat uživatele</button>
+            </div>
+            <div class="admin-panel-body">
+              <div class="admin-toolbar">
+                <input id="userSearch" placeholder="Hledat uživatele">
+                <select id="kycFilter">
+                  <option value="ALL">Všechny KYC stavy</option>
+                  <option value="verified">Verified</option>
+                  <option value="pending">Pending</option>
+                  <option value="blocked">Blocked</option>
+                </select>
+              </div>
+              <div class="table-shell">
+                <table class="market-table">
+                  <thead>
+                    <tr><th>ID</th><th>Uživatel</th><th>E-mail</th><th>Role</th><th>KYC</th><th>Cash</th><th>Au</th><th>Status</th><th>Akce</th></tr>
+                  </thead>
+                  <tbody id="usersRows"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-panel hidden" data-admin-panel="orders">
+            <div class="admin-panel-head">
+              <h2>Správa objednávek</h2>
+              <button class="btn btn--dark" id="exportOrdersBtn">Export CSV</button>
+            </div>
+            <div class="admin-panel-body">
+              <div class="admin-toolbar">
+                <input id="orderSearch" placeholder="Hledat objednávku">
+                <select id="orderStatusFilter">
+                  <option value="ALL">Všechny stavy</option>
+                  <option value="draft">Draft</option>
+                  <option value="pending">Pending</option>
+                  <option value="approved">Approved</option>
+                  <option value="matched">Matched</option>
+                  <option value="rejected">Rejected</option>
+                  <option value="cancelled">Cancelled</option>
+                </select>
+              </div>
+              <div class="table-shell">
+                <table class="market-table">
+                  <thead>
+                    <tr><th>ID</th><th>Klient</th><th>Strana</th><th>Trh</th><th>Množství</th><th>Cena</th><th>Hodnota</th><th>Status</th><th>Akce</th></tr>
+                  </thead>
+                  <tbody id="ordersRows"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-panel hidden" data-admin-panel="pricing">
+            <div class="admin-panel-head">
+              <h2>Marže, poplatky a spread</h2>
+              <button class="btn btn--gold" id="savePricingBtn">Uložit nastavení</button>
+            </div>
+            <div class="admin-panel-body">
+              <div class="form-grid">
+                <div class="form-group"><label>Gold spread bps</label><input id="spreadAU" type="number"></div>
+                <div class="form-group"><label>Silver spread bps</label><input id="spreadAG" type="number"></div>
+                <div class="form-group"><label>Platinum spread bps</label><input id="spreadPT" type="number"></div>
+                <div class="form-group"><label>Palladium spread bps</label><input id="spreadPD" type="number"></div>
+                <div class="form-group"><label>Commission bps</label><input id="commissionBps" type="number"></div>
+                <div class="form-group"><label>Refresh interval ms</label><input id="refreshMs" type="number"></div>
+              </div>
+              <div class="risk-note">
+                Pricing je v prototypu lokální. Produkčně musí být změny marží auditované, schvalované a ukládané na serveru.
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-panel hidden" data-admin-panel="audit">
+            <div class="admin-panel-head">
+              <h2>Audit log</h2>
+              <button class="btn btn--red" id="clearAuditBtn">Vymazat audit demo</button>
+            </div>
+            <div class="admin-panel-body">
+              <div class="table-shell">
+                <table class="market-table">
+                  <thead><tr><th>Čas</th><th>Uživatel</th><th>Událost</th><th>Detail</th></tr></thead>
+                  <tbody id="auditRows"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-panel hidden" data-admin-panel="system">
+            <div class="admin-panel-head">
+              <h2>Systém</h2>
+              <button class="btn btn--gold" id="systemCheckBtn">Spustit kontrolu</button>
+            </div>
+            <div class="admin-panel-body">
+              <div class="table-shell">
+                <table class="market-table">
+                  <thead><tr><th>Kontrola</th><th>Výsledek</th><th>Poznámka</th></tr></thead>
+                  <tbody id="systemRows"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
   </main>
 
-  <div class="modal-backdrop" id="helpModal">
-    <div class="modal">
-      <div class="modal-header">
-        <h2>What is the order board?</h2>
-        <button class="btn" id="closeHelp" type="button">Close</button>
-      </div>
-      <div class="modal-body">
-        <p>
-          Market Board zobrazuje nejlepší nákupní a prodejní úrovně podle kovu, měny a lokace.
-          Kliknutím na konkrétní cenu se vyplní order panel.
-        </p>
-        <p>
-          <strong>Best bids : SELL</strong> znamená, že proti těmto nákupním cenám může klient prodávat.
-          <strong>BUY : Best offers</strong> znamená, že proti těmto prodejním cenám může klient nakupovat.
-        </p>
-        <p>
-          Tato šablona podporuje demo data i živé ceny přes backend/proxy. V produkci musí být doplněn
-          reálný matching, evidence kovu, účetní vypořádání, auditní stopa a AML/KYC workflow.
-        </p>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-primary" id="closeHelp2" type="button">Rozumím</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal-backdrop" id="marketsModal">
-    <div class="modal">
-      <div class="modal-header">
-        <h2>Edit markets</h2>
-        <button class="btn" id="closeMarkets" type="button">Close</button>
-      </div>
-      <div class="modal-body">
-        <p>Vyberte trhy, které se mají zobrazovat v tabuli.</p>
-        <div id="marketCheckboxes"></div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn" id="selectAllMarkets" type="button">Select all</button>
-        <button class="btn" id="clearAllMarkets" type="button">Clear all</button>
-        <button class="btn btn-primary" id="applyMarkets" type="button">Apply</button>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="modal-backdrop" id="accountModal">
-    <div class="modal">
-      <div class="modal-header">
-        <h2>Account overview</h2>
-        <button class="btn" data-close="accountModal" type="button">Close</button>
-      </div>
-      <div class="modal-body">
-        <p>Tento modul je připravený jako klientský přehled. V ostré verzi se sem napojí reálná klientská evidence.</p>
-        <div class="info-box"><strong>Cash balance:</strong> 0,00 CZK / 0,00 EUR / 0,00 CHF</div>
-        <div class="info-box"><strong>Metal balance:</strong> Au 0,000 oz · Ag 0,000 oz · Pt 0,000 oz · Pd 0,000 oz</div>
-        <div class="info-box"><strong>KYC status:</strong> Pending / Not connected</div>
-        <p class="small-note">Produkční verze musí načítat zůstatky z backendu po přihlášení klienta. Nikdy je nepočítejte pouze ve frontendu.</p>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-primary" data-close="accountModal" type="button">OK</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal-backdrop" id="depositModal">
-    <div class="modal">
-      <div class="modal-header">
-        <h2>Deposit funds</h2>
-        <button class="btn" data-close="depositModal" type="button">Close</button>
-      </div>
-      <div class="modal-body">
-        <p>Zde bude klient zadávat vklad prostředků nebo převod kovu do evidence.</p>
-        <div class="modal-form-grid">
-          <div class="form-group">
-            <label for="depositCurrency">Currency</label>
-            <select id="depositCurrency">
-              <option>CZK</option>
-              <option>EUR</option>
-              <option>CHF</option>
-              <option>USD</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="depositAmount">Amount</label>
-            <input id="depositAmount" type="number" min="0" step="0.01" placeholder="0.00">
-          </div>
+  <aside class="drawer" id="orderDrawer">
+    <div class="drawer-panel">
+      <div class="drawer-head">
+        <div>
+          <h2>Order Ticket</h2>
+          <div style="color:var(--muted);font-size:13px;margin-top:6px;">Zadání pokynu k nákupu/prodeji kovu</div>
         </div>
-        <div class="info-box">
-          <strong>Payment reference:</strong> bude generováno backendem podle klientského účtu.
-        </div>
-        <p class="small-note">Před přijetím vyšších částek doplňte AML limity, kontrolu zdroje prostředků a párování bankovních plateb.</p>
+        <button class="btn btn--dark" id="closeDrawer">Zavřít</button>
       </div>
-      <div class="modal-footer">
-        <button class="btn" data-close="depositModal" type="button">Cancel</button>
-        <button class="btn btn-primary" id="depositPreview" type="button">Generate payment instruction</button>
-      </div>
-    </div>
-  </div>
 
-  <div class="modal-backdrop" id="statementModal">
-    <div class="modal">
-      <div class="modal-header">
-        <h2>Statement</h2>
-        <button class="btn" data-close="statementModal" type="button">Close</button>
-      </div>
-      <div class="modal-body">
-        <p>Ukázka výpisu klientského účtu. V ostré verzi bude výpis generovaný z databáze pohybů.</p>
-        <table>
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Operation</th>
-              <th>Asset</th>
-              <th>Amount</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>Dnes</td><td>Order preview</td><td>Gold</td><td>—</td><td>Draft</td></tr>
-            <tr><td>Dnes</td><td>Live price refresh</td><td>Market data</td><td>—</td><td>OK</td></tr>
-          </tbody>
-        </table>
-        <p class="small-note">Produkčně doplnit CSV/PDF export, auditní stopu, číslo pokynu a vazbu na klientský účet.</p>
-      </div>
-      <div class="modal-footer">
-        <button class="btn" id="exportStatement" type="button">Export CSV</button>
-        <button class="btn btn-primary" data-close="statementModal" type="button">OK</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal-backdrop" id="openAccountModal">
-    <div class="modal">
-      <div class="modal-header">
-        <h2>Open account</h2>
-        <button class="btn" data-close="openAccountModal" type="button">Close</button>
-      </div>
-      <div class="modal-body">
-        <p>Formulář pro založení účtu. V ostré verzi bude navázán na registraci, e-mailové ověření a KYC/AML.</p>
-        <div class="modal-form-grid">
-          <div class="form-group">
-            <label for="regName">Name / Company</label>
-            <input id="regName" type="text" placeholder="Jméno nebo název společnosti">
-          </div>
-          <div class="form-group">
-            <label for="regEmail">E-mail</label>
-            <input id="regEmail" type="email" placeholder="email@example.com">
-          </div>
-          <div class="form-group">
-            <label for="regCountry">Country</label>
-            <input id="regCountry" type="text" placeholder="Czech Republic / Switzerland">
-          </div>
-          <div class="form-group">
-            <label for="regCurrency">Base currency</label>
-            <select id="regCurrency">
-              <option>CZK</option>
-              <option>EUR</option>
-              <option>CHF</option>
-              <option>USD</option>
-            </select>
-          </div>
+      <div class="form-grid" style="grid-template-columns:1fr 1fr;">
+        <div class="form-group">
+          <label>Strana</label>
+          <select id="ticketSide">
+            <option value="BUY">BUY / nákup</option>
+            <option value="SELL">SELL / prodej</option>
+          </select>
         </div>
-        <div class="info-box">
-          <strong>Next step:</strong> vytvoření účtu, souhlas s VOP, ověření e-mailu a AML/KYC identifikace.
+        <div class="form-group">
+          <label>Typ pokynu</label>
+          <select id="ticketType">
+            <option value="limit">Limit</option>
+            <option value="market">Market</option>
+            <option value="fill-or-kill">Fill or kill</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Trh</label>
+          <select id="ticketMarket"></select>
+        </div>
+        <div class="form-group">
+          <label>Měna</label>
+          <select id="ticketCurrency">
+            <option>CZK</option><option>EUR</option><option>CHF</option><option>USD</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Množství g</label>
+          <input id="ticketQty" type="number" step="0.001" min="0.001" value="10">
+        </div>
+        <div class="form-group">
+          <label>Limit cena / g</label>
+          <input id="ticketPrice" type="number" step="0.01" min="0" value="0">
+        </div>
+        <div class="form-group">
+          <label>Klient</label>
+          <select id="ticketUser"></select>
+        </div>
+        <div class="form-group">
+          <label>Vypořádání</label>
+          <select id="ticketSettlement">
+            <option value="internal">Klientská evidence</option>
+            <option value="allocated">Alokovaný kov</option>
+            <option value="delivery">Fyzické dodání</option>
+            <option value="reservation">Rezervace slitku</option>
+          </select>
         </div>
       </div>
-      <div class="modal-footer">
-        <button class="btn" data-close="openAccountModal" type="button">Cancel</button>
-        <button class="btn btn-primary" id="registerPreview" type="button">Start registration</button>
+
+      <div class="order-summary">
+        <div class="summary-line"><span>Trh</span><strong id="sumMarket">—</strong></div>
+        <div class="summary-line"><span>Objem</span><strong id="sumQty">—</strong></div>
+        <div class="summary-line"><span>Hrubá hodnota</span><strong id="sumGross">—</strong></div>
+        <div class="summary-line"><span>Poplatek</span><strong id="sumFee">—</strong></div>
+        <div class="summary-line"><span>Celkem</span><strong id="sumTotal">—</strong></div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;">
+        <button class="btn btn--dark" id="saveDraftBtn">Uložit draft</button>
+        <button class="btn btn--gold" id="submitOrderBtn">Odeslat ke schválení</button>
+      </div>
+
+      <div class="risk-note">
+        Produkčně musí následovat kontrola zůstatku, AML/KYC limit, potvrzení klienta a auditní stopa.
+      </div>
+    </div>
+  </aside>
+
+  <div class="modal" id="userModal">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h2 id="userModalTitle">Uživatel</h2>
+        <button class="btn btn--dark" data-close-modal="userModal">Zavřít</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="editUserId">
+        <div class="form-grid">
+          <div class="form-group"><label>Jméno</label><input id="editUserName"></div>
+          <div class="form-group"><label>E-mail</label><input id="editUserEmail"></div>
+          <div class="form-group"><label>Role</label><select id="editUserRole"><option>client</option><option>dealer</option><option>admin</option></select></div>
+          <div class="form-group"><label>KYC</label><select id="editUserKyc"><option>pending</option><option>verified</option><option>blocked</option></select></div>
+          <div class="form-group"><label>Cash CZK</label><input id="editUserCash" type="number"></div>
+          <div class="form-group"><label>Au g</label><input id="editUserAu" type="number" step="0.001"></div>
+          <div class="form-group"><label>Status</label><select id="editUserStatus"><option>active</option><option>watch</option><option>blocked</option></select></div>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn--dark" data-close-modal="userModal">Zrušit</button>
+        <button class="btn btn--gold" id="saveUserBtn">Uložit</button>
       </div>
     </div>
   </div>
 
+  <div class="modal" id="helpModal">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h2>Nápověda / logika systému</h2>
+        <button class="btn btn--dark" data-close-modal="helpModal">Zavřít</button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Best bid</strong> je cena, za kterou může klient prodávat. <strong>Best offer</strong> je cena, za kterou může klient nakupovat.</p>
+        <p>Live ceny se načítají přes backend endpoint <code>/.netlify/functions/metals-prices</code>. Pokud chybí API klíč, systém spadne do demo režimu.</p>
+        <p>Admin Console umožňuje správu uživatelů, objednávek, marží, audit logu a systémových kontrol. V této verzi jde o frontendový prototyp s localStorage.</p>
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn--gold" data-close-modal="helpModal">Rozumím</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
 
   <script>
-    const CONFIG = {
-      useLiveEndpoint: true,
-      liveEndpoint: "/.netlify/functions/metals-prices",
-      refreshIntervalMs: 30000,
-      commissionReserveBps: 100,
-      defaultSpreadBps: {
-        AU: 55,
-        AG: 180,
-        PT: 120,
-        PD: 160
-      },
-      marketPremiumBps: {
-        Praha: 35,
-        Curych: 10,
-        Londýn: 15,
-        Frankfurt: 20
-      }
+    const DEFAULT_PRICING = {
+      spreads: { AU: 65, AG: 210, PT: 135, PD: 180 },
+      locationPremiums: { Curych: 10, Praha: 42, Londýn: 18, Frankfurt: 25 },
+      commissionBps: 50,
+      refreshMs: 30000
     };
 
-    const MARKETS = [
-      { id: "AUXZU", metal: "AU", metalName: "Gold", location: "Curych", currencies: ["USD", "EUR", "CHF", "CZK"] },
-      { id: "AUXLN", metal: "AU", metalName: "Gold", location: "Londýn", currencies: ["USD", "EUR", "CHF"] },
-      { id: "AUXPRG", metal: "AU", metalName: "Gold", location: "Praha", currencies: ["CZK", "EUR"] },
-      { id: "AUXDE", metal: "AU", metalName: "Gold", location: "Frankfurt", currencies: ["EUR", "CHF"] },
-      { id: "AGXZU", metal: "AG", metalName: "Silver", location: "Curych", currencies: ["USD", "EUR", "CHF"] },
-      { id: "AGXPRG", metal: "AG", metalName: "Silver", location: "Praha", currencies: ["CZK", "EUR"] },
-      { id: "PTXLN", metal: "PT", metalName: "Platinum", location: "Londýn", currencies: ["USD", "EUR"] },
-      { id: "PDXLN", metal: "PD", metalName: "Palladium", location: "Londýn", currencies: ["USD", "EUR"] }
-    ];
-
-    const DEMO_SPOT_PER_TOZ = {
+    const DEMO_SPOT_TOZ = {
       AU: { USD: 4325.10, EUR: 4018.80, CHF: 3775.40, CZK: 98120.00 },
       AG: { USD: 58.20, EUR: 54.15, CHF: 50.82, CZK: 1320.00 },
       PT: { USD: 1680.00, EUR: 1561.00, CHF: 1467.50, CZK: 38120.00 },
       PD: { USD: 1620.00, EUR: 1505.30, CHF: 1412.00, CZK: 36780.00 }
     };
 
-    let spot = structuredClone(DEMO_SPOT_PER_TOZ);
-    let currentUnit = "TOZ";
-    let selectedMarkets = new Set();
-    let orderSide = "BUY";
-    let currentView = "board";
-    let lastRenderedRows = [];
+    const MARKETS = [
+      { id: "AUXZU", metal: "AU", name: "Zlato", display: "Gold Zurich", location: "Curych", currencies: ["CZK","EUR","CHF","USD"], availability: "skladem-de-ch", unitGrams: 31.1035, purity: "999,9" },
+      { id: "AUXPRG", metal: "AU", name: "Zlato", display: "Gold Prague", location: "Praha", currencies: ["CZK","EUR"], availability: "skladem-cz", unitGrams: 31.1035, purity: "999,9" },
+      { id: "AUXLN", metal: "AU", name: "Zlato", display: "Gold London", location: "Londýn", currencies: ["EUR","CHF","USD"], availability: "na-ceste", unitGrams: 31.1035, purity: "999,9" },
+      { id: "AUXDE", metal: "AU", name: "Zlato", display: "Gold Frankfurt", location: "Frankfurt", currencies: ["EUR","CHF"], availability: "skladem-de-ch", unitGrams: 31.1035, purity: "999,9" },
+      { id: "AGXZU", metal: "AG", name: "Stříbro", display: "Silver Zurich", location: "Curych", currencies: ["CZK","EUR","CHF","USD"], availability: "skladem-de-ch", unitGrams: 1000, purity: "999" },
+      { id: "AGXPRG", metal: "AG", name: "Stříbro", display: "Silver Prague", location: "Praha", currencies: ["CZK","EUR"], availability: "skladem-cz", unitGrams: 1000, purity: "999" },
+      { id: "PTXLN", metal: "PT", name: "Platina", display: "Platinum London", location: "Londýn", currencies: ["EUR","USD"], availability: "predobjednavka", unitGrams: 31.1035, purity: "999,5" },
+      { id: "PDXLN", metal: "PD", name: "Palladium", display: "Palladium London", location: "Londýn", currencies: ["EUR","USD"], availability: "predobjednavka", unitGrams: 31.1035, purity: "999,5" }
+    ];
 
-    const el = (id) => document.getElementById(id);
+    const DEFAULT_USERS = [
+      { id: "U1001", name: "Demo klient", email: "client@demo.local", role: "client", kyc: "verified", cashCZK: 750000, auG: 120.5, status: "active" },
+      { id: "U1002", name: "KYC čeká", email: "kyc@demo.local", role: "client", kyc: "pending", cashCZK: 150000, auG: 0, status: "watch" },
+      { id: "U1003", name: "Dealer", email: "dealer@demo.local", role: "dealer", kyc: "verified", cashCZK: 0, auG: 0, status: "active" }
+    ];
 
-    function initSelectedMarkets() {
-      MARKETS.forEach(m => m.currencies.forEach(c => selectedMarkets.add(m.id + "_" + c)));
+    const LS = {
+      users: "sgmb_users_v2",
+      orders: "sgmb_orders_v2",
+      pricing: "sgmb_pricing_v2",
+      audit: "sgmb_audit_v2",
+      session: "sgmb_session_v2"
+    };
+
+    let spot = structuredClone(DEMO_SPOT_TOZ);
+    let pricing = loadJson(LS.pricing, DEFAULT_PRICING);
+    let users = loadJson(LS.users, DEFAULT_USERS);
+    let orders = loadJson(LS.orders, []);
+    let audit = loadJson(LS.audit, []);
+    let session = loadJson(LS.session, { email: "guest", role: "guest" });
+    let activeView = "cards";
+    let activeSection = "market";
+    let activeAdminTab = "dashboard";
+    let activeCurrency = "CZK";
+    let refreshTimer = null;
+
+    const $ = (id) => document.getElementById(id);
+    const qsa = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+
+    function loadJson(key, fallback) {
+      try {
+        const raw = localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : structuredClone(fallback);
+      } catch {
+        return structuredClone(fallback);
+      }
     }
 
-    function unitFactorFromToz(unit) {
-      if (unit === "KG") return 32.1507465686;
-      if (unit === "G") return 31.1034768;
-      return 1;
+    function saveJson(key, value) {
+      localStorage.setItem(key, JSON.stringify(value));
     }
 
-    function toDisplayPrice(pricePerToz, unit) {
-      return pricePerToz / unitFactorFromToz(unit);
+    function logEvent(event, detail) {
+      audit.unshift({
+        time: new Date().toISOString(),
+        user: session.email || "guest",
+        event,
+        detail
+      });
+      audit = audit.slice(0, 300);
+      saveJson(LS.audit, audit);
+      renderAdmin();
     }
 
-    function toTozQuantity(qty, unit) {
-      if (unit === "KG") return qty * 32.1507465686;
-      if (unit === "G") return qty / 31.1034768;
-      return qty;
+    function toast(message) {
+      const t = $("toast");
+      t.textContent = message;
+      t.classList.add("show");
+      setTimeout(() => t.classList.remove("show"), 2800);
     }
 
-    function fromTozQuantity(qtyToz, unit) {
-      if (unit === "KG") return qtyToz / 32.1507465686;
-      if (unit === "G") return qtyToz * 31.1034768;
-      return qtyToz;
-    }
-
-    function unitLabel() {
-      if (currentUnit === "KG") return "kg";
-      if (currentUnit === "G") return "g";
-      return "oz";
-    }
-
-    function currencySymbol(currency) {
-      return { USD: "$", EUR: "€", CHF: "CHF ", CZK: "Kč " }[currency] || currency + " ";
-    }
-
-    function formatMoney(value, currency) {
+    function fmtMoney(value, currency = activeCurrency) {
+      const n = Number(value || 0);
+      const fraction = Math.abs(n) >= 1000 ? 0 : 2;
       const locale = currency === "CZK" ? "cs-CZ" : currency === "CHF" ? "de-CH" : currency === "EUR" ? "de-DE" : "en-US";
-      const numericValue = Number(value || 0);
-      const fractionDigits = Math.abs(numericValue) >= 1000 ? 0 : 2;
-
-      const formatted = new Intl.NumberFormat(locale, {
-        minimumFractionDigits: fractionDigits,
-        maximumFractionDigits: fractionDigits
-      }).format(numericValue);
-
-      if (currency === "USD") return "$" + formatted;
+      const formatted = new Intl.NumberFormat(locale, { minimumFractionDigits: fraction, maximumFractionDigits: fraction }).format(n);
+      if (currency === "CZK") return formatted + " Kč";
       if (currency === "EUR") return "€" + formatted;
       if (currency === "CHF") return "CHF " + formatted;
-      if (currency === "CZK") return formatted + " Kč";
+      if (currency === "USD") return "$" + formatted;
       return formatted + " " + currency;
     }
 
-    function formatQty(value, unit = currentUnit) {
-      const digits = unit === "G" ? 0 : unit === "KG" ? 3 : 2;
-      return new Intl.NumberFormat("cs-CZ", {
-        minimumFractionDigits: unit === "KG" ? 3 : 0,
-        maximumFractionDigits: digits
-      }).format(value) + unitLabel();
+    function fmtQty(g) {
+      const n = Number(g || 0);
+      if (n >= 1000) return (n / 1000).toLocaleString("cs-CZ", { maximumFractionDigits: 3 }) + " kg";
+      return n.toLocaleString("cs-CZ", { maximumFractionDigits: 3 }) + " g";
     }
 
-    function metalClass(metal) {
-      return metal === "AG" ? "metal-ag" : metal === "PT" ? "metal-pt" : metal === "PD" ? "metal-pd" : "";
+    function spotPerGram(metal, currency) {
+      const perToz = spot?.[metal]?.[currency] || DEMO_SPOT_TOZ?.[metal]?.[currency] || 0;
+      return perToz / 31.1034768;
     }
 
-    function getSpot(metal, currency) {
-      return spot?.[metal]?.[currency] || DEMO_SPOT_PER_TOZ[metal][currency] || 0;
-    }
-
-    function buildLevels(market, currency) {
-      const base = getSpot(market.metal, currency);
-      const marketPremium = (CONFIG.marketPremiumBps[market.location] || 0) / 10000;
-      const spread = (CONFIG.defaultSpreadBps[market.metal] || 100) / 10000;
-      const locationAdjusted = base * (1 + marketPremium);
-
-      const bidBase = locationAdjusted * (1 - spread / 2);
-      const offerBase = locationAdjusted * (1 + spread / 2);
-
-      const liquidityBase = {
-        AU: 82,
-        AG: 2400,
-        PT: 52,
-        PD: 38
-      }[market.metal] || 100;
-
-      const bids = [
-        { price: bidBase, qtyToz: liquidityBase * 0.18 },
-        { price: bidBase * 0.9994, qtyToz: liquidityBase * 0.46 },
-        { price: bidBase * 0.9988, qtyToz: liquidityBase * 0.36 }
-      ];
-
-      const offers = [
-        { price: offerBase, qtyToz: liquidityBase * 0.22 },
-        { price: offerBase * 1.0006, qtyToz: liquidityBase * 0.42 },
-        { price: offerBase * 1.0013, qtyToz: liquidityBase * 0.31 }
-      ];
-
-      return { bids, offers, base };
-    }
-
-    function allRows() {
+    function marketRows() {
       const rows = [];
-      MARKETS.forEach(market => {
-        market.currencies.forEach(currency => {
-          const key = market.id + "_" + currency;
-          const { bids, offers, base } = buildLevels(market, currency);
-          rows.push({ key, market, currency, bids, offers, base });
-        });
-      });
+      for (const m of MARKETS) {
+        for (const currency of m.currencies) {
+          const base = spotPerGram(m.metal, currency);
+          const spreadBps = Number(pricing.spreads[m.metal] || 100);
+          const locBps = Number(pricing.locationPremiums[m.location] || 0);
+          const adjusted = base * (1 + locBps / 10000);
+          const bestBid = adjusted * (1 - spreadBps / 20000);
+          const bestOffer = adjusted * (1 + spreadBps / 20000);
+          const qtyBase = m.metal === "AU" ? 1200 : m.metal === "AG" ? 420000 : 9000;
+          const bidQty = qtyBase * (0.55 + deterministicFactor(m.id + currency));
+          const offerQty = qtyBase * (0.48 + deterministicFactor(currency + m.id));
+          rows.push({ ...m, currency, base, bestBid, bestOffer, bidQty, offerQty, spreadPct: ((bestOffer-bestBid)/bestBid)*100, key: m.id + "_" + currency });
+        }
+      }
       return rows;
     }
 
+    function deterministicFactor(str) {
+      let h = 0;
+      for (let i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) % 997;
+      return (h % 50) / 100;
+    }
+
+    function selectedFilters() {
+      const metal = document.querySelector('input[name="metalFilter"]:checked')?.value || "ALL";
+      const currency = document.querySelector('input[name="currencyFilter"]:checked')?.value || "ALL";
+      const locs = new Set(qsa('input[name="locationFilter"]:checked').map(x => x.value));
+      const av = new Set(qsa('input[name="availabilityFilter"]:checked').map(x => x.value));
+      const sizes = qsa('input[name="sizeFilter"]:checked').map(x => Number(x.value));
+      return { metal, currency, locs, av, sizes };
+    }
+
     function filteredRows() {
-      const currencyFilter = el("currencyFilter").value;
-      const metalFilter = el("metalFilter").value;
-      const minOrder = Number(el("minOrder").value || 0);
-      const minToz = toTozQuantity(minOrder, currentUnit);
-
-      return allRows().filter(row => {
-        const hasMin = row.bids.some(x => x.qtyToz >= minToz) || row.offers.some(x => x.qtyToz >= minToz);
-        return selectedMarkets.has(row.key)
-          && (currencyFilter === "ALL" || row.currency === currencyFilter)
-          && (metalFilter === "ALL" || row.market.metal === metalFilter)
-          && hasMin;
+      const f = selectedFilters();
+      let rows = marketRows().filter(r => {
+        const metalOk = f.metal === "ALL" || r.metal === f.metal;
+        const currencyOk = f.currency === "ALL" || r.currency === f.currency;
+        const locOk = f.locs.size === 0 || f.locs.has(r.location);
+        const avOk = f.av.size === 0 || f.av.has(r.availability);
+        const sizeOk = f.sizes.length === 0 || f.sizes.some(s => Math.abs(r.unitGrams - s) < 0.2 || r.offerQty >= s);
+        return metalOk && currencyOk && locOk && avOk && sizeOk;
       });
+
+      const sort = $("sortSelect").value;
+      if (sort === "spread-asc") rows.sort((a,b) => a.spreadPct - b.spreadPct);
+      if (sort === "offer-asc") rows.sort((a,b) => a.bestOffer - b.bestOffer);
+      if (sort === "liquidity-desc") rows.sort((a,b) => (b.bidQty + b.offerQty) - (a.bidQty + a.offerQty));
+      return rows;
     }
 
-    function renderLevel(row, side, level, index) {
-      const priceDisplay = toDisplayPrice(level.price, currentUnit);
-      const qtyDisplay = fromTozQuantity(level.qtyToz, currentUnit);
-      const div = document.createElement("div");
-      div.className = "level " + (index === 0 ? "best " : "") + side;
-      div.innerHTML = `
-        <span class="price">${formatMoney(priceDisplay, row.currency)}</span>
-        <span class="qty">${formatQty(qtyDisplay)}</span>
-      `;
-      div.addEventListener("click", () => {
-        fillTicket(row, side === "bids" ? "SELL" : "BUY", level);
-      });
-      div.addEventListener("mouseenter", (ev) => showTip(ev, row, side, level));
-      div.addEventListener("mousemove", moveTip);
-      div.addEventListener("mouseleave", hideTip);
-      return div;
+    function metalVisualClass(metal) {
+      return metal === "AG" ? "silver" : metal === "PT" ? "platinum" : metal === "PD" ? "palladium" : "";
     }
 
-    function renderBoard() {
-      const tbody = el("boardRows");
-      tbody.innerHTML = "";
+    function metalSymbol(metal) {
+      return { AU: "Au", AG: "Ag", PT: "Pt", PD: "Pd" }[metal] || metal;
+    }
+
+    function renderMarket() {
       const rows = filteredRows();
-      lastRenderedRows = rows;
+      $("resultCount").textContent = rows.length;
+      $("visibleCount").textContent = rows.length;
+      $("totalCount").textContent = marketRows().length;
 
-      el("totalMarkets").textContent = allRows().length;
-      el("visibleMarkets").textContent = rows.length;
+      renderTicketMarketOptions(rows);
 
-      if (!rows.length) {
-        tbody.innerHTML = `<tr><td colspan="9">No markets match your filters.</td></tr>`;
-        renderTicketMarketOptions();
-        return;
-      }
+      $("productGrid").classList.toggle("hidden", activeView !== "cards");
+      $("boardTableShell").classList.toggle("hidden", activeView !== "board");
+      $("depthTableShell").classList.toggle("hidden", activeView !== "depth");
+      $("spreadTableShell").classList.toggle("hidden", activeView !== "spreads");
 
-      rows.forEach(row => {
-        const tr = document.createElement("tr");
-        const bidCell = document.createElement("td");
-        bidCell.colSpan = 3;
-        const bidLevels = document.createElement("div");
-        bidLevels.className = "levels bids";
-        row.bids.forEach((level, index) => bidLevels.appendChild(renderLevel(row, "bids", level, index)));
-        bidCell.appendChild(bidLevels);
-
-        const offerCell = document.createElement("td");
-        offerCell.colSpan = 3;
-        const offerLevels = document.createElement("div");
-        offerLevels.className = "levels offers";
-        row.offers.forEach((level, index) => offerLevels.appendChild(renderLevel(row, "offers", level, index)));
-        offerCell.appendChild(offerLevels);
-
-        tr.innerHTML = `
-          <td class="currency-cell">${row.currency}</td>
-          <td class="bullion-cell"><span class="metal-dot ${metalClass(row.market.metal)}"></span>${row.market.metalName}: ${row.market.location}</td>
-        `;
-        tr.appendChild(bidCell);
-
-        const chartCell = document.createElement("td");
-        chartCell.className = "chart-cell";
-        chartCell.innerHTML = `<button class="chart-btn" type="button" title="Price detail">↗</button>`;
-        chartCell.querySelector("button").addEventListener("click", () => showMiniChart(row));
-        tr.appendChild(chartCell);
-        tr.appendChild(offerCell);
-        tbody.appendChild(tr);
-      });
-
-      renderTicketMarketOptions();
-    }
-
-    function renderTicketMarketOptions() {
-      const select = el("ticketMarket");
-      const current = select.value;
-      select.innerHTML = "";
-
-      const source = lastRenderedRows.length ? lastRenderedRows : allRows();
-      source.forEach(row => {
-        const option = document.createElement("option");
-        option.value = row.key;
-        option.textContent = `${row.market.metalName}: ${row.market.location} / ${row.currency}`;
-        select.appendChild(option);
-      });
-
-      if ([...select.options].some(o => o.value === current)) select.value = current;
-      if (!select.value && select.options.length) select.value = select.options[0].value;
-      syncCurrencyFromMarket();
-    }
-
-    function renderDepth() {
-      const tbody = el("depthRows");
-      tbody.innerHTML = "";
-      filteredRows().forEach(row => {
-        const bestBid = row.bids[0];
-        const bestOffer = row.offers[0];
-        const bidQty = row.bids.reduce((sum, x) => sum + x.qtyToz, 0);
-        const offerQty = row.offers.reduce((sum, x) => sum + x.qtyToz, 0);
-        const liquidity = Math.round((bidQty + offerQty) / 2);
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td><span class="metal-dot ${metalClass(row.market.metal)}"></span>${row.market.metalName}: ${row.market.location}</td>
-          <td>${row.currency}</td>
-          <td style="color:var(--green);font-weight:800">${formatMoney(toDisplayPrice(bestBid.price, currentUnit), row.currency)}</td>
-          <td style="color:var(--red);font-weight:800">${formatMoney(toDisplayPrice(bestOffer.price, currentUnit), row.currency)}</td>
-          <td>${formatQty(fromTozQuantity(bidQty, currentUnit))}</td>
-          <td>${formatQty(fromTozQuantity(offerQty, currentUnit))}</td>
-          <td>${formatQty(fromTozQuantity(liquidity, currentUnit))}</td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    function renderSpreads() {
-      const tbody = el("spreadRows");
-      tbody.innerHTML = "";
-      filteredRows().forEach(row => {
-        const bestBid = row.bids[0].price;
-        const bestOffer = row.offers[0].price;
-        const spread = bestOffer - bestBid;
-        const spreadPct = (spread / bestBid) * 100;
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td><span class="metal-dot ${metalClass(row.market.metal)}"></span>${row.market.metalName}: ${row.market.location}</td>
-          <td>${row.currency}</td>
-          <td style="color:var(--green);font-weight:800">${formatMoney(toDisplayPrice(bestBid, currentUnit), row.currency)}</td>
-          <td style="color:var(--red);font-weight:800">${formatMoney(toDisplayPrice(bestOffer, currentUnit), row.currency)}</td>
-          <td>${formatMoney(toDisplayPrice(spread, currentUnit), row.currency)}</td>
-          <td><strong>${spreadPct.toFixed(2).replace(".", ",")} %</strong></td>
-          <td>${formatMoney(toDisplayPrice(row.base, currentUnit), row.currency)}</td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    function renderAll() {
-      currentUnit = el("unitSelect").value;
-      renderBoard();
-      renderDepth();
-      renderSpreads();
+      renderCards(rows);
+      renderBoardTable(rows);
+      renderDepthTable(rows);
+      renderSpreadTable(rows);
+      updateStats();
       updateSummary();
     }
 
-    function setView(view) {
-      currentView = view;
-      el("orderBoardView").classList.toggle("hidden", view !== "board");
-      el("depthView").classList.toggle("hidden", view !== "depth");
-      el("spreadsView").classList.toggle("hidden", view !== "spreads");
+    function renderCards(rows) {
+      $("productGrid").innerHTML = rows.map(r => `
+        <article class="product-card">
+          <div class="product-image">
+            <div class="bar-visual ${metalVisualClass(r.metal)}">${metalSymbol(r.metal)}<br>${r.purity}</div>
+          </div>
+          <div class="product-body">
+            <div class="product-type">${r.name} · ${r.location}</div>
+            <div class="product-title">${r.display}<br>${r.currency}</div>
+            <div class="product-meta">
+              <span>${fmtQty(r.unitGrams)}</span>
+              <span>·</span>
+              <span>${r.purity}</span>
+              <span class="badge">${availabilityLabel(r.availability)}</span>
+            </div>
+            <div class="quote-grid">
+              <div class="quote-box" data-ticket="${r.key}" data-side="SELL" data-price="${r.bestBid}">
+                <div class="quote-label">Best bid / SELL</div>
+                <div class="quote-price bid">${fmtMoney(r.bestBid, r.currency)}</div>
+                <div class="quote-qty">${fmtQty(r.bidQty)}</div>
+              </div>
+              <div class="quote-box" data-ticket="${r.key}" data-side="BUY" data-price="${r.bestOffer}">
+                <div class="quote-label">Best offer / BUY</div>
+                <div class="quote-price offer">${fmtMoney(r.bestOffer, r.currency)}</div>
+                <div class="quote-qty">${fmtQty(r.offerQty)}</div>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn btn--green" data-ticket="${r.key}" data-side="SELL" data-price="${r.bestBid}">Prodat</button>
+              <button class="btn btn--gold" data-ticket="${r.key}" data-side="BUY" data-price="${r.bestOffer}">Koupit</button>
+            </div>
+          </div>
+        </article>
+      `).join("");
 
-      const map = {
-        board: "viewOrderBoard",
-        depth: "viewDepth",
-        spreads: "viewSpreads"
-      };
-
-      ["viewOrderBoard", "viewDepth", "viewSpreads"].forEach(id => {
-        const button = el(id);
-        if (button) button.classList.remove("active-view");
+      qsa("[data-ticket]").forEach(el => {
+        el.addEventListener("click", () => openTicket(el.dataset.ticket, el.dataset.side, Number(el.dataset.price)));
       });
-
-      const activeButton = el(map[view]);
-      if (activeButton) activeButton.classList.add("active-view");
-
-      const mainCard = el("mainCard");
-      if (mainCard) mainCard.scrollIntoView({ behavior: "smooth", block: "start" });
-
-      renderAll();
     }
 
-    function fillTicket(row, nextSide, level) {
-      setSide(nextSide);
-      el("ticketMarket").value = row.key;
-      el("ticketCurrency").value = row.currency;
-      const displayQty = fromTozQuantity(level.qtyToz, currentUnit);
-      const displayPrice = toDisplayPrice(level.price, currentUnit);
-      el("ticketQuantity").value = Math.max(displayQty, Number(el("minOrder").value || 0)).toFixed(currentUnit === "G" ? 0 : 2);
-      el("ticketLimit").value = displayPrice.toFixed(displayPrice > 1000 ? 0 : 2);
+    function renderBoardTable(rows) {
+      $("boardRows").innerHTML = rows.map(r => `
+        <tr>
+          <td>${r.currency}</td>
+          <td>${r.name}: ${r.location}</td>
+          <td style="color:var(--green);font-weight:900;">${fmtMoney(r.bestBid, r.currency)}</td>
+          <td>${fmtQty(r.bidQty)}</td>
+          <td style="color:#ffd6d6;font-weight:900;">${fmtMoney(r.bestOffer, r.currency)}</td>
+          <td>${fmtQty(r.offerQty)}</td>
+          <td>${r.spreadPct.toFixed(2).replace(".", ",")} %</td>
+          <td><button class="small-btn green" data-ticket="${r.key}" data-side="BUY" data-price="${r.bestOffer}">BUY</button> <button class="small-btn" data-ticket="${r.key}" data-side="SELL" data-price="${r.bestBid}">SELL</button></td>
+        </tr>
+      `).join("");
+      qsa("#boardRows [data-ticket]").forEach(el => el.addEventListener("click", () => openTicket(el.dataset.ticket, el.dataset.side, Number(el.dataset.price))));
+    }
+
+    function renderDepthTable(rows) {
+      $("depthRows").innerHTML = rows.map(r => {
+        const levelsBid = [r.bestBid, r.bestBid * .9993, r.bestBid * .9987];
+        const levelsOffer = [r.bestOffer, r.bestOffer * 1.0007, r.bestOffer * 1.0014];
+        return `
+          <tr>
+            <td>${r.name}: ${r.location}</td><td>${r.currency}</td>
+            <td>${fmtMoney(levelsBid[0], r.currency)}</td><td>${fmtMoney(levelsBid[1], r.currency)}</td><td>${fmtMoney(levelsBid[2], r.currency)}</td>
+            <td>${fmtMoney(levelsOffer[0], r.currency)}</td><td>${fmtMoney(levelsOffer[1], r.currency)}</td><td>${fmtMoney(levelsOffer[2], r.currency)}</td>
+            <td>${fmtQty(r.bidQty + r.offerQty)}</td>
+          </tr>`;
+      }).join("");
+    }
+
+    function renderSpreadTable(rows) {
+      $("spreadRows").innerHTML = rows.map(r => `
+        <tr>
+          <td>${r.name}: ${r.location}</td><td>${r.currency}</td>
+          <td>${fmtMoney(r.base, r.currency)}</td>
+          <td style="color:var(--green);font-weight:900;">${fmtMoney(r.bestBid, r.currency)}</td>
+          <td style="color:#ffd6d6;font-weight:900;">${fmtMoney(r.bestOffer, r.currency)}</td>
+          <td>${fmtMoney(r.bestOffer - r.bestBid, r.currency)}</td>
+          <td>${r.spreadPct.toFixed(2).replace(".", ",")} %</td>
+          <td>${Number(pricing.commissionBps || 0)} bps</td>
+        </tr>
+      `).join("");
+    }
+
+    function availabilityLabel(v) {
+      return {
+        "skladem-cz": "Skladem CZ",
+        "skladem-de-ch": "Skladem DE/CH",
+        "na-ceste": "Na cestě",
+        "predobjednavka": "Předobjednávka"
+      }[v] || v;
+    }
+
+    function renderTicketMarketOptions(rows = marketRows()) {
+      const current = $("ticketMarket").value;
+      $("ticketMarket").innerHTML = rows.map(r => `<option value="${r.key}">${r.name}: ${r.location} / ${r.currency}</option>`).join("");
+      if (rows.some(r => r.key === current)) $("ticketMarket").value = current;
+      if (!$("ticketMarket").value && rows[0]) $("ticketMarket").value = rows[0].key;
+      $("ticketUser").innerHTML = users.map(u => `<option value="${u.id}">${u.name} · ${u.email}</option>`).join("");
+    }
+
+    function openTicket(key, side = "BUY", price = null) {
+      const r = marketRows().find(x => x.key === key) || filteredRows()[0] || marketRows()[0];
+      if (!r) return;
+      $("ticketMarket").value = r.key;
+      $("ticketCurrency").value = r.currency;
+      $("ticketSide").value = side;
+      $("ticketPrice").value = Number(price || (side === "BUY" ? r.bestOffer : r.bestBid)).toFixed(r.currency === "CZK" ? 0 : 2);
+      $("ticketQty").value = r.metal === "AG" ? 1000 : 10;
+      $("orderDrawer").classList.add("open");
       updateSummary();
     }
 
-    function setSide(nextSide) {
-      orderSide = nextSide;
-      el("sideBuy").className = nextSide === "BUY" ? "active buy" : "";
-      el("sideSell").className = nextSide === "SELL" ? "active sell" : "";
-      updateSummary();
+    function closeTicket() {
+      $("orderDrawer").classList.remove("open");
     }
 
     function selectedTicketRow() {
-      const key = el("ticketMarket").value;
-      return allRows().find(row => row.key === key) || allRows()[0];
-    }
-
-    function syncCurrencyFromMarket() {
-      const row = selectedTicketRow();
-      if (row) el("ticketCurrency").value = row.currency;
-      updateSummary();
+      return marketRows().find(r => r.key === $("ticketMarket").value) || marketRows()[0];
     }
 
     function updateSummary() {
-      const row = selectedTicketRow();
-      if (!row) return;
-      const quantity = Number(el("ticketQuantity").value || 0);
-      const limit = Number(el("ticketLimit").value || 0);
-      const currency = el("ticketCurrency").value || row.currency;
-      const gross = quantity * limit;
-      const fee = gross * (CONFIG.commissionReserveBps / 10000);
-      const total = orderSide === "BUY" ? gross + fee : gross - fee;
-      el("summaryAction").textContent = orderSide === "BUY" ? "BUY / BID" : "SELL / OFFER";
-      el("summaryQuantity").textContent = `${quantity || 0} ${unitLabel()}`;
-      el("summaryLimit").textContent = formatMoney(limit || 0, currency) + " / " + unitLabel();
-      el("summaryFee").textContent = formatMoney(fee || 0, currency);
-      el("summaryTotal").textContent = formatMoney(total || 0, currency);
+      const r = selectedTicketRow();
+      if (!r) return;
+      const qty = Number($("ticketQty").value || 0);
+      const price = Number($("ticketPrice").value || 0);
+      const currency = $("ticketCurrency").value || r.currency;
+      const gross = qty * price;
+      const fee = gross * Number(pricing.commissionBps || 0) / 10000;
+      const total = $("ticketSide").value === "BUY" ? gross + fee : gross - fee;
+
+      $("sumMarket").textContent = `${r.name}: ${r.location} / ${currency}`;
+      $("sumQty").textContent = fmtQty(qty);
+      $("sumGross").textContent = fmtMoney(gross, currency);
+      $("sumFee").textContent = fmtMoney(fee, currency);
+      $("sumTotal").textContent = fmtMoney(total, currency);
     }
 
-    function showTip(ev, row, side, level) {
-      const tip = el("orderTip");
-      const action = side === "bids" ? "Sell" : "Buy";
-      const price = toDisplayPrice(level.price, currentUnit);
-      const qDisplay = fromTozQuantity(level.qtyToz, currentUnit);
-      const value = price * qDisplay;
-      tip.innerHTML = `
-        <h3>${row.market.metalName}: ${action} in ${row.market.location}</h3>
-        <table>
-          <tbody>
-            <tr><th>Price</th><td>${formatMoney(price, row.currency)} / ${unitLabel()}</td></tr>
-            <tr><th>Quantity</th><td>${formatQty(qDisplay)}</td></tr>
-            <tr><th>Value</th><td><strong>${formatMoney(value, row.currency)}</strong></td></tr>
-            <tr><th>Market</th><td>${row.currency} · ${row.market.id}</td></tr>
-          </tbody>
-        </table>
-      `;
-      tip.style.display = "block";
-      moveTip(ev);
+    function createOrder(status = "draft") {
+      const r = selectedTicketRow();
+      const user = users.find(u => u.id === $("ticketUser").value) || users[0];
+      const qty = Number($("ticketQty").value || 0);
+      const price = Number($("ticketPrice").value || 0);
+      const currency = $("ticketCurrency").value || r.currency;
+      const gross = qty * price;
+      const fee = gross * Number(pricing.commissionBps || 0) / 10000;
+      const total = $("ticketSide").value === "BUY" ? gross + fee : gross - fee;
+
+      const order = {
+        id: "O" + Date.now().toString().slice(-8),
+        createdAt: new Date().toISOString(),
+        userId: user.id,
+        userName: user.name,
+        side: $("ticketSide").value,
+        marketKey: r.key,
+        market: `${r.name}: ${r.location}`,
+        metal: r.metal,
+        currency,
+        quantityG: qty,
+        pricePerG: price,
+        gross,
+        fee,
+        total,
+        settlement: $("ticketSettlement").value,
+        type: $("ticketType").value,
+        status
+      };
+
+      orders.unshift(order);
+      saveJson(LS.orders, orders);
+      logEvent("order." + status, `${order.id} ${order.side} ${order.market} ${fmtQty(order.quantityG)}`);
+      toast(status === "pending" ? "Objednávka odeslána ke schválení." : "Draft objednávky uložen.");
+      closeTicket();
+      renderAll();
     }
 
-    function moveTip(ev) {
-      const tip = el("orderTip");
-      tip.style.left = Math.min(ev.clientX + 14, window.innerWidth - 280) + "px";
-      tip.style.top = Math.min(ev.clientY + 14, window.innerHeight - 210) + "px";
-    }
-
-    function hideTip() {
-      el("orderTip").style.display = "none";
-    }
-
-    function showMiniChart(row) {
-      const message = `${row.market.metalName}: ${row.market.location} / ${row.currency}\n\nSpot basis: ${formatMoney(toDisplayPrice(row.base, currentUnit), row.currency)} / ${unitLabel()}\nBest bid: ${formatMoney(toDisplayPrice(row.bids[0].price, currentUnit), row.currency)}\nBest offer: ${formatMoney(toDisplayPrice(row.offers[0].price, currentUnit), row.currency)}\n\nV ostré verzi zde otevřete graf spot ceny a historii spreadu.`;
-      alert(message);
-    }
-
-    function setStatus(mode, message) {
-      const dot = el("statusDot");
-      dot.className = "status-dot";
-      if (mode === "live") dot.classList.add("live");
-      if (mode === "error") dot.classList.add("error");
-      el("statusText").textContent = message;
-    }
-
-    function setLastUpdate(ts) {
-      el("lastUpdate").textContent = new Intl.DateTimeFormat("cs-CZ", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit"
-      }).format(ts ? new Date(ts) : new Date());
+    function updateStats() {
+      $("ordersToday").textContent = orders.length;
+      const total = orders.reduce((s,o) => s + (o.currency === "CZK" ? o.total : 0), 0);
+      $("ordersVolume").textContent = fmtMoney(total, "CZK");
     }
 
     async function loadLivePrices() {
-      if (!CONFIG.useLiveEndpoint) {
-        setStatus("demo", "Demo data");
-        setLastUpdate();
-        renderAll();
-        return;
-      }
-
       try {
-        setStatus("demo", "Loading live prices…");
-        const response = await fetch(CONFIG.liveEndpoint, { cache: "no-store" });
+        $("feedMode").textContent = "Načítám…";
+        const response = await fetch("/.netlify/functions/metals-prices", { cache: "no-store" });
         if (!response.ok) throw new Error("HTTP " + response.status);
         const data = await response.json();
-
-        if (!data || !data.prices) throw new Error("Invalid price payload");
-        spot = mergeSpotData(data.prices);
-        setStatus(data.mode === "demo" ? "demo" : "live", data.mode === "demo" ? "Demo fallback" : "Live prices");
-        setLastUpdate(data.timestamp || Date.now());
-        renderAll();
-      } catch (error) {
-        console.warn("Live price loading failed:", error);
-        spot = structuredClone(DEMO_SPOT_PER_TOZ);
-        setStatus("error", "Live failed – demo fallback");
-        setLastUpdate();
-        renderAll();
+        if (!data || !data.prices) throw new Error("Invalid payload");
+        spot = mergeSpot(data.prices);
+        $("feedMode").textContent = data.mode === "live" ? "Live" : "Demo";
+        $("lastUpdate").textContent = new Date(data.timestamp || Date.now()).toLocaleString("cs-CZ");
+        logEvent("price.refresh", data.mode === "live" ? "Live prices loaded" : "Demo fallback loaded");
+      } catch (e) {
+        spot = structuredClone(DEMO_SPOT_TOZ);
+        $("feedMode").textContent = "Demo fallback";
+        $("lastUpdate").textContent = new Date().toLocaleString("cs-CZ");
+        logEvent("price.error", e.message);
       }
+      renderAll();
     }
 
-    function mergeSpotData(prices) {
-      const merged = structuredClone(DEMO_SPOT_PER_TOZ);
-      ["AU", "AG", "PT", "PD"].forEach(metal => {
-        merged[metal] = merged[metal] || {};
-        ["USD", "EUR", "CHF", "CZK"].forEach(currency => {
-          const value = prices?.[metal]?.[currency];
-          if (typeof value === "number" && isFinite(value) && value > 0) {
-            merged[metal][currency] = value;
-          }
-        });
-      });
+    function mergeSpot(prices) {
+      const merged = structuredClone(DEMO_SPOT_TOZ);
+      for (const metal of Object.keys(merged)) {
+        for (const cur of Object.keys(merged[metal])) {
+          const v = Number(prices?.[metal]?.[cur]);
+          if (Number.isFinite(v) && v > 0) merged[metal][cur] = v;
+        }
+      }
       return merged;
     }
 
-    function renderMarketCheckboxes() {
-      const box = el("marketCheckboxes");
-      box.innerHTML = "";
-      allRows().forEach(row => {
-        const id = "chk_" + row.key;
-        const label = document.createElement("label");
-        label.style.display = "block";
-        label.style.padding = "7px 0";
-        label.innerHTML = `
-          <input id="${id}" type="checkbox" ${selectedMarkets.has(row.key) ? "checked" : ""} data-key="${row.key}">
-          ${row.market.metalName}: ${row.market.location} / ${row.currency}
-        `;
-        box.appendChild(label);
+    function renderAdmin() {
+      $("adminUsersCount").textContent = users.length;
+      $("adminKycCount").textContent = users.filter(u => u.kyc === "pending").length;
+      $("adminOpenOrders").textContent = orders.filter(o => ["draft","pending","approved"].includes(o.status)).length;
+      $("adminAuditCount").textContent = audit.length;
+
+      renderDashboard();
+      renderUsers();
+      renderOrders();
+      renderPricing();
+      renderAudit();
+      renderSystem();
+    }
+
+    function renderDashboard() {
+      const rows = [
+        ["Price feed", $("feedMode").textContent || "Demo", $("feedMode").textContent === "Live" ? "Nízké" : "Střední", "Zkontrolovat API klíč a fallback"],
+        ["KYC", users.filter(u => u.kyc === "pending").length + " pending", "Střední", "Ověřit klienty před výběrem / vyšším limitem"],
+        ["Open orders", orders.filter(o => ["pending","approved"].includes(o.status)).length, "Provozní", "Schválit nebo odmítnout pokyny"],
+        ["Pricing", pricing.commissionBps + " bps commission", "Nízké", "Kontrola spreadů a marží"]
+      ];
+      $("dashboardRows").innerHTML = rows.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`).join("");
+    }
+
+    function renderUsers() {
+      const search = ($("userSearch")?.value || "").toLowerCase();
+      const kyc = $("kycFilter")?.value || "ALL";
+      const filtered = users.filter(u => {
+        const match = (u.name + u.email + u.id).toLowerCase().includes(search);
+        const kycOk = kyc === "ALL" || u.kyc === kyc;
+        return match && kycOk;
+      });
+      $("usersRows").innerHTML = filtered.map(u => `
+        <tr>
+          <td>${u.id}</td><td>${u.name}</td><td>${u.email}</td><td>${u.role}</td><td>${u.kyc}</td>
+          <td>${fmtMoney(u.cashCZK, "CZK")}</td><td>${fmtQty(u.auG)}</td><td>${u.status}</td>
+          <td><span class="table-actions">
+            <button class="small-btn" data-edit-user="${u.id}">Edit</button>
+            <button class="small-btn ${u.kyc === "verified" ? "" : "green"}" data-verify-user="${u.id}">Verify</button>
+            <button class="small-btn red" data-block-user="${u.id}">Block</button>
+          </span></td>
+        </tr>
+      `).join("");
+      qsa("[data-edit-user]").forEach(b => b.addEventListener("click", () => openUserModal(b.dataset.editUser)));
+      qsa("[data-verify-user]").forEach(b => b.addEventListener("click", () => updateUserKyc(b.dataset.verifyUser, "verified")));
+      qsa("[data-block-user]").forEach(b => b.addEventListener("click", () => updateUserKyc(b.dataset.blockUser, "blocked")));
+    }
+
+    function renderOrders() {
+      const search = ($("orderSearch")?.value || "").toLowerCase();
+      const st = $("orderStatusFilter")?.value || "ALL";
+      const filtered = orders.filter(o => {
+        const match = (o.id + o.userName + o.market + o.side + o.status).toLowerCase().includes(search);
+        const statusOk = st === "ALL" || o.status === st;
+        return match && statusOk;
+      });
+      $("ordersRows").innerHTML = filtered.map(o => `
+        <tr>
+          <td>${o.id}</td><td>${o.userName}</td><td>${o.side}</td><td>${o.market} / ${o.currency}</td>
+          <td>${fmtQty(o.quantityG)}</td><td>${fmtMoney(o.pricePerG, o.currency)}</td><td>${fmtMoney(o.total, o.currency)}</td><td>${o.status}</td>
+          <td><span class="table-actions">
+            <button class="small-btn green" data-order-status="${o.id}:approved">Approve</button>
+            <button class="small-btn green" data-order-status="${o.id}:matched">Match</button>
+            <button class="small-btn red" data-order-status="${o.id}:rejected">Reject</button>
+            <button class="small-btn" data-order-status="${o.id}:cancelled">Cancel</button>
+          </span></td>
+        </tr>
+      `).join("");
+      qsa("[data-order-status]").forEach(b => {
+        b.addEventListener("click", () => {
+          const [id, status] = b.dataset.orderStatus.split(":");
+          setOrderStatus(id, status);
+        });
       });
     }
 
-    function openModal(id) {
-      el(id).classList.add("open");
+    function renderPricing() {
+      $("spreadAU").value = pricing.spreads.AU;
+      $("spreadAG").value = pricing.spreads.AG;
+      $("spreadPT").value = pricing.spreads.PT;
+      $("spreadPD").value = pricing.spreads.PD;
+      $("commissionBps").value = pricing.commissionBps;
+      $("refreshMs").value = pricing.refreshMs;
     }
 
-    function closeModal(id) {
-      el(id).classList.remove("open");
+    function renderAudit() {
+      $("auditRows").innerHTML = audit.slice(0, 100).map(a => `<tr><td>${new Date(a.time).toLocaleString("cs-CZ")}</td><td>${a.user}</td><td>${a.event}</td><td>${a.detail}</td></tr>`).join("");
     }
 
-    function resetTicket() {
-      const row = filteredRows()[0] || allRows()[0];
-      if (!row) return;
-      setSide("BUY");
-      el("ticketMarket").value = row.key;
-      el("ticketCurrency").value = row.currency;
-      el("ticketQuantity").value = "1.00";
-      el("ticketLimit").value = toDisplayPrice(row.offers[0].price, currentUnit).toFixed(2);
-      updateSummary();
+    function renderSystem() {
+      const checks = [
+        ["Environment / API", $("feedMode").textContent === "Live" ? "OK" : "DEMO", "Nastavit GOLDAPI_KEY v Netlify"],
+        ["Local users", users.length > 0 ? "OK" : "ERROR", "V produkci nahradit databází"],
+        ["Orders storage", "LOCALSTORAGE", "Nutné nahradit serverem"],
+        ["RBAC", session.role === "admin" ? "Admin demo active" : "Not admin", "Produkčně použít serverové role"]
+      ];
+      $("systemRows").innerHTML = checks.map(c => `<tr><td>${c[0]}</td><td>${c[1]}</td><td>${c[2]}</td></tr>`).join("");
     }
 
-    function reviewOrder() {
-      const row = selectedTicketRow();
-      const message =
-        "Order review\n\n" +
-        "Action: " + (orderSide === "BUY" ? "BUY / BID" : "SELL / OFFER") + "\n" +
-        "Market: " + row.market.metalName + ": " + row.market.location + " / " + row.currency + "\n" +
-        "Quantity: " + el("ticketQuantity").value + " " + unitLabel() + "\n" +
-        "Limit price: " + el("ticketLimit").value + " " + row.currency + " / " + unitLabel() + "\n" +
-        "Order type: " + el("ticketType").value + "\n\n" +
-        "Production step: login, balance check, AML/KYC, risk warning, second confirmation, audit log.";
-      alert(message);
+    function setOrderStatus(id, status) {
+      const order = orders.find(o => o.id === id);
+      if (!order) return;
+      order.status = status;
+      order.updatedAt = new Date().toISOString();
+      saveJson(LS.orders, orders);
+      logEvent("order.status", `${id} -> ${status}`);
+      toast(`Objednávka ${id}: ${status}`);
+      renderAll();
+    }
+
+    function openUserModal(id = null) {
+      const u = users.find(x => x.id === id) || { id: "", name: "", email: "", role: "client", kyc: "pending", cashCZK: 0, auG: 0, status: "active" };
+      $("editUserId").value = u.id;
+      $("editUserName").value = u.name;
+      $("editUserEmail").value = u.email;
+      $("editUserRole").value = u.role;
+      $("editUserKyc").value = u.kyc;
+      $("editUserCash").value = u.cashCZK;
+      $("editUserAu").value = u.auG;
+      $("editUserStatus").value = u.status;
+      $("userModalTitle").textContent = id ? "Upravit uživatele" : "Přidat uživatele";
+      $("userModal").classList.add("open");
+    }
+
+    function saveUserFromModal() {
+      const id = $("editUserId").value || "U" + Date.now().toString().slice(-6);
+      let u = users.find(x => x.id === id);
+      if (!u) {
+        u = { id };
+        users.unshift(u);
+      }
+      Object.assign(u, {
+        name: $("editUserName").value,
+        email: $("editUserEmail").value,
+        role: $("editUserRole").value,
+        kyc: $("editUserKyc").value,
+        cashCZK: Number($("editUserCash").value || 0),
+        auG: Number($("editUserAu").value || 0),
+        status: $("editUserStatus").value
+      });
+      saveJson(LS.users, users);
+      $("userModal").classList.remove("open");
+      logEvent("user.save", `${u.id} ${u.email}`);
+      toast("Uživatel uložen.");
+      renderAll();
+    }
+
+    function updateUserKyc(id, kyc) {
+      const u = users.find(x => x.id === id);
+      if (!u) return;
+      u.kyc = kyc;
+      if (kyc === "blocked") u.status = "blocked";
+      saveJson(LS.users, users);
+      logEvent("user.kyc", `${id} -> ${kyc}`);
+      renderAll();
+    }
+
+    function savePricing() {
+      pricing.spreads.AU = Number($("spreadAU").value || 0);
+      pricing.spreads.AG = Number($("spreadAG").value || 0);
+      pricing.spreads.PT = Number($("spreadPT").value || 0);
+      pricing.spreads.PD = Number($("spreadPD").value || 0);
+      pricing.commissionBps = Number($("commissionBps").value || 0);
+      pricing.refreshMs = Number($("refreshMs").value || 30000);
+      saveJson(LS.pricing, pricing);
+      logEvent("pricing.save", JSON.stringify(pricing.spreads) + " commission=" + pricing.commissionBps);
+      resetRefreshTimer();
+      toast("Pricing uložen.");
+      renderAll();
+    }
+
+    function exportOrdersCsv() {
+      const header = ["id","createdAt","userName","side","market","currency","quantityG","pricePerG","total","status"];
+      const rows = orders.map(o => header.map(k => String(o[k] ?? "").replaceAll('"','""')));
+      const csv = [header.join(","), ...rows.map(r => r.map(v => `"${v}"`).join(","))].join("\n");
+      downloadFile("orders.csv", csv, "text/csv;charset=utf-8");
+      logEvent("orders.export", `${orders.length} orders`);
+    }
+
+    function downloadFile(name, content, type) {
+      const blob = new Blob([content], { type });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = name;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function setSection(section) {
+      activeSection = section;
+      $("marketSection").classList.toggle("hidden", section === "admin");
+      $("adminSection").classList.toggle("active", section === "admin");
+      $("marketStats").classList.toggle("hidden", section === "admin");
+      $("homeSection").classList.toggle("hidden", section === "admin");
+      qsa(".nav a").forEach(a => a.classList.toggle("active", a.dataset.nav === section || (section === "market" && a.dataset.nav === "market") || (section === "home" && a.dataset.nav === "home")));
+      if (section === "admin") renderAdmin();
+      if (section === "help") {
+        $("helpModal").classList.add("open");
+        setSection("market");
+      }
+      if (section === "ticket") {
+        openTicket((filteredRows()[0] || marketRows()[0]).key, "BUY");
+        setSection("market");
+      }
+      if (section === "orders") {
+        setSection("admin");
+        setAdminTab("orders");
+      }
+    }
+
+    function setAdminTab(tab) {
+      activeAdminTab = tab;
+      qsa(".admin-menu button").forEach(b => b.classList.toggle("active", b.dataset.adminTab === tab));
+      qsa("[data-admin-panel]").forEach(p => p.classList.toggle("hidden", p.dataset.adminPanel !== tab));
+      renderAdmin();
+    }
+
+    function setView(view) {
+      activeView = view;
+      qsa(".view-tabs button").forEach(b => b.classList.toggle("active", b.dataset.view === view));
+      renderMarket();
+    }
+
+    function resetFilters() {
+      qsa('input[name="metalFilter"]').forEach(x => x.checked = x.value === "ALL");
+      qsa('input[name="currencyFilter"]').forEach(x => x.checked = x.value === activeCurrency);
+      qsa('input[name="locationFilter"], input[name="availabilityFilter"], input[name="sizeFilter"]').forEach(x => x.checked = false);
+      renderMarket();
+    }
+
+    function resetRefreshTimer() {
+      if (refreshTimer) clearInterval(refreshTimer);
+      refreshTimer = setInterval(loadLivePrices, Math.max(5000, Number(pricing.refreshMs || 30000)));
+    }
+
+    function renderAll() {
+      renderMarket();
+      renderAdmin();
     }
 
     function attachEvents() {
-      el("refreshPrices").addEventListener("click", loadLivePrices);
-      el("unitSelect").addEventListener("change", renderAll);
-      el("minOrder").addEventListener("input", renderAll);
-      el("currencyFilter").addEventListener("change", renderAll);
-      el("metalFilter").addEventListener("change", renderAll);
+      qsa("[data-nav]").forEach(a => a.addEventListener("click", e => {
+        e.preventDefault();
+        setSection(a.dataset.nav);
+      }));
 
-      el("viewOrderBoard").addEventListener("click", () => setView("board"));
-      el("viewDepth").addEventListener("click", () => setView("depth"));
-      el("viewSpreads").addEventListener("click", () => setView("spreads"));
+      qsa(".currency-toggle button").forEach(b => b.addEventListener("click", () => {
+        activeCurrency = b.dataset.currency;
+        qsa(".currency-toggle button").forEach(x => x.classList.toggle("active", x === b));
+        qsa('input[name="currencyFilter"]').forEach(x => x.checked = x.value === activeCurrency);
+        renderMarket();
+      }));
 
-      el("sideBuy").addEventListener("click", () => setSide("BUY"));
-      el("sideSell").addEventListener("click", () => setSide("SELL"));
-      el("ticketMarket").addEventListener("change", syncCurrencyFromMarket);
-      el("ticketCurrency").addEventListener("change", updateSummary);
-      el("ticketQuantity").addEventListener("input", updateSummary);
-      el("ticketLimit").addEventListener("input", updateSummary);
-      el("resetTicket").addEventListener("click", resetTicket);
-      el("submitTicket").addEventListener("click", reviewOrder);
-
-      el("openHelp").addEventListener("click", () => openModal("helpModal"));
-      el("closeHelp").addEventListener("click", () => closeModal("helpModal"));
-      el("closeHelp2").addEventListener("click", () => closeModal("helpModal"));
-
-      el("editMarkets").addEventListener("click", () => {
-        renderMarketCheckboxes();
-        openModal("marketsModal");
+      $("loginBtn").addEventListener("click", () => $("loginBox").classList.toggle("active"));
+      $("loginSubmit").addEventListener("click", () => {
+        session = { email: $("loginEmail").value || "demo", role: $("loginRole").value };
+        saveJson(LS.session, session);
+        $("loginBox").classList.remove("active");
+        $("loginBtn").textContent = session.role + " · " + session.email.split("@")[0];
+        logEvent("auth.login", `${session.email} role=${session.role}`);
+        toast("Demo přihlášení aktivní.");
       });
-      el("closeMarkets").addEventListener("click", () => closeModal("marketsModal"));
-      el("selectAllMarkets").addEventListener("click", () => {
-        document.querySelectorAll("#marketCheckboxes input").forEach(chk => chk.checked = true);
+
+      qsa('input[name="metalFilter"], input[name="currencyFilter"], input[name="locationFilter"], input[name="availabilityFilter"], input[name="sizeFilter"]').forEach(x => {
+        x.addEventListener("change", renderMarket);
       });
-      el("clearAllMarkets").addEventListener("click", () => {
-        document.querySelectorAll("#marketCheckboxes input").forEach(chk => chk.checked = false);
+
+      $("sortSelect").addEventListener("change", renderMarket);
+      qsa(".view-tabs button").forEach(b => b.addEventListener("click", () => setView(b.dataset.view)));
+      $("refreshPrices").addEventListener("click", loadLivePrices);
+      $("resetFilters").addEventListener("click", resetFilters);
+
+      $("closeDrawer").addEventListener("click", closeTicket);
+      $("orderDrawer").addEventListener("click", e => {
+        if (e.target.id === "orderDrawer") closeTicket();
       });
-      el("applyMarkets").addEventListener("click", () => {
-        selectedMarkets.clear();
-        document.querySelectorAll("#marketCheckboxes input:checked").forEach(chk => selectedMarkets.add(chk.dataset.key));
-        closeModal("marketsModal");
+
+      ["ticketSide","ticketMarket","ticketCurrency","ticketQty","ticketPrice","ticketType","ticketSettlement"].forEach(id => {
+        $(id).addEventListener("input", updateSummary);
+        $(id).addEventListener("change", () => {
+          if (id === "ticketMarket") {
+            const r = selectedTicketRow();
+            $("ticketCurrency").value = r.currency;
+            $("ticketPrice").value = ($("ticketSide").value === "BUY" ? r.bestOffer : r.bestBid).toFixed(r.currency === "CZK" ? 0 : 2);
+          }
+          updateSummary();
+        });
+      });
+
+      $("saveDraftBtn").addEventListener("click", () => createOrder("draft"));
+      $("submitOrderBtn").addEventListener("click", () => createOrder("pending"));
+
+      qsa(".admin-menu button").forEach(b => b.addEventListener("click", () => setAdminTab(b.dataset.adminTab)));
+      $("adminRefresh").addEventListener("click", renderAll);
+      $("addUserBtn").addEventListener("click", () => openUserModal());
+      $("saveUserBtn").addEventListener("click", saveUserFromModal);
+      $("userSearch").addEventListener("input", renderUsers);
+      $("kycFilter").addEventListener("change", renderUsers);
+      $("orderSearch").addEventListener("input", renderOrders);
+      $("orderStatusFilter").addEventListener("change", renderOrders);
+      $("savePricingBtn").addEventListener("click", savePricing);
+      $("exportOrdersBtn").addEventListener("click", exportOrdersCsv);
+      $("clearAuditBtn").addEventListener("click", () => {
+        audit = [];
+        saveJson(LS.audit, audit);
         renderAll();
+        toast("Audit demo vymazán.");
+      });
+      $("systemCheckBtn").addEventListener("click", () => {
+        logEvent("system.check", "Manual system check");
+        renderSystem();
+        toast("Kontrola systému dokončena.");
       });
 
-      ["helpModal", "marketsModal", "accountModal", "depositModal", "statementModal", "openAccountModal"].forEach(id => {
-        const modal = el(id);
-        if (!modal) return;
-        modal.addEventListener("click", (ev) => {
-          if (ev.target.id === id) closeModal(id);
-        });
-      });
-
-      document.querySelectorAll("[data-close]").forEach(button => {
-        button.addEventListener("click", () => closeModal(button.dataset.close));
-      });
-
-      document.querySelectorAll(".nav a[data-action]").forEach(link => {
-        link.addEventListener("click", (ev) => {
-          ev.preventDefault();
-          const action = link.dataset.action;
-          if (action === "account") openModal("accountModal");
-          if (action === "deposit") openModal("depositModal");
-          if (action === "statement") openModal("statementModal");
-          if (action === "help") openModal("helpModal");
-          if (action === "open-account") openModal("openAccountModal");
-        });
-      });
-
-      const depositPreview = el("depositPreview");
-      if (depositPreview) {
-        depositPreview.addEventListener("click", () => {
-          const currency = el("depositCurrency").value;
-          const amount = el("depositAmount").value || "0.00";
-          alert("Payment instruction preview\\n\\nAmount: " + amount + " " + currency + "\\nReference: generated-by-backend\\n\\nV produkci zde vytvořit platební instrukci na serveru.");
-        });
-      }
-
-      const registerPreview = el("registerPreview");
-      if (registerPreview) {
-        registerPreview.addEventListener("click", () => {
-          alert("Registration preview\\n\\nV produkci zde založit účet, ověřit e-mail, zobrazit VOP a spustit KYC/AML flow.");
-        });
-      }
-
-      const exportStatement = el("exportStatement");
-      if (exportStatement) {
-        exportStatement.addEventListener("click", () => {
-          const csv = "Date,Operation,Asset,Amount,Status\\nToday,Order preview,Gold,,Draft\\nToday,Live price refresh,Market data,,OK\\n";
-          const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement("a");
-          a.href = url;
-          a.download = "statement-demo.csv";
-          a.click();
-          URL.revokeObjectURL(url);
-        });
-      }
+      qsa("[data-close-modal]").forEach(b => b.addEventListener("click", () => $(b.dataset.closeModal).classList.remove("open")));
+      qsa(".modal").forEach(m => m.addEventListener("click", e => {
+        if (e.target === m) m.classList.remove("open");
+      }));
     }
 
     function init() {
-      initSelectedMarkets();
+      if (!localStorage.getItem(LS.users)) saveJson(LS.users, users);
+      if (!localStorage.getItem(LS.pricing)) saveJson(LS.pricing, pricing);
+      $("loginBtn").textContent = session.role && session.role !== "guest" ? session.role + " · " + (session.email || "").split("@")[0] : "Přihlásit";
       attachEvents();
-      renderAll();
-      resetTicket();
+      resetFilters();
+      renderPricing();
       loadLivePrices();
-      setInterval(loadLivePrices, CONFIG.refreshIntervalMs);
+      resetRefreshTimer();
     }
 
     init();

@@ -1,12 +1,26 @@
-# Swiss Gold Market Board – Live Order Board
+# Swiss Gold Market Board — Meister Style + Admin Console
 
-Tato verze je interaktivní a připravená na live cenu.
+## Co je nové
 
-## Co obsahuje
+Tato verze převádí Live Order Board do prémiového katalogového stylu:
 
-- `index.html` – frontend order boardu
-- `netlify/functions/metals-prices.js` – bezpečný backend proxy endpoint pro ceny kovů
-- `netlify.toml` – nastavení pro Netlify
+- tmavý švýcarský vizuál,
+- hero s horským pozadím,
+- levý filtrovací sidebar,
+- karty trhů podobné produktovým kartám,
+- order board, market depth a spreads,
+- order ticket jako pravý drawer,
+- admin console pro uživatele, objednávky, pricing, audit log a systémové kontroly.
+
+## Soubory
+
+```text
+index.html
+netlify.toml
+netlify/functions/metals-prices.js
+ADMIN_SCHEMA.sql
+README_DEPLOY.md
+```
 
 ## Live ceny
 
@@ -16,69 +30,40 @@ Frontend volá:
 /.netlify/functions/metals-prices
 ```
 
-nebo přes redirect:
+Nastavte v Netlify environment variable:
 
 ```text
-/api/metals-prices
+GOLDAPI_KEY=váš_api_klíč
 ```
 
-## Nastavení API klíče
+Pokud klíč chybí nebo API selže, systém použije demo fallback.
 
-V Netlify nastavte environment variable:
+## Admin Console
 
-```text
-GOLDAPI_KEY=váš_klíč
-```
+V prototypu jsou data uložena v `localStorage`.
 
-API klíč nikdy nedávejte přímo do HTML/JS ve frontendu.
+Funkce:
 
-## Výstup endpointu
-
-Frontend očekává JSON:
-
-```json
-{
-  "mode": "live",
-  "timestamp": "2026-06-09T12:00:00.000Z",
-  "prices": {
-    "AU": {"USD": 4325.10, "EUR": 4018.80, "CHF": 3775.40, "CZK": 98120.00},
-    "AG": {"USD": 58.20, "EUR": 54.15, "CHF": 50.82, "CZK": 1320.00},
-    "PT": {"USD": 1680.00, "EUR": 1561.00, "CHF": 1467.50, "CZK": 38120.00},
-    "PD": {"USD": 1620.00, "EUR": 1505.30, "CHF": 1412.00, "CZK": 36780.00}
-  }
-}
-```
+- správa uživatelů,
+- KYC status,
+- objednávky,
+- schválení / matching / odmítnutí / zrušení objednávek,
+- export objednávek do CSV,
+- nastavení spreadů a commission bps,
+- audit log,
+- systémová kontrola.
 
 ## Produkční doplnění
 
-Před ostrým spuštěním doplňte:
+Před ostrým spuštěním doplnit:
 
-1. login klienta,
-2. klientské peněžní a kovové zůstatky,
-3. kontrolu krytí objednávky,
-4. AML/KYC limity,
-5. auditní stopu,
-6. dvoukrokové potvrzení objednávky,
-7. databázi pokynů,
-8. jasné VOP a rizikové upozornění,
-9. backend matching nebo interní dealing režim.
-
-
-## Oprava formátování cen
-
-Byla opravena funkce `formatMoney()`.
-Původní problém: při hodnotách nad 1000 bylo `maximumFractionDigits` nastaveno na 0, ale `minimumFractionDigits` zůstalo 2. To v prohlížeči vyvolalo chybu:
-
-```text
-RangeError: maximumFractionDigits value is out of range
-```
-
-Oprava: `minimumFractionDigits` a `maximumFractionDigits` jsou vždy stejné.
-
-
-## Oprava navigace a přepínačů
-
-Horní odkazy `Account`, `Deposit funds`, `Statement`, `Help` a `Open account` už nejsou prázdné placeholdery.
-Otevírají modální okna s demonstrační funkcionalitou.
-
-Přepínače `Order board`, `Market depth` a `Market spreads` mají aktivní stav a přepínají jednotlivé pohledy přes `setView()`.
+1. serverovou autentizaci,
+2. role-based access control,
+3. databázi,
+4. auditní log na serveru,
+5. AML/KYC workflow,
+6. kontrolu zůstatků,
+7. blokaci prostředků/kovu při zadání pokynu,
+8. schvalování změn marží,
+9. VOP a riziková upozornění,
+10. rozhodnutí, zda jde o interní dealing nebo matching klient-klient.
