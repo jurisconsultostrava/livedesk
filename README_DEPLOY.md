@@ -74,3 +74,11 @@ RangeError: maximumFractionDigits value is out of range
 ```
 
 Oprava: `minimumFractionDigits` a `maximumFractionDigits` jsou vždy stejné.
+
+
+## Oprava navigace a přepínačů
+
+Horní odkazy `Account`, `Deposit funds`, `Statement`, `Help` a `Open account` už nejsou prázdné placeholdery.
+Otevírají modální okna s demonstrační funkcionalitou.
+
+Přepínače `Order board`, `Market depth` a `Market spreads` mají aktivní stav a přepínají jednotlivé pohledy přes `setView()`.

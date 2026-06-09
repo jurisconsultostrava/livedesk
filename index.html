@@ -569,6 +569,43 @@
 
     .hidden { display: none !important; }
 
+
+    .btn.active-view {
+      background: var(--blue-dark);
+      border-color: var(--blue-dark);
+      color: #fff;
+      box-shadow: inset 0 -2px 0 rgba(255,255,255,.16);
+    }
+
+    .nav a[data-action] {
+      cursor: pointer;
+    }
+
+    .modal-form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .info-box {
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      border-radius: var(--radius);
+      padding: 12px;
+      margin: 10px 0;
+    }
+
+    .info-box strong {
+      color: var(--text);
+    }
+
+    @media (max-width: 720px) {
+      .modal-form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     @media (max-width: 1120px) {
       .layout {
         grid-template-columns: 1fr;
@@ -609,11 +646,11 @@
         <span>Swiss Gold Market Board</span>
       </div>
       <nav class="nav">
-        <a href="#">Account</a>
-        <a href="#">Deposit funds</a>
-        <a href="#">Statement</a>
-        <a href="#">Help</a>
-        <a class="account-btn" href="#">Open account</a>
+        <a href="#account" data-action="account">Account</a>
+        <a href="#deposit" data-action="deposit">Deposit funds</a>
+        <a href="#statement" data-action="statement">Statement</a>
+        <a href="#help" data-action="help">Help</a>
+        <a class="account-btn" href="#open-account" data-action="open-account">Open account</a>
       </nav>
     </div>
   </header>
@@ -633,7 +670,7 @@
         </div>
       </div>
       <div class="header-actions">
-        <button class="btn" id="viewOrderBoard" type="button">Order board</button>
+        <button class="btn active-view" id="viewOrderBoard" type="button">Order board</button>
         <button class="btn" id="viewDepth" type="button">Market depth</button>
         <button class="btn" id="viewSpreads" type="button">Market spreads</button>
         <button class="btn btn-primary" id="refreshPrices" type="button">Refresh prices</button>
@@ -872,6 +909,136 @@
       </div>
     </div>
   </div>
+
+
+  <div class="modal-backdrop" id="accountModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Account overview</h2>
+        <button class="btn" data-close="accountModal" type="button">Close</button>
+      </div>
+      <div class="modal-body">
+        <p>Tento modul je připravený jako klientský přehled. V ostré verzi se sem napojí reálná klientská evidence.</p>
+        <div class="info-box"><strong>Cash balance:</strong> 0,00 CZK / 0,00 EUR / 0,00 CHF</div>
+        <div class="info-box"><strong>Metal balance:</strong> Au 0,000 oz · Ag 0,000 oz · Pt 0,000 oz · Pd 0,000 oz</div>
+        <div class="info-box"><strong>KYC status:</strong> Pending / Not connected</div>
+        <p class="small-note">Produkční verze musí načítat zůstatky z backendu po přihlášení klienta. Nikdy je nepočítejte pouze ve frontendu.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-close="accountModal" type="button">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="depositModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Deposit funds</h2>
+        <button class="btn" data-close="depositModal" type="button">Close</button>
+      </div>
+      <div class="modal-body">
+        <p>Zde bude klient zadávat vklad prostředků nebo převod kovu do evidence.</p>
+        <div class="modal-form-grid">
+          <div class="form-group">
+            <label for="depositCurrency">Currency</label>
+            <select id="depositCurrency">
+              <option>CZK</option>
+              <option>EUR</option>
+              <option>CHF</option>
+              <option>USD</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="depositAmount">Amount</label>
+            <input id="depositAmount" type="number" min="0" step="0.01" placeholder="0.00">
+          </div>
+        </div>
+        <div class="info-box">
+          <strong>Payment reference:</strong> bude generováno backendem podle klientského účtu.
+        </div>
+        <p class="small-note">Před přijetím vyšších částek doplňte AML limity, kontrolu zdroje prostředků a párování bankovních plateb.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-close="depositModal" type="button">Cancel</button>
+        <button class="btn btn-primary" id="depositPreview" type="button">Generate payment instruction</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="statementModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Statement</h2>
+        <button class="btn" data-close="statementModal" type="button">Close</button>
+      </div>
+      <div class="modal-body">
+        <p>Ukázka výpisu klientského účtu. V ostré verzi bude výpis generovaný z databáze pohybů.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Operation</th>
+              <th>Asset</th>
+              <th>Amount</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Dnes</td><td>Order preview</td><td>Gold</td><td>—</td><td>Draft</td></tr>
+            <tr><td>Dnes</td><td>Live price refresh</td><td>Market data</td><td>—</td><td>OK</td></tr>
+          </tbody>
+        </table>
+        <p class="small-note">Produkčně doplnit CSV/PDF export, auditní stopu, číslo pokynu a vazbu na klientský účet.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" id="exportStatement" type="button">Export CSV</button>
+        <button class="btn btn-primary" data-close="statementModal" type="button">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="openAccountModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Open account</h2>
+        <button class="btn" data-close="openAccountModal" type="button">Close</button>
+      </div>
+      <div class="modal-body">
+        <p>Formulář pro založení účtu. V ostré verzi bude navázán na registraci, e-mailové ověření a KYC/AML.</p>
+        <div class="modal-form-grid">
+          <div class="form-group">
+            <label for="regName">Name / Company</label>
+            <input id="regName" type="text" placeholder="Jméno nebo název společnosti">
+          </div>
+          <div class="form-group">
+            <label for="regEmail">E-mail</label>
+            <input id="regEmail" type="email" placeholder="email@example.com">
+          </div>
+          <div class="form-group">
+            <label for="regCountry">Country</label>
+            <input id="regCountry" type="text" placeholder="Czech Republic / Switzerland">
+          </div>
+          <div class="form-group">
+            <label for="regCurrency">Base currency</label>
+            <select id="regCurrency">
+              <option>CZK</option>
+              <option>EUR</option>
+              <option>CHF</option>
+              <option>USD</option>
+            </select>
+          </div>
+        </div>
+        <div class="info-box">
+          <strong>Next step:</strong> vytvoření účtu, souhlas s VOP, ověření e-mailu a AML/KYC identifikace.
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-close="openAccountModal" type="button">Cancel</button>
+        <button class="btn btn-primary" id="registerPreview" type="button">Start registration</button>
+      </div>
+    </div>
+  </div>
+
 
   <script>
     const CONFIG = {
@@ -1190,6 +1357,24 @@
       el("orderBoardView").classList.toggle("hidden", view !== "board");
       el("depthView").classList.toggle("hidden", view !== "depth");
       el("spreadsView").classList.toggle("hidden", view !== "spreads");
+
+      const map = {
+        board: "viewOrderBoard",
+        depth: "viewDepth",
+        spreads: "viewSpreads"
+      };
+
+      ["viewOrderBoard", "viewDepth", "viewSpreads"].forEach(id => {
+        const button = el(id);
+        if (button) button.classList.remove("active-view");
+      });
+
+      const activeButton = el(map[view]);
+      if (activeButton) activeButton.classList.add("active-view");
+
+      const mainCard = el("mainCard");
+      if (mainCard) mainCard.scrollIntoView({ behavior: "smooth", block: "start" });
+
       renderAll();
     }
 
@@ -1425,11 +1610,59 @@
         renderAll();
       });
 
-      ["helpModal", "marketsModal"].forEach(id => {
-        el(id).addEventListener("click", (ev) => {
+      ["helpModal", "marketsModal", "accountModal", "depositModal", "statementModal", "openAccountModal"].forEach(id => {
+        const modal = el(id);
+        if (!modal) return;
+        modal.addEventListener("click", (ev) => {
           if (ev.target.id === id) closeModal(id);
         });
       });
+
+      document.querySelectorAll("[data-close]").forEach(button => {
+        button.addEventListener("click", () => closeModal(button.dataset.close));
+      });
+
+      document.querySelectorAll(".nav a[data-action]").forEach(link => {
+        link.addEventListener("click", (ev) => {
+          ev.preventDefault();
+          const action = link.dataset.action;
+          if (action === "account") openModal("accountModal");
+          if (action === "deposit") openModal("depositModal");
+          if (action === "statement") openModal("statementModal");
+          if (action === "help") openModal("helpModal");
+          if (action === "open-account") openModal("openAccountModal");
+        });
+      });
+
+      const depositPreview = el("depositPreview");
+      if (depositPreview) {
+        depositPreview.addEventListener("click", () => {
+          const currency = el("depositCurrency").value;
+          const amount = el("depositAmount").value || "0.00";
+          alert("Payment instruction preview\\n\\nAmount: " + amount + " " + currency + "\\nReference: generated-by-backend\\n\\nV produkci zde vytvořit platební instrukci na serveru.");
+        });
+      }
+
+      const registerPreview = el("registerPreview");
+      if (registerPreview) {
+        registerPreview.addEventListener("click", () => {
+          alert("Registration preview\\n\\nV produkci zde založit účet, ověřit e-mail, zobrazit VOP a spustit KYC/AML flow.");
+        });
+      }
+
+      const exportStatement = el("exportStatement");
+      if (exportStatement) {
+        exportStatement.addEventListener("click", () => {
+          const csv = "Date,Operation,Asset,Amount,Status\\nToday,Order preview,Gold,,Draft\\nToday,Live price refresh,Market data,,OK\\n";
+          const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "statement-demo.csv";
+          a.click();
+          URL.revokeObjectURL(url);
+        });
+      }
     }
 
     function init() {
